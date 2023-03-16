@@ -5,7 +5,7 @@ import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.image.ImageContainer;
-import com.katyshevtseva.kikinotebook.core.BooksService;
+import com.katyshevtseva.kikinotebook.core.AuthorService;
 import com.katyshevtseva.kikinotebook.core.model.Author;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -47,15 +47,18 @@ class AuthorDialogController implements FxController {
 
     private void setExistingPieceInfo() {
         if (existing != null) {
-            image = AuthorImageUtils.getImageContainer(existing);
-            showImage(image.getImage());
+            if (existing.getImageName() != null) {
+                image = AuthorImageUtils.getImageContainer(existing);
+                showImage(image.getImage());
+            }
             nameTextField.setText(existing.getName());
             surnameTextField.setText(existing.getSurname());
         }
     }
 
     private void save() {
-        BooksService.createAuthor(nameTextField.getText(), surnameTextField.getText(), image.getFileName());
+        AuthorService.save(existing, nameTextField.getText(), surnameTextField.getText(),
+                image != null ? image.getFileName() : null);
         onSaveListener.execute();
         closeWindowThatContains(imagePane);
     }

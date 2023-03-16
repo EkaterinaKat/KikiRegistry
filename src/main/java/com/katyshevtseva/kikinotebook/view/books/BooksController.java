@@ -7,14 +7,17 @@ import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
-import com.katyshevtseva.kikinotebook.core.BooksService;
+import com.katyshevtseva.kikinotebook.core.AuthorService;
 import com.katyshevtseva.kikinotebook.core.model.Author;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,8 +32,8 @@ import static com.katyshevtseva.kikinotebook.view.books.AuthorImageUtils.getImag
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.AUTHOR_DIALOG;
 
 public class BooksController implements FxController {
-    private static final Size GRID_SIZE = new Size(800, 1200);
-    private static final int BLOCK_WIDTH = 200;
+    private static final Size GRID_SIZE = new Size(850, 1200);
+    private static final int BLOCK_WIDTH = 330;
     private BlockGridController<Author> authorGridController;
     @FXML
     private Button newAuthorButton;
@@ -57,23 +60,41 @@ public class BooksController implements FxController {
     private Node getAuthorNode(Author author, int blockWidth) {
         Label nameLabel = new Label(author.getFullName());
         FxUtils.setWidth(nameLabel, blockWidth);
-        nameLabel.setAlignment(Pos.CENTER);
+        nameLabel.setWrapText(true);
+        nameLabel.setAlignment(Pos.BASELINE_CENTER);
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(
                 getPaneWithHeight(10),
                 nameLabel,
-                getPaneWithHeight(10),
-                placeImageInSquare(new ImageView(getImageContainer(author).getImage()), blockWidth),
                 getPaneWithHeight(10));
+
+        if (author.getImageName() != null) {
+            vBox.getChildren().addAll(
+                    placeImageInSquare(new ImageView(getImageContainer(author).getImage()), blockWidth),
+                    getPaneWithHeight(10));
+        }
+
         HBox hBox = new HBox();
         hBox.getChildren().addAll(getPaneWithWidth(10), vBox, getPaneWithWidth(10));
         hBox.setStyle(Styler.getBlackBorderStyle());
         setHoverStyle(hBox, getColorfullStyle(BACKGROUND, "#EF47FF"));
+        hBox.setOnContextMenuRequested(event -> showAuthorContextMenu(hBox, event, author));
         return hBox;
     }
 
+    private void showAuthorContextMenu(Node node, ContextMenuEvent event, Author author) {
+        ContextMenu menu = new ContextMenu();
+
+        MenuItem editItem = new MenuItem("Edit");
+        editItem.setOnAction(event1 -> WindowBuilder.openDialog(AUTHOR_DIALOG,
+                new AuthorDialogController(author, this::updateContent)));
+        menu.getItems().add(editItem);
+
+        menu.show(node, event.getScreenX(), event.getScreenY());
+    }
+
     private void updateContent() {
-        authorGridController.setContent(BooksService.getAllAuthors());
+        authorGridController.setContent(AuthorService.getAllSorted());
     }
 }

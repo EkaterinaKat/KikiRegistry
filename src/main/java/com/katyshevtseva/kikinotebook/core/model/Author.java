@@ -29,7 +29,17 @@ public class Author {
         this.imageName = imageName;
     }
 
+    public void setFields(String name, String surname, String imageName) {
+        this.name = name;
+        this.surname = surname;
+        this.imageName = imageName;
+    }
+
     public Author() {
+    }
+
+    public String getSortString() {
+        return surname != null ? surname : name;
     }
 
     public String getFullName() {
