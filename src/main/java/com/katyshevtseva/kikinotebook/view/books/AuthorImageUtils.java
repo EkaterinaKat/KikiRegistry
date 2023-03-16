@@ -2,7 +2,7 @@ package com.katyshevtseva.kikinotebook.view.books;
 
 import com.katyshevtseva.image.ImageContainer;
 import com.katyshevtseva.image.ImageContainerCache;
-import com.katyshevtseva.kikinotebook.core.BooksService;
+import com.katyshevtseva.kikinotebook.core.AuthorService;
 import com.katyshevtseva.kikinotebook.core.model.Author;
 
 import java.io.File;
@@ -22,7 +22,7 @@ public class AuthorImageUtils {
 
     public static List<ImageContainer> getFreeImagesForAuthorCreation() {
         List<ImageContainer> freeImages = new ArrayList<>();
-        List<Author> existingAuthors = BooksService.getAllAuthors();
+        List<Author> existingAuthors = AuthorService.getAll();
 
         for (File file : getAllImageFiles()) {
             boolean imageIsFree = true;
