@@ -4,7 +4,7 @@ import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.switchcontroller.AbstractSwitchController;
 import com.katyshevtseva.fx.switchcontroller.Section;
-import com.katyshevtseva.kikinotebook.view.books.BooksController;
+import com.katyshevtseva.kikinotebook.view.books.MainBooksController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -27,7 +27,7 @@ public class MainController extends AbstractSwitchController {
     }
 
     private List<Section> getSections() {
-        return Arrays.asList(new Section("Books", new BooksController(),
+        return Arrays.asList(new Section("Books", new MainBooksController(),
                         controller -> WindowBuilder.getNode(BOOKS, controller)),
                 new Section("Series", new SeriesController(),
                         controller -> WindowBuilder.getNode(SERIES, controller)),

@@ -2,6 +2,7 @@ package com.katyshevtseva.kikinotebook.core;
 
 import com.katyshevtseva.hibernate.CoreDao;
 import com.katyshevtseva.kikinotebook.core.model.Author;
+import com.katyshevtseva.kikinotebook.core.model.Book;
 
 import java.util.List;
 
@@ -22,5 +23,9 @@ public class Dao {
 
     public static List<Author> getAllAuthor() {
         return coreDao.getAll(Author.class.getSimpleName());
+    }
+
+    public static List<Book> findBooks(Author author) {
+        return coreDao.findBy(Book.class, "author", author);
     }
 }

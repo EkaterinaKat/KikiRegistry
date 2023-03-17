@@ -3,8 +3,6 @@ package com.katyshevtseva.kikinotebook.core.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
@@ -20,16 +18,13 @@ public class Author {
     @Column(name = "image_name")
     private String imageName;
 
-    @OneToMany(mappedBy = "author")
-    private List<Book> books = new ArrayList<>();
-
     public Author(String name, String surname, String imageName) {
         this.name = name;
         this.surname = surname;
         this.imageName = imageName;
     }
 
-    public void setFields(String name, String surname, String imageName) {
+    public void setValues(String name, String surname, String imageName) {
         this.name = name;
         this.surname = surname;
         this.imageName = imageName;
@@ -44,5 +39,20 @@ public class Author {
 
     public String getFullName() {
         return name + (surname != null ? " " + surname : "");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        return id.equals(author.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

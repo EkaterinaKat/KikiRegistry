@@ -36,10 +36,8 @@ public class AuthorService {
             existing = new Author(name, surname, fileName);
             Dao.saveNew(existing);
         } else {
-            existing.setFields(name, surname, fileName);
+            existing.setValues(name, surname, fileName);
             Dao.saveEdited(existing);
         }
-
-
     }
 }

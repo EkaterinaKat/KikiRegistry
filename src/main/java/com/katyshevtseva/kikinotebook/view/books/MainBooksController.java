@@ -7,8 +7,12 @@ import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
+import com.katyshevtseva.fx.dialogconstructor.*;
 import com.katyshevtseva.kikinotebook.core.AuthorService;
+import com.katyshevtseva.kikinotebook.core.BookService;
 import com.katyshevtseva.kikinotebook.core.model.Author;
+import com.katyshevtseva.kikinotebook.core.model.Book;
+import com.katyshevtseva.kikinotebook.core.model.BookAction;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,6 +26,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.util.Arrays;
+
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
 import static com.katyshevtseva.fx.ImageSizeUtil.placeImageInSquare;
@@ -31,7 +37,7 @@ import static com.katyshevtseva.fx.Styler.setHoverStyle;
 import static com.katyshevtseva.kikinotebook.view.books.AuthorImageUtils.getImageContainer;
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.AUTHOR_DIALOG;
 
-public class BooksController implements FxController {
+public class MainBooksController implements FxController {
     private static final Size GRID_SIZE = new Size(850, 1200);
     private static final int BLOCK_WIDTH = 330;
     private BlockGridController<Author> authorGridController;
@@ -75,6 +81,15 @@ public class BooksController implements FxController {
                     getPaneWithHeight(10));
         }
 
+        for (Book book : BookService.findByAuthor(author)) {
+            Label label = new Label(book.getListInfo());
+            if (book.isFavorite()) {
+                label.setStyle(label.getStyle() + Styler.getColorfullStyle(BACKGROUND, Styler.StandardColor.GOLD));
+            }
+            label.setContextMenu(getBookContextMenu(book, author));
+            vBox.getChildren().addAll(label, getPaneWithHeight(10));
+        }
+
         HBox hBox = new HBox();
         hBox.getChildren().addAll(getPaneWithWidth(10), vBox, getPaneWithWidth(10));
         hBox.setStyle(Styler.getBlackBorderStyle());
@@ -91,7 +106,36 @@ public class BooksController implements FxController {
                 new AuthorDialogController(author, this::updateContent)));
         menu.getItems().add(editItem);
 
+        MenuItem addBookItem = new MenuItem("Add book");
+        addBookItem.setOnAction(event1 -> openBookEditDialog(author, null));
+        menu.getItems().add(addBookItem);
+
         menu.show(node, event.getScreenX(), event.getScreenY());
+    }
+
+    private ContextMenu getBookContextMenu(Book book, Author author) {
+        ContextMenu menu = new ContextMenu();
+
+        MenuItem editItem = new MenuItem("Edit");
+        editItem.setOnAction(event1 -> openBookEditDialog(author, book));
+        menu.getItems().add(editItem);
+
+        return menu;
+    }
+
+    private void openBookEditDialog(Author author, Book book) {
+        boolean newBook = book == null;
+        DcTextField nameField = new DcTextField(true, newBook ? "" : book.getName());
+        DcComboBox<BookAction> actionBox = new DcComboBox<>(true,
+                newBook ? BookAction.READ_RUS : book.getAction(), Arrays.asList(BookAction.values()));
+        DcCheckBox favBox = new DcCheckBox(!newBook && book.isFavorite(), "favorite");
+        DcDatePicker datePicker = new DcDatePicker(false, newBook ? null : book.getFinishDate());
+
+        DialogConstructor.constructDialog(() -> {
+            BookService.save(book, nameField.getValue(), author, actionBox.getValue(), favBox.getValue(), datePicker.getValue());
+            updateContent();
+        }, nameField, actionBox, favBox, datePicker);
+
     }
 
     private void updateContent() {
