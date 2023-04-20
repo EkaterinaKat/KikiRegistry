@@ -32,6 +32,8 @@ public class AuthorService {
             throw new RuntimeException();
         }
 
+        name = name.trim();
+        surname = surname.trim();
         if (existing == null) {
             existing = new Author(name, surname, fileName);
             Dao.saveNew(existing);

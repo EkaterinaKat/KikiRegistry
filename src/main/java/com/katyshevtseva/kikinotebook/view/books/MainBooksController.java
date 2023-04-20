@@ -4,10 +4,10 @@ import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.WindowBuilder;
-import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.dialogconstructor.*;
+import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.kikinotebook.core.AuthorService;
 import com.katyshevtseva.kikinotebook.core.BookService;
 import com.katyshevtseva.kikinotebook.core.model.Author;
@@ -37,8 +37,8 @@ import static com.katyshevtseva.fx.Styler.setHoverStyle;
 import static com.katyshevtseva.kikinotebook.view.books.AuthorImageUtils.getImageContainer;
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.AUTHOR_DIALOG;
 
-public class MainBooksController implements FxController {
-    private static final Size GRID_SIZE = new Size(850, 1200);
+public class MainBooksController implements SectionController {
+    private static final Size GRID_SIZE = new Size(850, 1300);
     private static final int BLOCK_WIDTH = 330;
     private BlockGridController<Author> authorGridController;
     @FXML
@@ -134,7 +134,7 @@ public class MainBooksController implements FxController {
         DialogConstructor.constructDialog(() -> {
             BookService.save(book, nameField.getValue(), author, actionBox.getValue(), favBox.getValue(), datePicker.getValue());
             updateContent();
-        }, nameField, actionBox, favBox, datePicker);
+        }, 300, nameField, actionBox, favBox, datePicker);
 
     }
 

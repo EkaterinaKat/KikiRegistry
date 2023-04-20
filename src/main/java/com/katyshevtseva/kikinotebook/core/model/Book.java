@@ -49,11 +49,10 @@ public class Book {
 
     public String getListInfo() {
         StringBuilder stringBuilder = new StringBuilder(name);
-        if (finishDate != null && !isEmpty(action.getShortInfo())) {
+        if (finishDate != null || !isEmpty(action.getShortInfo())) {
             stringBuilder
                     .append("\n")
-                    .append(READABLE_DATE_FORMAT.format(finishDate))
-                    .append(" ")
+                    .append(finishDate != null ? READABLE_DATE_FORMAT.format(finishDate) + " " : "")
                     .append(action.getShortInfo());
         }
         return stringBuilder.toString();

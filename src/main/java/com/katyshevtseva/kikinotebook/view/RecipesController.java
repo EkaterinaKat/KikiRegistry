@@ -1,6 +1,6 @@
 package com.katyshevtseva.kikinotebook.view;
 
-import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.fx.switchcontroller.SectionController;
 
-public class RecipesController implements FxController {
+public class RecipesController implements SectionController {
 }

@@ -17,6 +17,7 @@ public class BookService {
             throw new RuntimeException();
         }
 
+        name = name.trim();
         if (existing == null) {
             existing = new Book(name, author, action, date, favorite);
             Dao.saveNew(existing);
