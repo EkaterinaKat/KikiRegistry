@@ -16,10 +16,7 @@ import com.katyshevtseva.kikinotebook.core.model.BookAction;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.HBox;
@@ -45,11 +42,18 @@ public class MainBooksController implements SectionController {
     private Button newAuthorButton;
     @FXML
     private Pane authorsPane;
+    @FXML
+    private TextField searchTextField;
+    @FXML
+    private Button clearButton;
 
     @FXML
     private void initialize() {
         newAuthorButton.setOnAction(event -> WindowBuilder.openDialog(AUTHOR_DIALOG,
                 new AuthorDialogController(null, this::updateContent)));
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> updateContent());
+        clearButton.setOnAction(event -> searchTextField.setText(""));
 
         adjustBlockListController();
         updateContent();
@@ -81,7 +85,7 @@ public class MainBooksController implements SectionController {
                     getPaneWithHeight(10));
         }
 
-        for (Book book : BookService.findByAuthor(author)) {
+        for (Book book : BookService.find(author, searchTextField.getText())) {
             Label label = new Label(book.getListInfo());
             if (book.isFavorite()) {
                 label.setStyle(label.getStyle() + Styler.getColorfullStyle(BACKGROUND, Styler.StandardColor.GOLD));
@@ -139,6 +143,6 @@ public class MainBooksController implements SectionController {
     }
 
     private void updateContent() {
-        authorGridController.setContent(AuthorService.getAllSorted());
+        authorGridController.setContent(AuthorService.getAllSorted(searchTextField.getText()));
     }
 }

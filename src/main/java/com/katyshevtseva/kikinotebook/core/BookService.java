@@ -27,7 +27,7 @@ public class BookService {
         }
     }
 
-    public static List<Book> findByAuthor(Author author) {
-        return Dao.findBooks(author);
+    public static List<Book> find(Author author, String searchString) {
+        return Dao.findBooks(author, searchString);
     }
 }

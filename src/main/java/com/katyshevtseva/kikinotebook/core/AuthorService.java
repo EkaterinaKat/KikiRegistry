@@ -1,5 +1,6 @@
 package com.katyshevtseva.kikinotebook.core;
 
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.kikinotebook.core.model.Author;
 
 import java.util.Comparator;
@@ -12,8 +13,8 @@ public class AuthorService {
         return Dao.getAllAuthor();
     }
 
-    public static List<Author> getAllSorted() {
-        List<Author> all = Dao.getAllAuthor();
+    public static List<Author> getAllSorted(String searchString) {
+        List<Author> all = GeneralUtils.isEmpty(searchString) ? Dao.getAllAuthor() : Dao.findAuthors(searchString);
         List<Author> result = all.stream()
                 .filter(author -> author.getImageName() != null)
                 .sorted(Comparator.comparing(Author::getSortString))
