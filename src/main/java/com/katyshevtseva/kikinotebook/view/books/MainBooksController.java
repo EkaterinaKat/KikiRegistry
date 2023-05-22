@@ -56,11 +56,11 @@ public class MainBooksController implements SectionController {
     }
 
     private void adjustBlockListController() {
-        ComponentBuilder.Component<BlockGridController<Author>> todoComponent =
+        ComponentBuilder.Component<BlockGridController<Author>> component =
                 new ComponentBuilder().setSize(GRID_SIZE).getBlockGridComponent(BLOCK_WIDTH,
                         null, null, this::getAuthorNode);
-        authorsPane.getChildren().add(todoComponent.getNode());
-        authorGridController = todoComponent.getController();
+        authorsPane.getChildren().add(component.getNode());
+        authorGridController = component.getController();
     }
 
     private Node getAuthorNode(Author author, int blockWidth) {

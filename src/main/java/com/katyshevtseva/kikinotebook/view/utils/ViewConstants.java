@@ -12,12 +12,12 @@ public class ViewConstants {
         MAIN("/fxml/main.fxml", new Size(1000, 1700), CoreConstants.APP_NAME),
         AUTHOR_DIALOG("/fxml/books/author_dialog.fxml", new Size(500, 700), "Author edit");
 
-        private final String fileName;
+        private final String fullFileName;
         private final Size size;
         private final String title;
 
-        NotebookDialogInfo(String fileName, Size size, String title) {
-            this.fileName = fileName;
+        NotebookDialogInfo(String fullFileName, Size size, String title) {
+            this.fullFileName = fullFileName;
             this.size = size;
             this.title = title;
         }
@@ -30,10 +30,10 @@ public class ViewConstants {
         RECIPES("/fxml/recipes.fxml"),
         SERIES("/fxml/series.fxml");
 
-        private final String fileName;
+        private final String fullFileName;
 
-        NotebookNodeInfo(String fileName) {
-            this.fileName = fileName;
+        NotebookNodeInfo(String fullFileName) {
+            this.fullFileName = fullFileName;
         }
     }
 }
