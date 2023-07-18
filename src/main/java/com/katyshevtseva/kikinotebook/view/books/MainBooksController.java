@@ -6,13 +6,17 @@ import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
-import com.katyshevtseva.fx.dialogconstructor.*;
+import com.katyshevtseva.fx.dialogconstructor.DcComboBox;
+import com.katyshevtseva.fx.dialogconstructor.DcDatePicker;
+import com.katyshevtseva.fx.dialogconstructor.DcTextField;
+import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.kikinotebook.core.AuthorService;
 import com.katyshevtseva.kikinotebook.core.BookService;
 import com.katyshevtseva.kikinotebook.core.model.Author;
 import com.katyshevtseva.kikinotebook.core.model.Book;
 import com.katyshevtseva.kikinotebook.core.model.BookAction;
+import com.katyshevtseva.kikinotebook.core.model.BookGrade;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -87,9 +91,9 @@ public class MainBooksController implements SectionController {
 
         for (Book book : BookService.find(author, searchTextField.getText())) {
             Label label = new Label(book.getListInfo());
-            if (book.isFavorite()) {
-                label.setStyle(label.getStyle() + Styler.getColorfullStyle(BACKGROUND, Styler.StandardColor.GOLD));
-            }
+
+            label.setStyle(label.getStyle() + Styler.getColorfullStyle(BACKGROUND, book.getGrade().getColor()));
+
             label.setContextMenu(getBookContextMenu(book, author));
             vBox.getChildren().addAll(label, getPaneWithHeight(10));
         }
@@ -132,13 +136,13 @@ public class MainBooksController implements SectionController {
         DcTextField nameField = new DcTextField(true, newBook ? "" : book.getName());
         DcComboBox<BookAction> actionBox = new DcComboBox<>(true,
                 newBook ? BookAction.READ_RUS : book.getAction(), Arrays.asList(BookAction.values()));
-        DcCheckBox favBox = new DcCheckBox(!newBook && book.isFavorite(), "favorite");
         DcDatePicker datePicker = new DcDatePicker(false, newBook ? null : book.getFinishDate());
+        DcComboBox<BookGrade> gradeDcComboBox = new DcComboBox<>(true, book.getGrade(), Arrays.asList(BookGrade.values()));
 
         DialogConstructor.constructDialog(() -> {
-            BookService.save(book, nameField.getValue(), author, actionBox.getValue(), favBox.getValue(), datePicker.getValue());
+            BookService.save(book, nameField.getValue(), author, actionBox.getValue(), gradeDcComboBox.getValue(), datePicker.getValue());
             updateContent();
-        }, 300, nameField, actionBox, favBox, datePicker);
+        }, 330, nameField, actionBox, gradeDcComboBox, datePicker);
 
     }
 

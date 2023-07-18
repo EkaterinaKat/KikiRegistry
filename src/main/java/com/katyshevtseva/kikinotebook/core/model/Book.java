@@ -29,21 +29,24 @@ public class Book {
 
     private boolean favorite;
 
+    @Enumerated(EnumType.STRING)
+    private BookGrade grade;
+
     public Book() {
     }
 
-    public Book(String name, Author author, BookAction action, Date finishDate, boolean favorite) {
+    public Book(String name, Author author, BookAction action, Date finishDate, BookGrade grade) {
         this.name = name;
         this.author = author;
         this.action = action;
         this.finishDate = finishDate;
-        this.favorite = favorite;
+        this.grade = grade;
     }
 
-    public void setValues(String name, BookAction action, Date finishDate, boolean favorite) {
+    public void setValues(String name, BookAction action, Date finishDate, BookGrade grade) {
         this.name = name;
         this.action = action;
-        this.favorite = favorite;
+        this.grade = grade;
         this.finishDate = finishDate;
     }
 
