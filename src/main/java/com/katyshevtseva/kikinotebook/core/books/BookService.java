@@ -1,9 +1,10 @@
-package com.katyshevtseva.kikinotebook.core;
+package com.katyshevtseva.kikinotebook.core.books;
 
-import com.katyshevtseva.kikinotebook.core.model.Author;
-import com.katyshevtseva.kikinotebook.core.model.Book;
-import com.katyshevtseva.kikinotebook.core.model.BookAction;
-import com.katyshevtseva.kikinotebook.core.model.BookGrade;
+import com.katyshevtseva.kikinotebook.core.Dao;
+import com.katyshevtseva.kikinotebook.core.books.model.Author;
+import com.katyshevtseva.kikinotebook.core.books.model.Book;
+import com.katyshevtseva.kikinotebook.core.books.model.BookAction;
+import com.katyshevtseva.kikinotebook.core.books.model.BookGrade;
 
 import java.util.Date;
 import java.util.List;

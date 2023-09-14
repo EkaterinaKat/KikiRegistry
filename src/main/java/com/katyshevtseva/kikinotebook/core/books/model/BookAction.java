@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.core.model;
+package com.katyshevtseva.kikinotebook.core.books.model;
 
 public enum BookAction {
     READ_RUS("текст|рус", ""),

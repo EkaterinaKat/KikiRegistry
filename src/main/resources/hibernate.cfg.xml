@@ -10,7 +10,8 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hbm2ddl.auto">update</property>
-        <mapping class="com.katyshevtseva.kikinotebook.core.model.Author"></mapping>
-        <mapping class="com.katyshevtseva.kikinotebook.core.model.Book"></mapping>
+        <mapping class="com.katyshevtseva.kikinotebook.core.books.model.Author"></mapping>
+        <mapping class="com.katyshevtseva.kikinotebook.core.books.model.Book"></mapping>
+        <mapping class="com.katyshevtseva.kikinotebook.core.films.model.Film"></mapping>
     </session-factory>
 </hibernate-configuration>

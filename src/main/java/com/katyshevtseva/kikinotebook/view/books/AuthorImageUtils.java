@@ -2,8 +2,8 @@ package com.katyshevtseva.kikinotebook.view.books;
 
 import com.katyshevtseva.image.ImageContainer;
 import com.katyshevtseva.image.ImageContainerCache;
-import com.katyshevtseva.kikinotebook.core.AuthorService;
-import com.katyshevtseva.kikinotebook.core.model.Author;
+import com.katyshevtseva.kikinotebook.core.books.AuthorService;
+import com.katyshevtseva.kikinotebook.core.books.model.Author;
 
 import java.io.File;
 import java.util.ArrayList;

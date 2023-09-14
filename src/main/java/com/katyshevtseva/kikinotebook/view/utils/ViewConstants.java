@@ -25,10 +25,8 @@ public class ViewConstants {
 
     @Getter
     public enum NotebookNodeInfo implements WindowBuilder.NodeInfo {
-        BOOKS("/fxml/books/books.fxml"),
-        FILMS("/fxml/films.fxml"),
-        RECIPES("/fxml/recipes.fxml"),
-        SERIES("/fxml/series.fxml");
+        BOOKS("/fxml/books/main_books.fxml"),
+        FILMS("/fxml/films/main_films.fxml");
 
         private final String fullFileName;
 

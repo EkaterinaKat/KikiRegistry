@@ -6,6 +6,7 @@ import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.switchcontroller.AbstractSwitchController;
 import com.katyshevtseva.fx.switchcontroller.Section;
 import com.katyshevtseva.kikinotebook.view.books.MainBooksController;
+import com.katyshevtseva.kikinotebook.view.films.MainFilmsController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -14,7 +15,8 @@ import javafx.scene.layout.VBox;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.*;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.BOOKS;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.FILMS;
 
 public class MainController extends AbstractSwitchController implements FxController {
     @FXML
@@ -28,14 +30,11 @@ public class MainController extends AbstractSwitchController implements FxContro
     }
 
     private List<Section> getSections() {
-        return Arrays.asList(new Section("Books", new MainBooksController(),
-                        controller -> WindowBuilder.getNode(BOOKS, controller)),
-                new Section("Series", new SeriesController(),
-                        controller -> WindowBuilder.getNode(SERIES, controller)),
-                new Section("Recipes", new RecipesController(),
-                        controller -> WindowBuilder.getNode(RECIPES, controller)),
-                new Section("Films", new FilmsController(),
-                        controller -> WindowBuilder.getNode(FILMS, controller)));
+        return Arrays.asList(
+                new Section("Films", new MainFilmsController(),
+                        controller -> WindowBuilder.getNode(FILMS, controller)),
+                new Section("Books", new MainBooksController(),
+                        controller -> WindowBuilder.getNode(BOOKS, controller)));
     }
 
     private void placeButton(Button button) {

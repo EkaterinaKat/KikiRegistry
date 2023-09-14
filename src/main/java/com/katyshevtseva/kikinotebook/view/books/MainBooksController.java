@@ -11,12 +11,12 @@ import com.katyshevtseva.fx.dialogconstructor.DcDatePicker;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
-import com.katyshevtseva.kikinotebook.core.AuthorService;
-import com.katyshevtseva.kikinotebook.core.BookService;
-import com.katyshevtseva.kikinotebook.core.model.Author;
-import com.katyshevtseva.kikinotebook.core.model.Book;
-import com.katyshevtseva.kikinotebook.core.model.BookAction;
-import com.katyshevtseva.kikinotebook.core.model.BookGrade;
+import com.katyshevtseva.kikinotebook.core.books.AuthorService;
+import com.katyshevtseva.kikinotebook.core.books.BookService;
+import com.katyshevtseva.kikinotebook.core.books.model.Author;
+import com.katyshevtseva.kikinotebook.core.books.model.Book;
+import com.katyshevtseva.kikinotebook.core.books.model.BookAction;
+import com.katyshevtseva.kikinotebook.core.books.model.BookGrade;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -137,7 +137,8 @@ public class MainBooksController implements SectionController {
         DcComboBox<BookAction> actionBox = new DcComboBox<>(true,
                 newBook ? BookAction.READ_RUS : book.getAction(), Arrays.asList(BookAction.values()));
         DcDatePicker datePicker = new DcDatePicker(false, newBook ? null : book.getFinishDate());
-        DcComboBox<BookGrade> gradeDcComboBox = new DcComboBox<>(true, book.getGrade(), Arrays.asList(BookGrade.values()));
+        DcComboBox<BookGrade> gradeDcComboBox = new DcComboBox<>(true, newBook ? null :
+                book.getGrade(), Arrays.asList(BookGrade.values()));
 
         DialogConstructor.constructDialog(() -> {
             BookService.save(book, nameField.getValue(), author, actionBox.getValue(), gradeDcComboBox.getValue(), datePicker.getValue());

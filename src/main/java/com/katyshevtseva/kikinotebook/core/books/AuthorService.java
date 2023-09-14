@@ -1,7 +1,8 @@
-package com.katyshevtseva.kikinotebook.core;
+package com.katyshevtseva.kikinotebook.core.books;
 
 import com.katyshevtseva.general.GeneralUtils;
-import com.katyshevtseva.kikinotebook.core.model.Author;
+import com.katyshevtseva.kikinotebook.core.Dao;
+import com.katyshevtseva.kikinotebook.core.books.model.Author;
 
 import java.util.Comparator;
 import java.util.List;
