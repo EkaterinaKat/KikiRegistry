@@ -1,24 +1,25 @@
 package com.katyshevtseva.kikinotebook.view.films;
 
+import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
-import com.katyshevtseva.fx.dialogconstructor.DcComboBox;
-import com.katyshevtseva.fx.dialogconstructor.DcNumField;
-import com.katyshevtseva.fx.dialogconstructor.DcTextField;
-import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
+import com.katyshevtseva.fx.dialogconstructor.*;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.kikinotebook.core.films.FilmsService;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,16 +78,42 @@ public class MainFilmsController implements SectionController {
     }
 
     private Node getFilmNode(Film film, int blockWidth) {
+        VBox vBox = new VBox();
+        vBox.setStyle(vBox.getStyle() + Styler.getColorfullStyle(BORDER, Styler.StandardColor.BLACK));
+        vBox.setAlignment(Pos.CENTER);
+
         Label label = new Label(film.getTitleAndYear());
-        label.setStyle(label.getStyle()
-                + Styler.getColorfullStyle(BORDER, Styler.StandardColor.BLACK)
-                + Styler.getColorfullStyle(TEXT, Styler.StandardColor.BLACK));
+        label.setStyle(label.getStyle() + Styler.getColorfullStyle(TEXT, Styler.StandardColor.BLACK));
         label.setContextMenu(getFilmContextMenu(film));
         label.setMaxWidth(blockWidth);
-//        label.setMinWidth(blockWidth);
         label.setWrapText(true);
+        label.setAlignment(Pos.CENTER);
         label.setTextAlignment(TextAlignment.CENTER);
-        return label;
+        vBox.getChildren().add(label);
+
+        if (film.getDates() != null) {
+            for (Date date : film.getDates()) {
+                Label label1 = new Label(DateUtils.READABLE_DATE_FORMAT.format(date));
+                label1.setStyle(label.getStyle() + Styler.getColorfullStyle(TEXT, Styler.StandardColor.BLACK));
+                label1.setContextMenu(getDateContextMenu(film, date));
+                vBox.getChildren().add(label1);
+            }
+        }
+
+        return vBox;
+    }
+
+    private ContextMenu getDateContextMenu(Film film, Date date) {
+        ContextMenu menu = new ContextMenu();
+
+        MenuItem deleteItem = new MenuItem("Delete");
+        deleteItem.setOnAction(event1 -> {
+            FilmsService.deleteDate(film, date);
+            updateContent();
+        });
+        menu.getItems().add(deleteItem);
+
+        return menu;
     }
 
     private ContextMenu getFilmContextMenu(Film film) {
@@ -95,6 +122,16 @@ public class MainFilmsController implements SectionController {
         MenuItem editItem = new MenuItem("Edit");
         editItem.setOnAction(event1 -> openFilmEditDialog(film));
         menu.getItems().add(editItem);
+
+        MenuItem addDateItem = new MenuItem("Add date");
+        addDateItem.setOnAction(event1 -> {
+            DcDatePicker datePicker = new DcDatePicker(true, null);
+            DialogConstructor.constructDialog(() -> {
+                FilmsService.addDate(film, datePicker.getValue());
+                updateContent();
+            }, datePicker);
+        });
+        menu.getItems().add(addDateItem);
 
         return menu;
     }
