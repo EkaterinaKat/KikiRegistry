@@ -6,7 +6,8 @@ public enum FilmGrade {
     GOOD("#9CE345"),
     NORMAL("#E3DF45"),
     SOSO("#C5A45E"),
-    BAD("#7A7A7A");
+    BAD("#7A7A7A"),
+    NOTFINISHED("#7A7A7A");
 
     private final String color;
 

@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.katyshevtseva.fx.Styler.ThingToColor.*;
+import static com.katyshevtseva.kikinotebook.core.films.model.FilmGrade.*;
 
 public class MainFilmsController implements SectionController {
     private final Map<FilmGrade, BlockGridController<Film>> filmGridControllerMap = new HashMap<>();
@@ -65,9 +66,10 @@ public class MainFilmsController implements SectionController {
     private void adjustFilmsPane() {
         int gridColumnWidth = 210;
         Size gridColumnSize = new Size(850, gridColumnWidth);
+        Size smallGridColumnSize = new Size(400, gridColumnWidth);
         int filmBlockWidth = gridColumnWidth - 50;//BlockGridController FRAME_SIZE = 20; 50=20*2+10; 10 на scrollbar
 
-        for (FilmGrade grade : FilmGrade.values()) {
+        for (FilmGrade grade : Arrays.asList(FAVOURITE, EXCELLENT, GOOD, NORMAL, SOSO)) {
             ComponentBuilder.Component<BlockGridController<Film>> component =
                     new ComponentBuilder().setSize(gridColumnSize).getBlockGridComponent(filmBlockWidth,
                             null, null, this::getFilmNode);
@@ -75,6 +77,16 @@ public class MainFilmsController implements SectionController {
             filmsPane.getChildren().add(component.getNode());
             filmGridControllerMap.put(grade, component.getController());
         }
+        VBox vBox = new VBox();
+        for (FilmGrade grade : Arrays.asList(BAD, NOTFINISHED)) {
+            ComponentBuilder.Component<BlockGridController<Film>> component =
+                    new ComponentBuilder().setSize(smallGridColumnSize).getBlockGridComponent(filmBlockWidth,
+                            null, null, this::getFilmNode);
+            component.getController().getGridPane().setStyle(Styler.getColorfullStyle(BACKGROUND, grade.getColor()));
+            vBox.getChildren().add(component.getNode());
+            filmGridControllerMap.put(grade, component.getController());
+        }
+        filmsPane.getChildren().add(vBox);
     }
 
     private Node getFilmNode(Film film, int blockWidth) {
