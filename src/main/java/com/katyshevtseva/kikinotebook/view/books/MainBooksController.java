@@ -11,6 +11,7 @@ import com.katyshevtseva.fx.dialogconstructor.DcDatePicker;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.kikinotebook.core.books.AuthorService;
 import com.katyshevtseva.kikinotebook.core.books.BookService;
 import com.katyshevtseva.kikinotebook.core.books.model.Author;
@@ -89,7 +90,7 @@ public class MainBooksController implements SectionController {
                     getPaneWithHeight(10));
         }
 
-        for (Book book : BookService.find(author, searchTextField.getText())) {
+        for (Book book : BookService.find(author, getStringToSearchBook(author))) {
             Label label = new Label(book.getListInfo());
 
             label.setStyle(label.getStyle() + Styler.getColorfullStyle(BACKGROUND, book.getGrade().getColor()));
@@ -104,6 +105,21 @@ public class MainBooksController implements SectionController {
         setHoverStyle(hBox, getColorfullStyle(BACKGROUND, "#EF47FF"));
         hBox.setOnContextMenuRequested(event -> showAuthorContextMenu(hBox, event, author));
         return hBox;
+    }
+
+    private String getStringToSearchBook(Author author) {
+        String ss = searchTextField.getText();
+
+        if (GeneralUtils.isEmpty(ss))
+            return null;
+
+        boolean authorMatchesSearchString = author.getFullName().toUpperCase().contains(ss.toUpperCase());
+        //ситуация когда автор подходит поисковому запросу тогда нужно показать все его книги
+        if (authorMatchesSearchString)
+            return null;
+        //ситуация когда автор не подходит запросу тогда есть смысл показывать только книги подходящие запросу
+        else
+            return ss;
     }
 
     private void showAuthorContextMenu(Node node, ContextMenuEvent event, Author author) {
