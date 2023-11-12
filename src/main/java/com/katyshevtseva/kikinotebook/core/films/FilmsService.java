@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class FilmsService {
 
-    public static void save(Film existing, String title, Integer year, FilmGrade grade) {
+    public static void save(Film existing, String title, Integer year, FilmGrade grade, boolean fvadfs) {
         title = title.trim();
 
         if (existing == null) {
@@ -20,11 +20,13 @@ public class FilmsService {
             existing.setTitle(title);
             existing.setYear(year);
             existing.setGrade(grade);
+            existing.setFvadfs(fvadfs);
             Dao.saveNew(existing);
         }
         existing.setTitle(title);
         existing.setYear(year);
         existing.setGrade(grade);
+        existing.setFvadfs(fvadfs);
         Dao.saveEdited(existing);
     }
 

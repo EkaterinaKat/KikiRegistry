@@ -41,7 +41,7 @@ import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDi
 
 public class MainBooksController implements SectionController {
     private static final Size GRID_SIZE = new Size(850, 1300);
-    private static final int BLOCK_WIDTH = 330;
+    private static final int BLOCK_WIDTH = 370;
     private BlockGridController<Author> authorGridController;
     @FXML
     private Button newAuthorButton;
@@ -94,6 +94,8 @@ public class MainBooksController implements SectionController {
             Label label = new Label(book.getListInfo());
 
             label.setStyle(label.getStyle() + Styler.getColorfullStyle(BACKGROUND, book.getGrade().getColor()));
+            label.setWrapText(true);
+            label.setMaxWidth(blockWidth);
 
             label.setContextMenu(getBookContextMenu(book, author));
             vBox.getChildren().addAll(label, getPaneWithHeight(10));

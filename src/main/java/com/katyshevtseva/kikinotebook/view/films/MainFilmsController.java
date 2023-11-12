@@ -55,12 +55,13 @@ public class MainFilmsController implements SectionController {
         DcNumField yearField = new DcNumField(false, year);
         DcComboBox<FilmGrade> gradeDcComboBox = new DcComboBox<>(true, newFilm ? null : film.getGrade(),
                 Arrays.asList(FilmGrade.values()));
+        DcCheckBox fvadfsBox = new DcCheckBox(newFilm ? true : film.getFvadfs(), "first viewed after date fixation started");
 
         DialogConstructor.constructDialog(() -> {
             Integer year1 = yearField.getValue() != null ? (int) (long) yearField.getValue() : null;
-            FilmsService.save(film, titleField.getValue(), year1, gradeDcComboBox.getValue());
+            FilmsService.save(film, titleField.getValue(), year1, gradeDcComboBox.getValue(), fvadfsBox.getValue());
             updateContent();
-        }, titleField, yearField, gradeDcComboBox);
+        }, titleField, yearField, gradeDcComboBox, fvadfsBox);
     }
 
     private void adjustFilmsPane() {
@@ -104,8 +105,10 @@ public class MainFilmsController implements SectionController {
         vBox.getChildren().add(label);
 
         if (film.getDates() != null) {
-            for (Date date : film.getDates()) {
-                Label label1 = new Label(DateUtils.READABLE_DATE_FORMAT.format(date));
+            for (int i = 0; i < film.getDates().size(); i++) {
+                Date date = film.getDates().get(i);
+                String firstViewMark = (i == 0 && film.fvadfs) ? " *FV*" : "";
+                Label label1 = new Label(DateUtils.READABLE_DATE_FORMAT.format(date) + firstViewMark);
                 label1.setStyle(label.getStyle() + Styler.getColorfullStyle(TEXT, Styler.StandardColor.BLACK));
                 label1.setContextMenu(getDateContextMenu(film, date));
                 vBox.getChildren().add(label1);
