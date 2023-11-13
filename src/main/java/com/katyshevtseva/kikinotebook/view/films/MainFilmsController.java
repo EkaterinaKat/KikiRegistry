@@ -18,10 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.katyshevtseva.fx.Styler.ThingToColor.*;
 import static com.katyshevtseva.kikinotebook.core.films.model.FilmGrade.*;
@@ -55,7 +52,7 @@ public class MainFilmsController implements SectionController {
         DcNumField yearField = new DcNumField(false, year);
         DcComboBox<FilmGrade> gradeDcComboBox = new DcComboBox<>(true, newFilm ? null : film.getGrade(),
                 Arrays.asList(FilmGrade.values()));
-        DcCheckBox fvadfsBox = new DcCheckBox(newFilm ? true : film.getFvadfs(), "first viewed after date fixation started");
+        DcCheckBox fvadfsBox = new DcCheckBox(newFilm ? false : film.getFvadfs(), "NEW");
 
         DialogConstructor.constructDialog(() -> {
             Integer year1 = yearField.getValue() != null ? (int) (long) yearField.getValue() : null;
@@ -67,27 +64,48 @@ public class MainFilmsController implements SectionController {
     private void adjustFilmsPane() {
         int gridColumnWidth = 210;
         Size gridColumnSize = new Size(850, gridColumnWidth);
-        Size smallGridColumnSize = new Size(400, gridColumnWidth);
+        Size smallGridColumnSize = new Size(410, gridColumnWidth);
         int filmBlockWidth = gridColumnWidth - 50;//BlockGridController FRAME_SIZE = 20; 50=20*2+10; 10 на scrollbar
 
-        for (FilmGrade grade : Arrays.asList(FAVOURITE, EXCELLENT, GOOD, NORMAL, SOSO)) {
+        //FAVOURITE, EXCELLENT, GOOD, NORMAL
+        for (FilmGrade grade : Arrays.asList(FAVOURITE, EXCELLENT, GOOD, NORMAL)) {
             ComponentBuilder.Component<BlockGridController<Film>> component =
                     new ComponentBuilder().setSize(gridColumnSize).getBlockGridComponent(filmBlockWidth,
                             null, null, this::getFilmNode);
             component.getController().getGridPane().setStyle(Styler.getColorfullStyle(BACKGROUND, grade.getColor()));
-            filmsPane.getChildren().add(component.getNode());
+            VBox vBox = new VBox();
+            vBox.getChildren().addAll(new Label(grade.toString()), component.getNode());
+            filmsPane.getChildren().add(vBox);
             filmGridControllerMap.put(grade, component.getController());
         }
-        VBox vBox = new VBox();
-        for (FilmGrade grade : Arrays.asList(BAD, NOTFINISHED)) {
-            ComponentBuilder.Component<BlockGridController<Film>> component =
-                    new ComponentBuilder().setSize(smallGridColumnSize).getBlockGridComponent(filmBlockWidth,
-                            null, null, this::getFilmNode);
-            component.getController().getGridPane().setStyle(Styler.getColorfullStyle(BACKGROUND, grade.getColor()));
-            vBox.getChildren().add(component.getNode());
-            filmGridControllerMap.put(grade, component.getController());
+
+        for (List<FilmGrade> grades : Arrays.asList(Arrays.asList(SOSO, NOTCLASSIFIED), Arrays.asList(BAD, NOTFINISHED))) {
+            VBox vBox = new VBox();
+            for (FilmGrade grade : grades) {
+                ComponentBuilder.Component<BlockGridController<Film>> component =
+                        new ComponentBuilder().setSize(smallGridColumnSize).getBlockGridComponent(filmBlockWidth,
+                                null, null, this::getFilmNode);
+                component.getController().getGridPane().setStyle(Styler.getColorfullStyle(BACKGROUND, grade.getColor()));
+                vBox.getChildren().addAll(new Label(grade.toString()), component.getNode());
+                filmGridControllerMap.put(grade, component.getController());
+            }
+            filmsPane.getChildren().add(vBox);
         }
-        filmsPane.getChildren().add(vBox);
+
+        //SOSO, NOTCLASSIFIED
+
+
+        //BAD, NOTFINISHED
+//        VBox vBox1 = new VBox();
+//        for (FilmGrade grade : Arrays.asList(BAD, NOTFINISHED)) {
+//            ComponentBuilder.Component<BlockGridController<Film>> component =
+//                    new ComponentBuilder().setSize(smallGridColumnSize).getBlockGridComponent(filmBlockWidth,
+//                            null, null, this::getFilmNode);
+//            component.getController().getGridPane().setStyle(Styler.getColorfullStyle(BACKGROUND, grade.getColor()));
+//            vBox1.getChildren().addAll(new Label(grade.toString()), component.getNode());
+//            filmGridControllerMap.put(grade, component.getController());
+//        }
+//        filmsPane.getChildren().add(vBox1);
     }
 
     private Node getFilmNode(Film film, int blockWidth) {
