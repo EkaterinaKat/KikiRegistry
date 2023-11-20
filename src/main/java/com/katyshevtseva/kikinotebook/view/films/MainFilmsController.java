@@ -52,7 +52,7 @@ public class MainFilmsController implements SectionController {
         DcNumField yearField = new DcNumField(false, year);
         DcComboBox<FilmGrade> gradeDcComboBox = new DcComboBox<>(true, newFilm ? null : film.getGrade(),
                 Arrays.asList(FilmGrade.values()));
-        DcCheckBox fvadfsBox = new DcCheckBox(newFilm ? false : film.getFvadfs(), "NEW");
+        DcCheckBox fvadfsBox = new DcCheckBox(newFilm ? true : film.getFvadfs(), "NEW");
 
         DialogConstructor.constructDialog(() -> {
             Integer year1 = yearField.getValue() != null ? (int) (long) yearField.getValue() : null;

@@ -33,10 +33,6 @@ public class Author {
     public Author() {
     }
 
-    public String getSortString() {
-        return surname != null ? surname : name;
-    }
-
     public String getFullName() {
         return name + (surname != null ? " " + surname : "");
     }

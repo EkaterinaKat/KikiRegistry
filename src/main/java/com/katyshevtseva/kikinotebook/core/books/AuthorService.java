@@ -1,12 +1,14 @@
 package com.katyshevtseva.kikinotebook.core.books;
 
-import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.books.model.Author;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.katyshevtseva.general.GeneralUtils.isEmpty;
 
 public class AuthorService {
 
@@ -15,18 +17,32 @@ public class AuthorService {
     }
 
     public static List<Author> getAllSorted(String searchString) {
-        List<Author> all = GeneralUtils.isEmpty(searchString) ? Dao.getAllAuthor() : Dao.findAuthors(searchString);
-        List<Author> result = all.stream()
-                .filter(author -> author.getImageName() != null)
-                .sorted(Comparator.comparing(Author::getSortString))
-                .collect(Collectors.toList());
+        List<Author> all = isEmpty(searchString) ? Dao.getAllAuthor() : Dao.findAuthors(searchString);
+        all = all.stream().sorted(Comparator.comparing(AuthorService::getSortingString)).collect(Collectors.toList());
 
-        result.addAll(all.stream()
-                .filter(author -> author.getImageName() == null)
-                .sorted(Comparator.comparing(Author::getSortString))
-                .collect(Collectors.toList()));
+        List<Author> hasImage = new ArrayList<>();
+        List<Author> hasntImage = new ArrayList<>();
 
-        return result;
+        for (Author author : all) {
+            if (author.getImageName() != null) {
+                hasImage.add(author);
+            } else {
+                hasntImage.add(author);
+            }
+        }
+
+        return new ArrayList<Author>() {{
+            addAll(hasImage);
+            addAll(hasntImage);
+        }};
+    }
+
+    public static String getSortingString(Author author) {
+        if (!isEmpty(author.getSurname()))
+            return author.getSurname();
+        if (!isEmpty(author.getName()))
+            return author.getName();
+        throw new RuntimeException();
     }
 
     public static void save(Author existing, String name, String surname, String fileName) {
