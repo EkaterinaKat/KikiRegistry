@@ -1,0 +1,59 @@
+package com.katyshevtseva.kikinotebook.core.series.model;
+
+import com.katyshevtseva.general.GeneralUtils;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.Date;
+
+import static com.katyshevtseva.date.DateUtils.READABLE_DATE_FORMAT;
+
+@Data
+@Entity
+public class Series {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    @Enumerated(EnumType.STRING)
+    private SeriesState state;
+
+    @Enumerated(EnumType.STRING)
+    private SeriesGrade grade;
+
+    private String comment;
+
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
+
+    @Temporal(TemporalType.DATE)
+    private Date finishDate;
+
+    public void setValues(String title, SeriesState state, SeriesGrade grade, String comment, Date startDate, Date finishDate) {
+        this.title = title;
+        this.state = state;
+        this.grade = grade;
+        this.comment = comment;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+    }
+
+    public String getFullInfo() {
+        StringBuilder sb = new StringBuilder(title);
+
+        if (!GeneralUtils.isEmpty(comment)) {
+            sb.append("\n\n").append(comment);
+        }
+
+        if (startDate != null || finishDate != null) {
+            sb.append("\n\n")
+                    .append(startDate != null ? READABLE_DATE_FORMAT.format(startDate) : "*")
+                    .append(" - ")
+                    .append(finishDate != null ? READABLE_DATE_FORMAT.format(finishDate) : "*");
+        }
+
+        return sb.toString();
+    }
+}

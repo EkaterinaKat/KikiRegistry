@@ -91,21 +91,6 @@ public class MainFilmsController implements SectionController {
             }
             filmsPane.getChildren().add(vBox);
         }
-
-        //SOSO, NOTCLASSIFIED
-
-
-        //BAD, NOTFINISHED
-//        VBox vBox1 = new VBox();
-//        for (FilmGrade grade : Arrays.asList(BAD, NOTFINISHED)) {
-//            ComponentBuilder.Component<BlockGridController<Film>> component =
-//                    new ComponentBuilder().setSize(smallGridColumnSize).getBlockGridComponent(filmBlockWidth,
-//                            null, null, this::getFilmNode);
-//            component.getController().getGridPane().setStyle(Styler.getColorfullStyle(BACKGROUND, grade.getColor()));
-//            vBox1.getChildren().addAll(new Label(grade.toString()), component.getNode());
-//            filmGridControllerMap.put(grade, component.getController());
-//        }
-//        filmsPane.getChildren().add(vBox1);
     }
 
     private Node getFilmNode(Film film, int blockWidth) {

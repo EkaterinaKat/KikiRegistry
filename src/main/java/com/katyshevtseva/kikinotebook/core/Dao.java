@@ -6,6 +6,8 @@ import com.katyshevtseva.kikinotebook.core.books.model.Author;
 import com.katyshevtseva.kikinotebook.core.books.model.Book;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.series.model.Series;
+import com.katyshevtseva.kikinotebook.core.series.model.SeriesState;
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import org.hibernate.criterion.Restrictions;
@@ -40,6 +42,21 @@ public class Dao {
                 .addEntity(Film.class)
                 .setParameter("search_string", "%" + searchString.toUpperCase() + "%")
                 .setParameter("grade", grade.toString()));
+    }
+
+    /////////////////////////////////////////////// SERIES ///////////////////////////////////////////////
+    public static List<Series> findSeries(SeriesState state, String searchString) {
+        if (GeneralUtils.isEmpty(searchString)) {
+            return coreDao.find(Series.class, Restrictions.eq("state", state));
+        }
+
+        String sqlString = "select * from series " +
+                "where state = :state " +
+                "and upper(title) like :search_string ; ";
+        return coreDao.findByQuery(session -> session.createSQLQuery(sqlString)
+                .addEntity(Series.class)
+                .setParameter("search_string", "%" + searchString.toUpperCase() + "%")
+                .setParameter("state", state.toString()));
     }
 
     /////////////////////////////////////////////// BOOKS ///////////////////////////////////////////////
