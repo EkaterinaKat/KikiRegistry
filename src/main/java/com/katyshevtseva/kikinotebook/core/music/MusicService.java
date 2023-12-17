@@ -1,0 +1,62 @@
+package com.katyshevtseva.kikinotebook.core.music;
+
+import com.katyshevtseva.kikinotebook.core.Dao;
+import com.katyshevtseva.kikinotebook.core.music.entity.Album;
+import com.katyshevtseva.kikinotebook.core.music.entity.Genre;
+import com.katyshevtseva.kikinotebook.core.music.entity.Singer;
+
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class MusicService {
+
+    public static void saveAlbum(Album existing, String title, String comment, String imageName, Integer year,
+                                 Date listeningDate, Singer singer, List<Genre> genres, boolean finished) {
+        title = title.trim();
+        comment = comment.trim();
+
+        if (existing == null) {
+            Dao.saveNew(new Album(title, comment, imageName, year, listeningDate, singer, genres, finished));
+        } else {
+            existing.setValues(title, comment, imageName, year, listeningDate, singer, genres, finished);
+            Dao.saveEdited(existing);
+        }
+    }
+
+    public static void saveGenre(Genre existing, String title) {
+        title = title.trim();
+
+        if (existing == null) {
+            Dao.saveNew(new Genre(title));
+        } else {
+            existing.setTitle(title);
+            Dao.saveEdited(existing);
+        }
+    }
+
+
+    public static void saveSinger(Singer existing, String name) {
+        name = name.trim();
+
+        if (existing == null) {
+            Dao.saveNew(new Singer(name));
+        } else {
+            existing.setName(name);
+            Dao.saveEdited(existing);
+        }
+    }
+
+    public static List<Album> getAlbums() {
+        return Dao.getAllAlbum().stream().sorted(Comparator.comparing(Album::getId).reversed()).collect(Collectors.toList());
+    }
+
+    public static List<Singer> getSingers() {
+        return Dao.getAllSinger();
+    }
+
+    public static List<Genre> getGenres() {
+        return Dao.getAllGenre();
+    }
+}

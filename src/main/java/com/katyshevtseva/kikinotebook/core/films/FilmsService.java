@@ -22,12 +22,13 @@ public class FilmsService {
             existing.setGrade(grade);
             existing.setFvadfs(fvadfs);
             Dao.saveNew(existing);
+        } else {
+            existing.setTitle(title);
+            existing.setYear(year);
+            existing.setGrade(grade);
+            existing.setFvadfs(fvadfs);
+            Dao.saveEdited(existing);
         }
-        existing.setTitle(title);
-        existing.setYear(year);
-        existing.setGrade(grade);
-        existing.setFvadfs(fvadfs);
-        Dao.saveEdited(existing);
     }
 
     public static List<Film> getFilms(FilmGrade grade, String searchString) {

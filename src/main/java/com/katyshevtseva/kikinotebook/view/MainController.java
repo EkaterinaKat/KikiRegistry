@@ -7,6 +7,7 @@ import com.katyshevtseva.fx.switchcontroller.AbstractSwitchController;
 import com.katyshevtseva.fx.switchcontroller.Section;
 import com.katyshevtseva.kikinotebook.view.books.MainBooksController;
 import com.katyshevtseva.kikinotebook.view.films.MainFilmsController;
+import com.katyshevtseva.kikinotebook.view.music.MainMusicController;
 import com.katyshevtseva.kikinotebook.view.series.MainSeriesController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,6 +34,8 @@ public class MainController extends AbstractSwitchController implements FxContro
         return Arrays.asList(
                 new Section("Films", new MainFilmsController(),
                         controller -> WindowBuilder.getNode(FILMS, controller)),
+                new Section("Music", new MainMusicController(),
+                        controller -> WindowBuilder.getNode(MUSIC_MAIN, controller)),
                 new Section("Series", new MainSeriesController(),
                         controller -> WindowBuilder.getNode(SERIES, controller)),
                 new Section("Books", new MainBooksController(),

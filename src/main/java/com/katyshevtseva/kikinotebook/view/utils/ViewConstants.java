@@ -10,7 +10,8 @@ public class ViewConstants {
     @Getter
     public enum NotebookDialogInfo implements WindowBuilder.DialogInfo {
         MAIN("/fxml/main.fxml", new Size(1000, 1700), CoreConstants.APP_NAME),
-        AUTHOR_DIALOG("/fxml/books/author_dialog.fxml", new Size(500, 700), "Author edit");
+        AUTHOR_DIALOG("/fxml/books/author_dialog.fxml", new Size(500, 700), "Author edit"),
+        ALBUM_DIALOG("/fxml/music/album_dialog.fxml", new Size(800, 1400), "Album edit");
 
         private final String fullFileName;
         private final Size size;
@@ -27,7 +28,10 @@ public class ViewConstants {
     public enum NotebookNodeInfo implements WindowBuilder.NodeInfo {
         BOOKS("/fxml/books/main_books.fxml"),
         SERIES("/fxml/series/main_series.fxml"),
-        FILMS("/fxml/films/main_films.fxml");
+        FILMS("/fxml/films/main_films.fxml"),
+        MUSIC_MAIN("/fxml/section_main.fxml"),
+        ALBUMS("/fxml/music/albums.fxml"),
+        SINGERS_AND_GENRES("/fxml/music/singers_and_genres.fxml");
 
         private final String fullFileName;
 

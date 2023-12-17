@@ -6,6 +6,9 @@ import com.katyshevtseva.kikinotebook.core.books.model.Author;
 import com.katyshevtseva.kikinotebook.core.books.model.Book;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.music.entity.Album;
+import com.katyshevtseva.kikinotebook.core.music.entity.Genre;
+import com.katyshevtseva.kikinotebook.core.music.entity.Singer;
 import com.katyshevtseva.kikinotebook.core.series.model.Series;
 import com.katyshevtseva.kikinotebook.core.series.model.SeriesState;
 import com.sun.istack.internal.NotNull;
@@ -27,6 +30,20 @@ public class Dao {
 
     public static <T> void delete(T t) {
         coreDao.delete(t);
+    }
+
+    /////////////////////////////////////////////// MUSIC ///////////////////////////////////////////////
+
+    public static List<Album> getAllAlbum() {
+        return coreDao.getAll(Album.class.getSimpleName());
+    }
+
+    public static List<Singer> getAllSinger() {
+        return coreDao.getAll(Singer.class.getSimpleName());
+    }
+
+    public static List<Genre> getAllGenre() {
+        return coreDao.getAll(Genre.class.getSimpleName());
     }
 
     /////////////////////////////////////////////// FILMS ///////////////////////////////////////////////
