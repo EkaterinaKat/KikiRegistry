@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 
 public class MusicService {
 
-    public static void saveAlbum(Album existing, String title, String comment, String imageName, Integer year,
-                                 Date listeningDate, Singer singer, List<Genre> genres, boolean finished) {
+    public static void saveAlbum(Album existing, String title, String comment, String imageName, Integer year, Date listeningDate,
+                                 Singer singer, List<Genre> genres, Integer numOfTracks, Integer duration, AlbumGrade grade) {
         title = title.trim();
         comment = comment.trim();
 
         if (existing == null) {
-            Dao.saveNew(new Album(title, comment, imageName, year, listeningDate, singer, genres, finished));
+            Dao.saveNew(new Album(title, comment, imageName, year, listeningDate, singer, genres, numOfTracks, duration, grade));
         } else {
-            existing.setValues(title, comment, imageName, year, listeningDate, singer, genres, finished);
+            existing.setValues(title, comment, imageName, year, listeningDate, singer, genres, numOfTracks, duration, grade);
             Dao.saveEdited(existing);
         }
     }

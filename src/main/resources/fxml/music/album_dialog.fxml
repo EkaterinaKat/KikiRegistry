@@ -27,7 +27,7 @@
             <TextField fx:id="titleTextField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
             <Label text="Comment" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextArea fx:id="commentTextArea" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <TextArea fx:id="commentTextArea" GridPane.rowIndex="2" GridPane.columnIndex="1" maxHeight="100"/>
 
             <Label text="Year" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
             <TextField fx:id="yearTextField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
@@ -35,18 +35,24 @@
             <Label text="Listening date" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
             <DatePicker fx:id="datePicker" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-            <Label text="Finished" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-            <CheckBox fx:id="finishedCheckBox" GridPane.rowIndex="5" GridPane.columnIndex="1" selected="true"/>
+            <Label text="Grade" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="gradeComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 
-            <Label text="Singer" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-            <HBox GridPane.rowIndex="6" GridPane.columnIndex="1">
+            <Label text="Tracks" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextField fx:id="tracksTextField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+            <Label text="Duration" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <TextField fx:id="durationTextField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+            <Label text="Singer" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+            <HBox GridPane.rowIndex="8" GridPane.columnIndex="1">
                 <ComboBox fx:id="singerComboBox"/>
                 <Pane minWidth="5" maxWidth="5"/>
                 <Button text="+" fx:id="addSingerButton"/>
             </HBox>
 
-            <Label text="Genres" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-            <HBox GridPane.rowIndex="7" GridPane.columnIndex="1">
+            <Label text="Genres" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+            <HBox GridPane.rowIndex="9" GridPane.columnIndex="1">
                 <Pane fx:id="genrePane"/>
                 <Pane minWidth="5" maxWidth="5"/>
                 <Button text="+" fx:id="addGenreButton"/>

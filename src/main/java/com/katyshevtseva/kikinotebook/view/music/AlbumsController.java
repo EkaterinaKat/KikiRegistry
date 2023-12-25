@@ -26,7 +26,6 @@ import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
 import static com.katyshevtseva.fx.ImageSizeUtil.placeImageInSquare;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
 import static com.katyshevtseva.fx.Styler.getColorfullStyle;
-import static com.katyshevtseva.fx.Styler.setHoverStyle;
 import static com.katyshevtseva.kikinotebook.view.music.AlbumImageUtils.getImageContainer;
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.ALBUM_DIALOG;
 
@@ -74,8 +73,7 @@ public class AlbumsController implements SectionController {
 
         HBox hBox = new HBox();
         hBox.getChildren().addAll(getPaneWithWidth(10), vBox, getPaneWithWidth(10));
-        hBox.setStyle(Styler.getBlackBorderStyle());
-        setHoverStyle(hBox, getColorfullStyle(BACKGROUND, "#EF47FF"));
+        hBox.setStyle(Styler.getBlackBorderStyle() + getColorfullStyle(BACKGROUND, album.getGrade().getColor()));
         hBox.setOnContextMenuRequested(event -> showAlbumContextMenu(hBox, event, album));
         return hBox;
     }

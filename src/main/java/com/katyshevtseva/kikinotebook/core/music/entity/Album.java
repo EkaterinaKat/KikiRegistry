@@ -1,11 +1,14 @@
 package com.katyshevtseva.kikinotebook.core.music.entity;
 
+import com.katyshevtseva.kikinotebook.core.music.AlbumGrade;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import static com.katyshevtseva.general.GeneralUtils.isEmpty;
 
 @Data
 @Entity
@@ -36,7 +39,12 @@ public class Album {
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres;
 
-    private boolean finished;
+    private Integer numOfTracks;
+
+    private Integer duration;
+
+    @Enumerated(EnumType.STRING)
+    private AlbumGrade grade;
 
     public String getFullInfo() {
         StringBuilder sb = new StringBuilder();
@@ -49,15 +57,19 @@ public class Album {
         if (listeningDate != null) {
             sb.append("date: ").append(listeningDate).append("\n");
         }
-        if (comment != null) {
+        if (!isEmpty(comment)) {
             sb.append(comment).append("\n");
+        }
+        if (numOfTracks != null || duration != null) {
+            sb.append("Tracks: ").append(numOfTracks == null ? "-" : numOfTracks)
+                    .append("    Duration: ").append(duration == null ? "-" : duration);
         }
 
         return sb.toString();
     }
 
-    public Album(String title, String comment, String imageName, Integer year, Date listeningDate, Singer singer,
-                 List<Genre> genres, boolean finished) {
+    public Album(String title, String comment, String imageName, Integer year, Date listeningDate,
+                 Singer singer, List<Genre> genres, Integer numOfTracks, Integer duration, AlbumGrade grade) {
         this.title = title;
         this.comment = comment;
         this.imageName = imageName;
@@ -65,11 +77,13 @@ public class Album {
         this.listeningDate = listeningDate;
         this.singer = singer;
         this.genres = genres;
-        this.finished = finished;
+        this.numOfTracks = numOfTracks;
+        this.duration = duration;
+        this.grade = grade;
     }
 
-    public void setValues(String title, String comment, String imageName, Integer year, Date listeningDate, Singer singer,
-                          List<Genre> genres, boolean finished) {
+    public void setValues(String title, String comment, String imageName, Integer year, Date listeningDate,
+                          Singer singer, List<Genre> genres, Integer numOfTracks, Integer duration, AlbumGrade grade) {
         this.title = title;
         this.comment = comment;
         this.imageName = imageName;
@@ -77,6 +91,8 @@ public class Album {
         this.listeningDate = listeningDate;
         this.singer = singer;
         this.genres = genres;
-        this.finished = finished;
+        this.numOfTracks = numOfTracks;
+        this.duration = duration;
+        this.grade = grade;
     }
 }

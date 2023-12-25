@@ -8,6 +8,7 @@ import com.katyshevtseva.fx.component.controller.MultipleChoiceController;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.general.NoArgsKnob;
+import com.katyshevtseva.kikinotebook.core.music.AlbumGrade;
 import com.katyshevtseva.kikinotebook.core.music.MusicService;
 import com.katyshevtseva.kikinotebook.core.music.entity.Album;
 import com.katyshevtseva.kikinotebook.core.music.entity.Genre;
@@ -18,6 +19,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.List;
+
+import static com.katyshevtseva.fx.FxUtils.*;
+import static com.katyshevtseva.general.GeneralUtils.isEmpty;
 
 public class AlbumDialogController implements FxController {
     private final Album existing;
@@ -36,8 +40,6 @@ public class AlbumDialogController implements FxController {
     @FXML
     private DatePicker datePicker;
     @FXML
-    private CheckBox finishedCheckBox;
-    @FXML
     private ComboBox<Singer> singerComboBox;
     @FXML
     private Button addSingerButton;
@@ -47,6 +49,12 @@ public class AlbumDialogController implements FxController {
     private Button addGenreButton;
     @FXML
     private Button saveButton;
+    @FXML
+    private ComboBox<AlbumGrade> gradeComboBox;
+    @FXML
+    private TextField tracksTextField;
+    @FXML
+    private TextField durationTextField;
 
     public AlbumDialogController(Album existing, NoArgsKnob onSaveKnob) {
         this.existing = existing;
@@ -58,8 +66,11 @@ public class AlbumDialogController implements FxController {
         adjustGenreSection();
         adjustSingerSection();
         adjustImageSection();
-        FxUtils.disableNonNumericChars(yearTextField);
-        FxUtils.associateButtonWithControls(saveButton, titleTextField, singerComboBox, datePicker);
+        setComboBoxItems(gradeComboBox, AlbumGrade.values());
+        disableNonNumericChars(yearTextField);
+        disableNonNumericChars(tracksTextField);
+        disableNonNumericChars(durationTextField);
+        associateButtonWithControls(saveButton, titleTextField, singerComboBox, datePicker, gradeComboBox);
         saveButton.setOnAction(event -> saveButtonListener());
         setExistingValues();
     }
@@ -71,7 +82,9 @@ public class AlbumDialogController implements FxController {
             commentTextArea.setText(existing.getComment());
             yearTextField.setText(existing.getYear() + "");
             FxUtils.setDate(datePicker, existing.getListeningDate());
-            finishedCheckBox.setSelected(existing.isFinished());
+            gradeComboBox.setValue(existing.getGrade());
+            tracksTextField.setText(existing.getNumOfTracks() + "");
+            durationTextField.setText(existing.getDuration() + "");
             singerComboBox.setValue(existing.getSinger());
         }
     }
@@ -124,7 +137,9 @@ public class AlbumDialogController implements FxController {
                 FxUtils.getDate(datePicker),
                 singerComboBox.getValue(),
                 genreChoiceController.getSelectedItems(),
-                finishedCheckBox.isSelected()
+                isEmpty(tracksTextField.getText()) ? null : Integer.parseInt(tracksTextField.getText()),
+                isEmpty(durationTextField.getText()) ? null : Integer.parseInt(durationTextField.getText()),
+                gradeComboBox.getValue()
         );
 
         onSaveKnob.execute();
