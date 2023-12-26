@@ -1,7 +1,9 @@
 package com.katyshevtseva.kikinotebook.core.series.model;
 
+import static com.katyshevtseva.kikinotebook.core.CoreConstants.*;
+
 public enum SeriesGrade {
-    FAVOURITE("#ffff00"), OK("#bcfff1"), DISLIKED("#c8c8c8");
+    FAVOURITE(HIGHEST_GRADE_COLOR), OK(AVERAGE_GRADE_COLOR), DISLIKED(GRAY);
 
     private final String color;
 

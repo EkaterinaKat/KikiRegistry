@@ -133,7 +133,7 @@ public class AlbumDialogController implements FxController {
                 titleTextField.getText(),
                 commentTextArea.getText(),
                 imageTextField.getText(),
-                Integer.parseInt(yearTextField.getText()),
+                isEmpty(yearTextField.getText()) ? null : Integer.parseInt(yearTextField.getText()),
                 FxUtils.getDate(datePicker),
                 singerComboBox.getValue(),
                 genreChoiceController.getSelectedItems(),

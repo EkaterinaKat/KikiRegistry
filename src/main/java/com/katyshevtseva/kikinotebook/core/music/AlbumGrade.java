@@ -1,7 +1,9 @@
 package com.katyshevtseva.kikinotebook.core.music;
 
+import static com.katyshevtseva.kikinotebook.core.CoreConstants.*;
+
 public enum AlbumGrade {
-    NICE("#45E397"), OK("#9CE345"), SOSO("#7A7A7A");
+    NICE(HIGHEST_GRADE_COLOR), OK(AVERAGE_GRADE_COLOR), SOSO(GRAY);
 
     private final String color;
 
