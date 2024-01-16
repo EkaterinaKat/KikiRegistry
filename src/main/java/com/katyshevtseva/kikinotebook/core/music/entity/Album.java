@@ -1,5 +1,6 @@
 package com.katyshevtseva.kikinotebook.core.music.entity;
 
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.kikinotebook.core.music.AlbumGrade;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -57,12 +58,13 @@ public class Album {
         if (listeningDate != null) {
             sb.append("date: ").append(listeningDate).append("\n");
         }
-        if (!isEmpty(comment)) {
-            sb.append(comment).append("\n");
-        }
         if (numOfTracks != null || duration != null) {
             sb.append("Tracks: ").append(numOfTracks == null ? "-" : numOfTracks)
-                    .append("    Duration: ").append(duration == null ? "-" : duration);
+                    .append("    Duration: ").append(duration == null ? "-" : duration).append("\n");
+        }
+
+        if (!isEmpty(comment)) {
+            sb.append("\n").append(GeneralUtils.crop(comment, 70)).append("\n");
         }
 
         return sb.toString();

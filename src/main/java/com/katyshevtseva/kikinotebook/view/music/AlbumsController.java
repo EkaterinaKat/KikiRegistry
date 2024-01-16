@@ -30,7 +30,7 @@ import static com.katyshevtseva.kikinotebook.view.music.AlbumImageUtils.getImage
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.ALBUM_DIALOG;
 
 public class AlbumsController implements SectionController {
-    private static final Size GRID_SIZE = new Size(850, 1300);
+    private static final Size GRID_SIZE = new Size(830, 1300);
     private static final int BLOCK_WIDTH = 370;
     private BlockGridController<Album> albumGridController;
     @FXML

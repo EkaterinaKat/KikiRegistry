@@ -53,10 +53,14 @@ public class MusicService {
     }
 
     public static List<Singer> getSingers() {
-        return Dao.getAllSinger();
+        return Dao.getAllSinger().stream()
+                .sorted(Comparator.comparing(singer -> singer.getName().toUpperCase()))
+                .collect(Collectors.toList());
     }
 
     public static List<Genre> getGenres() {
-        return Dao.getAllGenre();
+        return Dao.getAllGenre().stream()
+                .sorted(Comparator.comparing(genre -> genre.getTitle().toUpperCase()))
+                .collect(Collectors.toList());
     }
 }
