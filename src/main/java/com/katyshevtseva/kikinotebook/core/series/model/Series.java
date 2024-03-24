@@ -41,15 +41,14 @@ public class Series {
     }
 
     public String getFullInfo() {
-        StringBuilder sb = new StringBuilder(title);
+        StringBuilder sb = new StringBuilder();
 
         if (!GeneralUtils.isEmpty(comment)) {
-            sb.append("\n\n").append(comment);
+            sb.append(comment).append("\n\n");
         }
 
         if (startDate != null || finishDate != null) {
-            sb.append("\n\n")
-                    .append(startDate != null ? READABLE_DATE_FORMAT.format(startDate) : "*")
+            sb.append(startDate != null ? READABLE_DATE_FORMAT.format(startDate) : "*")
                     .append(" - ")
                     .append(finishDate != null ? READABLE_DATE_FORMAT.format(finishDate) : "*");
         }
