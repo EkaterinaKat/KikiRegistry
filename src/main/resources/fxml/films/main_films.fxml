@@ -15,8 +15,10 @@
             <Button text="New Film" fx:id="newFilmButton"/>
             <Pane minWidth="30" maxWidth="30"/>
             <TextField fx:id="searchTextField"/>
-            <Pane minWidth="30" maxWidth="30"/>
+            <Pane minWidth="7" maxWidth="7"/>
             <Button text="x" fx:id="clearButton"/>
+            <Pane minWidth="30" maxWidth="30"/>
+            <Button text="Statistics" fx:id="statisticsButton"/>
         </HBox>
     </top>
 

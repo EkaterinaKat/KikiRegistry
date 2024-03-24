@@ -3,6 +3,7 @@ package com.katyshevtseva.kikinotebook.view.films;
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.Styler;
+import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.dialogconstructor.*;
@@ -22,6 +23,7 @@ import java.util.*;
 
 import static com.katyshevtseva.fx.Styler.ThingToColor.*;
 import static com.katyshevtseva.kikinotebook.core.films.model.FilmGrade.*;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.FILM_STATISTICS;
 
 public class MainFilmsController implements SectionController {
     private final Map<FilmGrade, BlockGridController<Film>> filmGridControllerMap = new HashMap<>();
@@ -33,9 +35,12 @@ public class MainFilmsController implements SectionController {
     private TextField searchTextField;
     @FXML
     private Button clearButton;
+    @FXML
+    private Button statisticsButton;
 
     @FXML
     private void initialize() {
+        statisticsButton.setOnAction(event -> WindowBuilder.openDialog(FILM_STATISTICS, new StatisticsController()));
         newFilmButton.setOnAction(event -> openFilmEditDialog(null));
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> updateContent());
@@ -49,7 +54,7 @@ public class MainFilmsController implements SectionController {
         boolean newFilm = film == null;
         DcTextField titleField = new DcTextField(true, newFilm ? "" : film.getTitle());
         Long year = newFilm ? null : film.getYear() == null ? null : new Long(film.getYear());
-        DcNumField yearField = new DcNumField(false, year);
+        DcNumField yearField = new DcNumField(true, year);
         DcComboBox<FilmGrade> gradeDcComboBox = new DcComboBox<>(true, newFilm ? null : film.getGrade(),
                 Arrays.asList(FilmGrade.values()));
         DcCheckBox fvadfsBox = new DcCheckBox(newFilm ? true : film.getFvadfs(), "NEW");
@@ -143,7 +148,7 @@ public class MainFilmsController implements SectionController {
 
         MenuItem addDateItem = new MenuItem("Add date");
         addDateItem.setOnAction(event1 -> {
-            DcDatePicker datePicker = new DcDatePicker(true, null);
+            DcDatePicker datePicker = new DcDatePicker(true, new Date());
             DialogConstructor.constructDialog(() -> {
                 FilmsService.addDate(film, datePicker.getValue());
                 updateContent();

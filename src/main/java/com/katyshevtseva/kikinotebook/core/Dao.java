@@ -47,6 +47,11 @@ public class Dao {
     }
 
     /////////////////////////////////////////////// FILMS ///////////////////////////////////////////////
+
+    public static List<Film> getAllFilms() {
+        return coreDao.getAll(Film.class.getSimpleName());
+    }
+
     public static List<Film> findFilms(FilmGrade grade, String searchString) {
         if (GeneralUtils.isEmpty(searchString)) {
             return coreDao.find(Film.class, Restrictions.eq("grade", grade));
@@ -54,7 +59,8 @@ public class Dao {
 
         String sqlString = "select * from film " +
                 "where grade = :grade " +
-                "and upper(title) like :search_string ; ";
+                "and (upper(title) like :search_string " +
+                "or CAST(year AS varchar) like :search_string ) ; ";
         return coreDao.findByQuery(session -> session.createSQLQuery(sqlString)
                 .addEntity(Film.class)
                 .setParameter("search_string", "%" + searchString.toUpperCase() + "%")
