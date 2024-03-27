@@ -107,14 +107,15 @@ public class MainSeriesController implements SectionController {
     private static class SeriesBlock {
         private final VBox contentBox;
         private final Node fullNode;
-        private final String OPEN_STR = "⮟";
-        private final String CLOSE_STR = "⮝";
+        private final String SHOW_MORE_STR = "...";
         private final Label titleLabel;
         private final Label detailLabel;
-        private final Label arrowLabel;
+        private final Label showMoreLabel;
+        private final boolean hasDetails;
         private boolean detailsOpened = false;
 
         public SeriesBlock(Series series, int blockWidth) {
+            hasDetails = series.hasDetails();
             contentBox = new VBox();
             fullNode = frame(contentBox, 5);
 
@@ -125,38 +126,47 @@ public class MainSeriesController implements SectionController {
 
             titleLabel = new LabelBuilder().text(series.getTitle()).width(labelWidth).setCenterAligment().build();
             titleLabel.setStyle(titleLabel.getStyle() + Styler.getColorfullStyle(TEXT, Styler.StandardColor.BLACK));
-
             detailLabel = new LabelBuilder().text(series.getFullInfo()).width(labelWidth).setCenterAligment().build();
+            showMoreLabel = new LabelBuilder().text(SHOW_MORE_STR).width(labelWidth).setCenterAligment().build();
 
-            arrowLabel = new LabelBuilder().text(OPEN_STR).width(labelWidth).setCenterAligment().build();
-            arrowLabel.setOnMouseClicked(event -> {
-                detailsOpened = !detailsOpened;
-                if (detailsOpened) {
-                    arrowLabel.setText(CLOSE_STR);
-                } else {
-                    arrowLabel.setText(OPEN_STR);
-                }
-                fillBox();
-            });
-
+            if (hasDetails) {
+                fullNode.setOnMouseClicked(event -> {
+                    detailsOpened = !detailsOpened;
+                    fillBox();
+                });
+            }
             fillBox();
         }
 
         private void fillBox() {
             contentBox.getChildren().clear();
-            if (detailsOpened) {
-                contentBox.getChildren().addAll(
-                        titleLabel,
-                        getPaneWithHeight(10),
-                        detailLabel,
-                        getPaneWithHeight(10),
-                        arrowLabel);
+
+            if (hasDetails) {
+                if (detailsOpened) {
+                    fillOpenedDetailsBox();
+                } else {
+                    fillClosedDetailsBox();
+                }
             } else {
-                contentBox.getChildren().addAll(
-                        titleLabel,
-                        getPaneWithHeight(4),
-                        arrowLabel);
+                fillNoDetailsBox();
             }
+        }
+
+        private void fillNoDetailsBox() {
+            contentBox.getChildren().addAll(titleLabel);
+        }
+
+        private void fillClosedDetailsBox() {
+            contentBox.getChildren().addAll(
+                    titleLabel,
+                    showMoreLabel);
+        }
+
+        private void fillOpenedDetailsBox() {
+            contentBox.getChildren().addAll(
+                    titleLabel,
+                    getPaneWithHeight(10),
+                    detailLabel);
         }
     }
 }

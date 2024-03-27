@@ -55,4 +55,8 @@ public class Series {
 
         return sb.toString();
     }
+
+    public boolean hasDetails() {
+        return !GeneralUtils.isEmpty(comment) || startDate != null || finishDate != null;
+    }
 }
