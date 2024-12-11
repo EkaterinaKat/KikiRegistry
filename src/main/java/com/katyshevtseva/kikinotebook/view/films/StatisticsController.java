@@ -2,7 +2,7 @@ package com.katyshevtseva.kikinotebook.view.films;
 
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.Size;
-import com.katyshevtseva.fx.WindowBuilder;
+import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.kikinotebook.core.films.StatisticsService;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -15,7 +15,7 @@ import javafx.util.StringConverter;
 
 import java.util.Map;
 
-public class StatisticsController implements WindowBuilder.FxController {
+public class StatisticsController implements SectionController {
     @FXML
     private VBox root;
 

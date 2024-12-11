@@ -33,9 +33,9 @@ public class MainController extends AbstractSwitchController implements FxContro
     private List<Section> getSections() {
         return Arrays.asList(
                 new Section("Films", new MainFilmsController(),
-                        controller -> WindowBuilder.getNode(FILMS, controller)),
+                        controller -> WindowBuilder.getNode(SECTION_MAIN, controller)),
                 new Section("Music", new MainMusicController(),
-                        controller -> WindowBuilder.getNode(MUSIC_MAIN, controller)),
+                        controller -> WindowBuilder.getNode(SECTION_MAIN, controller)),
                 new Section("Series", new MainSeriesController(),
                         controller -> WindowBuilder.getNode(SERIES, controller)),
                 new Section("Books", new MainBooksController(),
