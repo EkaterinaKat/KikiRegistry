@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx">
+
+    <top>
+        <VBox prefWidth="1300">
+            <Pane minHeight="30" maxHeight="30"/>
+            <HBox alignment="CENTER">
+                <Button fx:id="leftArrow" text="🡄"/>
+                <Pane minWidth="15" maxWidth="15"/>
+                <Label fx:id="yearLabel" styleClass="font_size_25"/>
+                <Pane minWidth="15" maxWidth="15"/>
+                <Button fx:id="rightArrow" text="🡆"/>
+            </HBox>
+        </VBox>
+
+    </top>
+
+    <center>
+        <Pane fx:id="mainPane" maxHeight="800" minHeight="800"/>
+    </center>
+
+    <left>
+        <Pane minWidth="30" maxWidth="30"/>
+    </left>
+
+    <right>
+        <Pane minWidth="30" maxWidth="30"/>
+    </right>
+
+
+</BorderPane>

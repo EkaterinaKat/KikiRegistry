@@ -13,8 +13,7 @@ import javafx.scene.layout.Pane;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.FILM_LISTS;
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.FILM_STATISTICS;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.*;
 
 public class MainFilmsController extends AbstractSwitchController implements SectionController {
     @FXML
@@ -32,7 +31,9 @@ public class MainFilmsController extends AbstractSwitchController implements Sec
                 new Section("Lists", new FilmListsController(),
                         controller -> WindowBuilder.getNode(FILM_LISTS, controller)),
                 new Section("Statistics", new StatisticsController(),
-                        controller -> WindowBuilder.getNode(FILM_STATISTICS, controller)));
+                        controller -> WindowBuilder.getNode(FILM_STATISTICS, controller)),
+                new Section("Viewing history", new ViewingHistoryController(),
+                        controller -> WindowBuilder.getNode(VIEWING_HISTORY, controller)));
     }
 
     private void placeButton(Button button) {

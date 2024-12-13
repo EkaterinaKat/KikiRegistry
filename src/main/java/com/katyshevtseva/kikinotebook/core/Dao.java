@@ -15,6 +15,7 @@ import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.Date;
 import java.util.List;
 
 public class Dao {
@@ -65,6 +66,11 @@ public class Dao {
                 .addEntity(Film.class)
                 .setParameter("search_string", "%" + searchString.toUpperCase() + "%")
                 .setParameter("grade", grade.toString()));
+    }
+
+    public static List<Date> getAllDates() {
+        String sqlString = "select date_ from film_dates ; ";
+        return coreDao.findByQuery(session -> session.createSQLQuery(sqlString));
     }
 
     /////////////////////////////////////////////// SERIES ///////////////////////////////////////////////
