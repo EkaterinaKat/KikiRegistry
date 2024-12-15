@@ -68,7 +68,17 @@ public class Dao {
                 .setParameter("grade", grade.toString()));
     }
 
-    public static List<Date> getAllDates() {
+
+    public static List<Film> findFilmsViewedInYear(int year) {
+        String sqlString = "select distinct f.* from film f " +
+                "join film_dates d on f.id = d.film_id " +
+                "where EXTRACT(YEAR FROM d.date_)=:year ; ";
+        return coreDao.findByQuery(session -> session.createSQLQuery(sqlString)
+                .addEntity(Film.class)
+                .setParameter("year", year));
+    }
+
+    public static List<Date> getAllDatesWithFilmViews() {
         String sqlString = "select date_ from film_dates ; ";
         return coreDao.findByQuery(session -> session.createSQLQuery(sqlString));
     }

@@ -1,7 +1,9 @@
 package com.katyshevtseva.kikinotebook.core.films;
 
 import com.katyshevtseva.date.DateUtils;
+import com.katyshevtseva.date.Month;
 import com.katyshevtseva.kikinotebook.core.Dao;
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +23,7 @@ public class ViewingHistoryService {
     }
 
     public static List<Integer> getYearsForDatePicker() {
-        Stream<Integer> viewYears = Dao.getAllDates().stream()
+        Stream<Integer> viewYears = Dao.getAllDatesWithFilmViews().stream()
                 .map(DateUtils::getYearDateBelongsTo);
 
         // добавляем в список текущий год чтобы он отображался даже если нет записей о просмотре
@@ -30,5 +32,26 @@ public class ViewingHistoryService {
                 .sorted()
                 .collect(Collectors.toList());
 
+    }
+
+    public static List<Month> getMonthsWithViews(Integer year) {
+        return Dao.getAllDatesWithFilmViews().stream()
+                .filter(date -> DateUtils.getYearDateBelongsTo(date).equals(year))
+                .map(Month::findByDate)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public static List<Film> getFilms(Integer year, Month month) {
+        return Dao.findFilmsViewedInYear(year).stream()
+                .filter(film -> {
+                    for (Date date : film.getDates()) {
+                        if (Month.findByDate(date) == month) {
+                            return true;
+                        }
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
     }
 }
