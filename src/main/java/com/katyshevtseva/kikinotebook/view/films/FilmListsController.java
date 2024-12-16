@@ -5,7 +5,6 @@ import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
-import com.katyshevtseva.fx.dialogconstructor.*;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.kikinotebook.core.films.FilmsService;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
@@ -22,6 +21,7 @@ import java.util.*;
 
 import static com.katyshevtseva.fx.Styler.ThingToColor.*;
 import static com.katyshevtseva.kikinotebook.core.films.model.FilmGrade.*;
+import static com.katyshevtseva.kikinotebook.view.films.FilmMenuManager.*;
 
 public class FilmListsController implements SectionController {
     private final Map<FilmGrade, BlockGridController<Film>> filmGridControllerMap = new HashMap<>();
@@ -36,29 +36,13 @@ public class FilmListsController implements SectionController {
 
     @FXML
     private void initialize() {
-        newFilmButton.setOnAction(event -> openFilmEditDialog(null));
+        newFilmButton.setOnAction(event -> openFilmEditDialog(null, this::updateContent));
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> updateContent());
         clearButton.setOnAction(event -> searchTextField.setText(""));
 
         adjustFilmsPane();
         updateContent();
-    }
-
-    private void openFilmEditDialog(Film film) {
-        boolean newFilm = film == null;
-        DcTextField titleField = new DcTextField(true, newFilm ? "" : film.getTitle());
-        Long year = newFilm ? null : film.getYear() == null ? null : new Long(film.getYear());
-        DcNumField yearField = new DcNumField(true, year);
-        DcComboBox<FilmGrade> gradeDcComboBox = new DcComboBox<>(true, newFilm ? null : film.getGrade(),
-                Arrays.asList(FilmGrade.values()));
-        DcCheckBox fvadfsBox = new DcCheckBox(newFilm || film.getFvadfs(), "NEW");
-
-        DialogConstructor.constructDialog(() -> {
-            Integer year1 = yearField.getValue() != null ? (int) (long) yearField.getValue() : null;
-            FilmsService.save(film, titleField.getValue(), year1, gradeDcComboBox.getValue(), fvadfsBox.getValue());
-            updateContent();
-        }, titleField, yearField, gradeDcComboBox, fvadfsBox);
     }
 
     private void adjustFilmsPane() {
@@ -136,21 +120,8 @@ public class FilmListsController implements SectionController {
 
     private ContextMenu getFilmContextMenu(Film film) {
         ContextMenu menu = new ContextMenu();
-
-        MenuItem editItem = new MenuItem("Edit");
-        editItem.setOnAction(event1 -> openFilmEditDialog(film));
-        menu.getItems().add(editItem);
-
-        MenuItem addDateItem = new MenuItem("Add date");
-        addDateItem.setOnAction(event1 -> {
-            DcDatePicker datePicker = new DcDatePicker(true, new Date());
-            DialogConstructor.constructDialog(() -> {
-                FilmsService.addDate(film, datePicker.getValue());
-                updateContent();
-            }, datePicker);
-        });
-        menu.getItems().add(addDateItem);
-
+        menu.getItems().add(getEditItem(film, this::updateContent));
+        menu.getItems().add(getAddDateItem(film, this::updateContent));
         return menu;
     }
 

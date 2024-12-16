@@ -5,6 +5,7 @@ import com.katyshevtseva.date.Month;
 import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +40,7 @@ public class ViewingHistoryService {
                 .filter(date -> DateUtils.getYearDateBelongsTo(date).equals(year))
                 .map(Month::findByDate)
                 .distinct()
+                .sorted(Comparator.comparing(Month::getIndex).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -52,6 +54,7 @@ public class ViewingHistoryService {
                     }
                     return false;
                 })
+//                .peek(PosterLoader::loadPoster)
                 .collect(Collectors.toList());
     }
 }

@@ -9,28 +9,31 @@ import com.katyshevtseva.fx.component.controller.BlockGridController2;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.kikinotebook.core.films.ViewingHistoryService;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.web.PosterFileManager;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 import java.util.List;
 
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
-import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
+import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
-import static com.katyshevtseva.fx.Styler.getColorfullStyle;
-import static com.katyshevtseva.fx.Styler.setHoverStyle;
+import static com.katyshevtseva.kikinotebook.view.films.FilmMenuManager.getEditItem;
+import static com.katyshevtseva.kikinotebook.view.films.FilmMenuManager.getLoadPosterItem;
 
 public class ViewingHistoryController implements SectionController {
-    private static final int POSTER_WIDTH = 200;
-    private static final int GRID_WIDTH = 1100;
-    private Integer currentYear;
-    private Integer leftYear;
-    private Integer rightYear;
+    private static final int POSTER_WIDTH = 222;
+    private static final int GRID_WIDTH = 1200;
+    private Integer year;
     @FXML
     private VBox contentPane;
     @FXML
@@ -46,11 +49,26 @@ public class ViewingHistoryController implements SectionController {
     }
 
     private void onYearSelected(Integer year) {
+        this.year = year;
+        updateContent();
+    }
+
+    private void updateContent() {
         contentPane.getChildren().clear();
         for (Month month : ViewingHistoryService.getMonthsWithViews(year)) {
-            contentPane.getChildren().add(new LabelBuilder().text(month.getTitle()).textSize(20).build());
+            contentPane.getChildren().add(getMonthTitle(month));
             contentPane.getChildren().add(getFilmGridNode(ViewingHistoryService.getFilms(year, month)));
+            contentPane.getChildren().add(getPaneWithHeight(20));
         }
+    }
+
+    private Node getMonthTitle(Month month) {
+        Label label = new LabelBuilder().text(month.getTitle()).textSize(20).build();
+        HBox hBox = new HBox();
+        hBox.setStyle(Styler.getColorfullStyle(BACKGROUND, "#EF47FF"));
+        FxUtils.setWidth(hBox, GRID_WIDTH);
+        hBox.getChildren().add(label);
+        return hBox;
     }
 
     private Node getFilmGridNode(List<Film> films) {
@@ -63,7 +81,9 @@ public class ViewingHistoryController implements SectionController {
     private Node getFilmNode(Film film, int blockWidth) {
         Label nameLabel = new Label(film.getTitleAndYear());
         FxUtils.setWidth(nameLabel, blockWidth);
+        FxUtils.setHeight(nameLabel, 50);
         nameLabel.setWrapText(true);
+        nameLabel.setTextAlignment(TextAlignment.CENTER);
         nameLabel.setAlignment(Pos.BASELINE_CENTER);
 
         VBox vBox = new VBox();
@@ -72,27 +92,22 @@ public class ViewingHistoryController implements SectionController {
                 nameLabel,
                 getPaneWithHeight(10));
 
-//        if (author.getImageName() != null) {
-//            vBox.getChildren().addAll(
-//                    placeImageInSquare(new ImageView(getImageContainer(author).getImage()), blockWidth),
-//                    getPaneWithHeight(10));
-//        }
-//
-//        for (Book book : BookService.find(author, getStringToSearchBook(author))) {
-//            Label label = new Label(book.getListInfo());
-//
-//            label.setStyle(label.getStyle() + Styler.getColorfullStyle(BACKGROUND, book.getGrade().getColor()));
-//            label.setWrapText(true);
-//            label.setMaxWidth(blockWidth);
-//
-//            label.setContextMenu(getBookContextMenu(book, author));
-//            vBox.getChildren().addAll(label, getPaneWithHeight(10));
-//        }
+        if (PosterFileManager.filmHasPoster(film)) {
+            ImageView imageView = new ImageView(PosterFileManager.getPoster(film).getImage());
+            setImageWidthPreservingRatio(imageView, blockWidth);
+            vBox.getChildren().addAll(imageView, getPaneWithHeight(10));
+        }
 
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(getPaneWithWidth(10), vBox, getPaneWithWidth(10));
-        hBox.setStyle(Styler.getBlackBorderStyle());
-        setHoverStyle(hBox, getColorfullStyle(BACKGROUND, "#EF47FF"));
+        hBox.getChildren().add(vBox);
+        hBox.setOnContextMenuRequested(event -> showContextMenu(event, hBox, film));
         return hBox;
+    }
+
+    private void showContextMenu(ContextMenuEvent event, Node node, Film film) {
+        ContextMenu contextMenu = new ContextMenu();
+        contextMenu.getItems().add(getEditItem(film, this::updateContent));
+        contextMenu.getItems().add(getLoadPosterItem(film, this::updateContent));
+        contextMenu.show(node, event.getScreenX(), event.getScreenY());
     }
 }
