@@ -16,12 +16,12 @@ public class PosterLoader {
 
         System.out.println(film.getTitle());
         try {
-            FilmResponse response = FilmLoader.loadFilm(film);
+            FilmResponse response = SpecificFilmLoader.loadFilm(film);
             String url = response.getPoster().getUrl();
             System.out.println(url);
             ImageDownloader.download(FILM_IMAGE_LOCATION, formImageFileName(film), url);
         } catch (Exception e) {
-            System.out.println("********* Не удалось загрузить фильм: " + e.getMessage());
+            System.out.println("********* Не удалось загрузить постер: " + e.getMessage());
         }
         System.out.println("\n\n\n");
 
