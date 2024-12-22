@@ -1,9 +1,9 @@
 package com.katyshevtseva.kikinotebook.core.films.web;
 
+import com.katyshevtseva.kikinotebook.core.films.web.exception.FailedToLoadFilmsException;
 import com.katyshevtseva.kikinotebook.core.films.web.model.FilmArrayResponse;
 import com.katyshevtseva.web.HttpHelper;
 import com.katyshevtseva.web.Response;
-import com.katyshevtseva.web.WebException;
 
 import static com.katyshevtseva.web.WebUtils.encodeStringUTF8;
 
@@ -18,7 +18,7 @@ public class FilmSearchEngine {
         if (response.codeIsPositive()) {
             return response.parceBody(FilmArrayResponse.class);
         } else {
-            throw new WebException("Не удалось загрузить фильмы");
+            throw new FailedToLoadFilmsException("Не удалось загрузить фильмы");
         }
     }
 }

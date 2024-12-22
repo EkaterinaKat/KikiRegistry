@@ -26,6 +26,10 @@ public class Film {
     @Temporal(TemporalType.DATE)
     private List<Date> dates;
 
+    @Column(name = "poster_state")
+    @Enumerated(EnumType.STRING)
+    private PosterState posterState;
+
     //first viewed after date fixation started or just NEW
     //то есть если true первая дата из dates это дата моего первого просмотра этого фильма
     // если false первая дата из dates не является датой первого просмотра

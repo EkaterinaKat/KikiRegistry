@@ -3,6 +3,7 @@ package com.katyshevtseva.kikinotebook.core.films;
 import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,6 +19,7 @@ public class FilmsService {
         if (existing == null) {
             existing = new Film();
             existing.setTitle(title);
+            existing.setPosterState(PosterState.NOT_LOADED);
             existing.setYear(year);
             existing.setGrade(grade);
             existing.setFvadfs(fvadfs);
@@ -50,5 +52,10 @@ public class FilmsService {
         } else {
             throw new RuntimeException();
         }
+    }
+
+    public static void updatePosterState(Film film, PosterState posterState) {
+        film.setPosterState(posterState);
+        Dao.saveEdited(film);
     }
 }
