@@ -38,6 +38,13 @@ public class FilmsService {
                 .stream().sorted(Comparator.comparing(Film::getTitle)).collect(Collectors.toList());
     }
 
+    public static List<Film> getAllFilms() {
+        return Dao.getAllFilms()
+                .stream()
+                .sorted(Comparator.comparing(Film::getTitle))
+                .collect(Collectors.toList());
+    }
+
     public static void addDate(Film film, Date date) {
         if (film.getDates() == null) {
             film.setDates(new ArrayList<>());

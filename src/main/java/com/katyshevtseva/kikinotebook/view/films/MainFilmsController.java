@@ -33,7 +33,9 @@ public class MainFilmsController extends AbstractSwitchController implements Sec
                 new Section("Statistics", new StatisticsController(),
                         controller -> WindowBuilder.getNode(FILM_STATISTICS, controller)),
                 new Section("Viewing history", new ViewingHistoryController(),
-                        controller -> WindowBuilder.getNode(VIEWING_HISTORY, controller)));
+                        controller -> WindowBuilder.getNode(VIEWING_HISTORY, controller)),
+                new Section("All films", new AllFilmsController(),
+                        controller -> WindowBuilder.getNode(ALL_FILMS, controller)));
     }
 
     private void placeButton(Button button) {

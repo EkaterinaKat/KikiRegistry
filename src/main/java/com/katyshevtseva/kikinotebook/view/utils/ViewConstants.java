@@ -33,6 +33,7 @@ public class ViewConstants {
         FILM_LISTS("/fxml/films/film_lists.fxml"),
         FILM_STATISTICS("/fxml/vbox_container.fxml"),
         VIEWING_HISTORY("/fxml/films/viewing_history.fxml"),
+        ALL_FILMS("/fxml/films/all_films.fxml"),
         // MUSIC
         ALBUMS("/fxml/music/albums.fxml"),
         SINGERS_AND_GENRES("/fxml/music/singers_and_genres.fxml");
