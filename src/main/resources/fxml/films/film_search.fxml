@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx">
+
+    <Pane minHeight="30" maxHeight="30"/>
+
+    <HBox>
+        <Pane minWidth="30" maxWidth="30"/>
+        <TextField fx:id="searchTextField" prefWidth="300"/>
+        <Pane minWidth="15" maxWidth="15"/>
+        <Button fx:id="searchButton" text="Search"/>
+    </HBox>
+
+    <Pane minHeight="30" maxHeight="30"/>
+
+    <ScrollPane prefWidth="980" minHeight="650" maxHeight="650">
+        <HBox>
+            <Pane minWidth="30" maxWidth="30"/>
+            <Pane fx:id="contentPane" styleClass="black_border" minWidth="920" maxWidth="920"/>
+        </HBox>
+    </ScrollPane>
+
+</VBox>

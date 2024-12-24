@@ -1,10 +1,13 @@
 package com.katyshevtseva.kikinotebook.view.films;
 
+import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.dialogconstructor.*;
 import com.katyshevtseva.general.NoArgsKnob;
+import com.katyshevtseva.kikinotebook.core.films.FilmToWatchService;
 import com.katyshevtseva.kikinotebook.core.films.FilmsService;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.films.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.films.web.PosterLoader;
 import javafx.scene.control.MenuItem;
 
@@ -14,12 +17,12 @@ import java.util.Date;
 public class FilmMenuManager {
 
     static MenuItem getLoadPosterItem(Film film, NoArgsKnob knob) {
-        MenuItem editItem = new MenuItem("Load poster");
-        editItem.setOnAction(event1 -> {
+        MenuItem loadPosterItem = new MenuItem("Load poster");
+        loadPosterItem.setOnAction(event1 -> {
             PosterLoader.loadPoster(film);
             knob.execute();
         });
-        return editItem;
+        return loadPosterItem;
     }
 
     static MenuItem getEditItem(Film film, NoArgsKnob knob) {
@@ -54,5 +57,25 @@ public class FilmMenuManager {
             FilmsService.save(film, titleField.getValue(), year1, gradeDcComboBox.getValue(), fvadfsBox.getValue());
             knob.execute();
         }, titleField, yearField, gradeDcComboBox, fvadfsBox);
+    }
+
+    static MenuItem getLoadPosterItem(FilmToWatch film, NoArgsKnob knob) {
+        MenuItem loadPosterItem = new MenuItem("Load poster");
+        loadPosterItem.setOnAction(event1 -> {
+            PosterLoader.loadPoster(film);
+            knob.execute();
+        });
+        return loadPosterItem;
+    }
+
+    static MenuItem getDeleteItem(FilmToWatch film, NoArgsKnob knob) {
+        MenuItem deleteItem = new MenuItem("Delete");
+        deleteItem.setOnAction(event1 -> new StandardDialogBuilder().openQuestionDialog("Delete?", b -> {
+            if (b) {
+                FilmToWatchService.delete(film);
+                knob.execute();
+            }
+        }));
+        return deleteItem;
     }
 }

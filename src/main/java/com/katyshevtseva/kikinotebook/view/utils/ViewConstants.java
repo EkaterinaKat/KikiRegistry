@@ -11,6 +11,7 @@ public class ViewConstants {
     public enum NotebookDialogInfo implements WindowBuilder.DialogInfo {
         MAIN("/fxml/main.fxml", new Size(1000, 1700), CoreConstants.APP_NAME),
         AUTHOR_DIALOG("/fxml/books/author_dialog.fxml", new Size(500, 700), "Author edit"),
+        FILM_SEARCH_DIALOG("/fxml/films/film_search.fxml", new Size(800, 1000), "Film search"),
         ALBUM_DIALOG("/fxml/music/album_dialog.fxml", new Size(800, 1400), "Album edit");
 
         private final String fullFileName;
@@ -34,6 +35,7 @@ public class ViewConstants {
         FILM_STATISTICS("/fxml/vbox_container.fxml"),
         VIEWING_HISTORY("/fxml/films/viewing_history.fxml"),
         ALL_FILMS("/fxml/films/all_films.fxml"),
+        TO_WATCH("/fxml/films/to_watch.fxml"),
         // MUSIC
         ALBUMS("/fxml/music/albums.fxml"),
         SINGERS_AND_GENRES("/fxml/music/singers_and_genres.fxml");

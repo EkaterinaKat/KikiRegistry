@@ -5,7 +5,9 @@ import com.katyshevtseva.hibernate.CoreDao;
 import com.katyshevtseva.kikinotebook.core.books.model.Author;
 import com.katyshevtseva.kikinotebook.core.books.model.Book;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.FilmGenre;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.films.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.music.entity.Album;
 import com.katyshevtseva.kikinotebook.core.music.entity.Genre;
 import com.katyshevtseva.kikinotebook.core.music.entity.Singer;
@@ -33,6 +35,10 @@ public class Dao {
         coreDao.delete(t);
     }
 
+    public static <T> Long saveNewAndGetId(T t) {
+        return (Long) coreDao.saveNewAndGetId(t);
+    }
+
     /////////////////////////////////////////////// MUSIC ///////////////////////////////////////////////
 
     public static List<Album> getAllAlbum() {
@@ -51,6 +57,30 @@ public class Dao {
 
     public static List<Film> getAllFilms() {
         return coreDao.getAll(Film.class.getSimpleName());
+    }
+
+    public static List<FilmGenre> getAllFilmGenres() {
+        return coreDao.getAll(FilmGenre.class.getSimpleName());
+    }
+
+    public static List<FilmToWatch> getAllFilmsToWatch() {
+        return coreDao.getAll(FilmToWatch.class.getSimpleName());
+    }
+
+    public static FilmGenre findFilmGenreByTitle(String title) {
+        List<FilmGenre> genres = coreDao.find(FilmGenre.class, Restrictions.eq("title", title));
+        if (genres.size() > 1) {
+            throw new RuntimeException("Более одно жанра в бд имеют одинаковые названия");
+        }
+        return genres.isEmpty() ? null : genres.get(0);
+    }
+
+    public static FilmGenre saveNewGenre(FilmGenre genre) {
+        return coreDao.saveNewAndGetResult(FilmGenre.class, genre);
+    }
+
+    public static FilmToWatch saveNewToWatchFilm(FilmToWatch film) {
+        return coreDao.saveNewAndGetResult(FilmToWatch.class, film);
     }
 
     public static List<Film> findFilms(FilmGrade grade, String searchString) {

@@ -1,5 +1,6 @@
 package com.katyshevtseva.kikinotebook.core.films.model;
 
+import com.katyshevtseva.hibernate.HasId;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Film {
+public class Film implements HasId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

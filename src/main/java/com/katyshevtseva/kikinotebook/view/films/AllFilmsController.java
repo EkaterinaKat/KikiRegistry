@@ -8,7 +8,6 @@ import com.katyshevtseva.kikinotebook.core.films.FilmsService;
 import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
-import com.katyshevtseva.kikinotebook.core.films.web.PosterLoader;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -33,7 +32,6 @@ public class AllFilmsController implements SectionController {
     private static final int GRID_WIDTH = 1200;
     @FXML
     private VBox contentPane;
-
 
     @FXML
     private void initialize() {
