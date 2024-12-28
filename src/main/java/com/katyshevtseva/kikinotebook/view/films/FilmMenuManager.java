@@ -78,4 +78,29 @@ public class FilmMenuManager {
         }));
         return deleteItem;
     }
+
+    static MenuItem getCreateWatchedFilmItem(FilmToWatch film, NoArgsKnob knob) {
+        MenuItem item = new MenuItem("Create watched film");
+        item.setOnAction(event1 -> openFilmTransferDialog(film, knob));
+        return item;
+    }
+
+    static void openFilmTransferDialog(FilmToWatch film, NoArgsKnob knob) {
+        DcTextField titleField = new DcTextField(true, film.getTitle());
+        DcNumField yearField = new DcNumField(true, film.getYear().longValue());
+        DcComboBox<FilmGrade> gradeDcComboBox = new DcComboBox<>(
+                true, null, Arrays.asList(FilmGrade.values()));
+        DcCheckBox fvadfsBox = new DcCheckBox(true, "NEW");
+
+        DialogConstructor.constructDialog(() -> {
+            FilmsService.saveTransferredFilm(
+                    film,
+                    titleField.getValue(),
+                    yearField.getValue().intValue(),
+                    gradeDcComboBox.getValue(),
+                    fvadfsBox.getValue());
+            FilmToWatchService.delete(film);
+            knob.execute();
+        }, titleField, yearField, gradeDcComboBox, fvadfsBox);
+    }
 }

@@ -45,6 +45,11 @@ public class FilmListsController implements SectionController {
         updateContent();
     }
 
+    @Override
+    public void update() {
+        updateContent();
+    }
+
     private void adjustFilmsPane() {
         int gridColumnWidth = 210;
         Size gridColumnSize = new Size(780, gridColumnWidth);

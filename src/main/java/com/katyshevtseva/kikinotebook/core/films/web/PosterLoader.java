@@ -10,8 +10,7 @@ import com.katyshevtseva.kikinotebook.core.films.web.model.FilmResponse;
 import com.katyshevtseva.web.ImageDownloader;
 
 import static com.katyshevtseva.kikinotebook.core.films.FilmsService.updatePosterState;
-import static com.katyshevtseva.kikinotebook.core.films.PosterFileManager.FILM_IMAGE_LOCATION;
-import static com.katyshevtseva.kikinotebook.core.films.PosterFileManager.formImageFileName;
+import static com.katyshevtseva.kikinotebook.core.films.PosterFileManager.*;
 import static com.katyshevtseva.kikinotebook.core.films.model.PosterState.*;
 
 public class PosterLoader {
@@ -24,7 +23,7 @@ public class PosterLoader {
         System.out.println(filmToWatch.getTitle());
         try {
             System.out.println(filmToWatch.getPosterUrl());
-            ImageDownloader.download(FILM_IMAGE_LOCATION, formImageFileName(filmToWatch), filmToWatch.getPosterUrl());
+            ImageDownloader.download(TO_WATCH_FILM_IMAGE_LOCATION, formImageFileName(filmToWatch), filmToWatch.getPosterUrl());
             FilmToWatchService.updatePosterState(filmToWatch, LOADED);
         } catch (Exception e) {
             System.out.println("Some other exception");

@@ -23,8 +23,7 @@ import java.util.List;
 
 import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
 import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
-import static com.katyshevtseva.kikinotebook.view.films.FilmMenuManager.getDeleteItem;
-import static com.katyshevtseva.kikinotebook.view.films.FilmMenuManager.getLoadPosterItem;
+import static com.katyshevtseva.kikinotebook.view.films.FilmMenuManager.*;
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.FILM_SEARCH_DIALOG;
 
 public class ToWatchController implements SectionController {
@@ -87,6 +86,7 @@ public class ToWatchController implements SectionController {
         ContextMenu contextMenu = new ContextMenu();
         contextMenu.getItems().add(getLoadPosterItem(film, this::updateContent));
         contextMenu.getItems().add(getDeleteItem(film, this::updateContent));
+        contextMenu.getItems().add(getCreateWatchedFilmItem(film, this::updateContent));
         contextMenu.show(node, event.getScreenX(), event.getScreenY());
     }
 }

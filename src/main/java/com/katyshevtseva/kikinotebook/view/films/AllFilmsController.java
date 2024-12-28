@@ -7,7 +7,6 @@ import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.kikinotebook.core.films.FilmsService;
 import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
-import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -19,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +43,8 @@ public class AllFilmsController implements SectionController {
         System.out.println("Total: " + films.size());
         List<Film> filteredList = films
                 .stream()
-                .filter(film -> film.getPosterState() != PosterState.LOADED)
+                .sorted(Comparator.comparing(Film::getId))
+//                .filter(film -> film.getPosterState() != PosterState.LOADED)
 //                .peek(PosterLoader::loadPoster)
                 .collect(Collectors.toList());
         System.out.println("Filtered: " + filteredList.size());

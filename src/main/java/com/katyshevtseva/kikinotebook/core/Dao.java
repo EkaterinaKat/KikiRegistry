@@ -2,6 +2,7 @@ package com.katyshevtseva.kikinotebook.core;
 
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.hibernate.CoreDao;
+import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.books.model.Author;
 import com.katyshevtseva.kikinotebook.core.books.model.Book;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
@@ -37,6 +38,10 @@ public class Dao {
 
     public static <T> Long saveNewAndGetId(T t) {
         return (Long) coreDao.saveNewAndGetId(t);
+    }
+
+    public static <T extends HasId> T saveNewAndGetResult(Class<T> tClass, T entity) {
+        return coreDao.saveNewAndGetResult(tClass, entity);
     }
 
     /////////////////////////////////////////////// MUSIC ///////////////////////////////////////////////
