@@ -5,6 +5,7 @@ import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.switchcontroller.AbstractSwitchController;
 import com.katyshevtseva.fx.switchcontroller.Section;
+import com.katyshevtseva.kikinotebook.core.NbLogger;
 import com.katyshevtseva.kikinotebook.view.books.MainBooksController;
 import com.katyshevtseva.kikinotebook.view.films.MainFilmsController;
 import com.katyshevtseva.kikinotebook.view.music.MainMusicController;
@@ -27,6 +28,7 @@ public class MainController extends AbstractSwitchController implements FxContro
 
     @FXML
     private void initialize() {
+        NbLogger.log("********* Started *********");
         init(getSections(), mainPane, this::placeButton);
     }
 

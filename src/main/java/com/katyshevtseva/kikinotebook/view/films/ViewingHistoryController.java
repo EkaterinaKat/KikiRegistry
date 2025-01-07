@@ -48,6 +48,11 @@ public class ViewingHistoryController implements SectionController {
         new YearPicker(leftArrow, yearLabel, rightArrow, this::onYearSelected);
     }
 
+    @Override
+    public void update() {
+        updateContent();
+    }
+
     private void onYearSelected(Integer year) {
         this.year = year;
         updateContent();
@@ -79,7 +84,7 @@ public class ViewingHistoryController implements SectionController {
     }
 
     private Node getFilmNode(Film film, int blockWidth) {
-        Label nameLabel = new Label(film.getTitleAndYear());
+        Label nameLabel = new Label(film.getTitleAndDates());
         FxUtils.setWidth(nameLabel, blockWidth);
         FxUtils.setHeight(nameLabel, 50);
         nameLabel.setWrapText(true);

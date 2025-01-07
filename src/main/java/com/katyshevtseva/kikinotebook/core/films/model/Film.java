@@ -1,5 +1,6 @@
 package com.katyshevtseva.kikinotebook.core.films.model;
 
+import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.hibernate.HasId;
 import lombok.Data;
 
@@ -40,5 +41,13 @@ public class Film implements HasId {
         if (year == null)
             return title;
         return title + "\n(" + year + ")";
+    }
+
+    public String getTitleAndDates() {
+        StringBuilder stringBuilder = new StringBuilder(title).append(" [");
+        for (Date date : dates) {
+            stringBuilder.append(DateUtils.READABLE_DATE_FORMAT.format(date)).append(", ");
+        }
+        return stringBuilder.append("]").toString();
     }
 }

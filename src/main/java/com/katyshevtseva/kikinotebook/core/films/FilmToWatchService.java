@@ -9,7 +9,10 @@ import com.katyshevtseva.kikinotebook.core.films.web.model.FilmResponse;
 import com.katyshevtseva.kikinotebook.core.films.web.model.GenreResponse;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FilmToWatchService {
 
@@ -22,7 +25,8 @@ public class FilmToWatchService {
                 genres,
                 response.getMovieLength(),
                 PosterState.NOT_LOADED,
-                response.getPoster().getUrl()
+                response.getPoster().getUrl(),
+                new Date()
         ));
         PosterLoader.loadPoster(filmToWatch);
     }
@@ -43,7 +47,9 @@ public class FilmToWatchService {
     }
 
     public static List<FilmToWatch> getFilmsToWatch() {
-        return Dao.getAllFilmsToWatch();
+        return Dao.getAllFilmsToWatch().stream()
+                .sorted(Comparator.comparing(FilmToWatch::getId).reversed())
+                .collect(Collectors.toList());
     }
 
     public static void updatePosterState(FilmToWatch film, PosterState posterState) {

@@ -1,10 +1,12 @@
 package com.katyshevtseva.kikinotebook.core.films.model;
 
+import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.hibernate.HasId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 import static com.katyshevtseva.time.TimeUtil.getTimeStringByMinutes;
@@ -38,8 +40,12 @@ public class FilmToWatch implements HasId {
 
     private String posterUrl;
 
+    @Column(name = "adding_date")
+    @Temporal(TemporalType.DATE)
+    private Date addingDate;
+
     public FilmToWatch(String title, Integer year, String description, List<FilmGenre> genres, Integer length,
-                       PosterState posterState, String posterUrl) {
+                       PosterState posterState, String posterUrl, Date addingDate) {
         this.title = title;
         this.year = year;
         this.description = description;
@@ -47,6 +53,7 @@ public class FilmToWatch implements HasId {
         this.length = length;
         this.posterState = posterState;
         this.posterUrl = posterUrl;
+        this.addingDate = addingDate;
     }
 
     public String getTitleAndYear() {
@@ -57,6 +64,7 @@ public class FilmToWatch implements HasId {
         return title + "\n(" + year + ")"
                 + "\n\n" + description
                 + "\n\n" + genres
-                + "\n" + getTimeStringByMinutes(length);
+                + "\n" + getTimeStringByMinutes(length)
+                + "\n" + "Добавлено: " + DateUtils.READABLE_DATE_FORMAT.format(addingDate);
     }
 }
