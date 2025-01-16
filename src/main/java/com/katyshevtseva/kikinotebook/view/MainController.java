@@ -1,10 +1,9 @@
 package com.katyshevtseva.kikinotebook.view;
 
 import com.katyshevtseva.fx.FxUtils;
-import com.katyshevtseva.fx.WindowBuilder;
-import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.switchcontroller.AbstractSwitchController;
 import com.katyshevtseva.fx.switchcontroller.Section;
+import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.kikinotebook.core.NbLogger;
 import com.katyshevtseva.kikinotebook.view.books.MainBooksController;
 import com.katyshevtseva.kikinotebook.view.films.MainFilmsController;
@@ -18,9 +17,9 @@ import javafx.scene.layout.VBox;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.*;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.*;
 
-public class MainController extends AbstractSwitchController implements FxController {
+public class MainController extends AbstractSwitchController implements WindowBuilder.FxController {
     @FXML
     private Pane mainPane;
     @FXML
@@ -35,13 +34,13 @@ public class MainController extends AbstractSwitchController implements FxContro
     private List<Section> getSections() {
         return Arrays.asList(
                 new Section("Films", new MainFilmsController(),
-                        controller -> WindowBuilder.getNode(SECTION_MAIN, controller)),
+                        controller -> WindowBuilder.getNode(SECTION_MAIN_NODE, controller)),
                 new Section("Music", new MainMusicController(),
-                        controller -> WindowBuilder.getNode(SECTION_MAIN, controller)),
+                        controller -> WindowBuilder.getNode(SECTION_MAIN_NODE, controller)),
                 new Section("Series", new MainSeriesController(),
-                        controller -> WindowBuilder.getNode(SERIES, controller)),
+                        controller -> WindowBuilder.getNode(SERIES_NODE, controller)),
                 new Section("Books", new MainBooksController(),
-                        controller -> WindowBuilder.getNode(BOOKS, controller)));
+                        controller -> WindowBuilder.getNode(BOOKS_NODE, controller)));
     }
 
     private void placeButton(Button button) {

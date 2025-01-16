@@ -1,49 +1,30 @@
 package com.katyshevtseva.kikinotebook.view.utils;
 
 import com.katyshevtseva.fx.Size;
-import com.katyshevtseva.fx.WindowBuilder;
+import com.katyshevtseva.fx.windowbuilder.DialogInfo;
+import com.katyshevtseva.fx.windowbuilder.NodeInfo;
 import com.katyshevtseva.kikinotebook.core.CoreConstants;
-import lombok.Getter;
 
 public class ViewConstants {
+    public static final DialogInfo MAIN_DIALOG = new DialogInfo(
+            "/fxml/main.fxml", new Size(1000, 1700), CoreConstants.APP_NAME);
+    public static final DialogInfo AUTHOR_DIALOG =
+            new DialogInfo("/fxml/books/author_dialog.fxml", new Size(500, 700), "Author edit");
+    public static final DialogInfo FILM_SEARCH_DIALOG =
+            new DialogInfo("/fxml/films/film_search.fxml", new Size(800, 1000), "Film search");
+    public static final DialogInfo ALBUM_DIALOG =
+            new DialogInfo("/fxml/music/album_dialog.fxml", new Size(800, 1400), "Album edit");
 
-    @Getter
-    public enum NotebookDialogInfo implements WindowBuilder.DialogInfo {
-        MAIN("/fxml/main.fxml", new Size(1000, 1700), CoreConstants.APP_NAME),
-        AUTHOR_DIALOG("/fxml/books/author_dialog.fxml", new Size(500, 700), "Author edit"),
-        FILM_SEARCH_DIALOG("/fxml/films/film_search.fxml", new Size(800, 1000), "Film search"),
-        ALBUM_DIALOG("/fxml/music/album_dialog.fxml", new Size(800, 1400), "Album edit");
-
-        private final String fullFileName;
-        private final Size size;
-        private final String title;
-
-        NotebookDialogInfo(String fullFileName, Size size, String title) {
-            this.fullFileName = fullFileName;
-            this.size = size;
-            this.title = title;
-        }
-    }
-
-    @Getter
-    public enum NotebookNodeInfo implements WindowBuilder.NodeInfo {
-        SECTION_MAIN("/fxml/section_main.fxml"),
-        BOOKS("/fxml/books/main_books.fxml"),
-        SERIES("/fxml/series/main_series.fxml"),
-        // FILMS
-        FILM_LISTS("/fxml/films/film_lists.fxml"),
-        FILM_STATISTICS("/fxml/vbox_container.fxml"),
-        VIEWING_HISTORY("/fxml/films/viewing_history.fxml"),
-        ALL_FILMS("/fxml/films/all_films.fxml"),
-        TO_WATCH("/fxml/films/to_watch.fxml"),
-        // MUSIC
-        ALBUMS("/fxml/music/albums.fxml"),
-        SINGERS_AND_GENRES("/fxml/music/singers_and_genres.fxml");
-
-        private final String fullFileName;
-
-        NotebookNodeInfo(String fullFileName) {
-            this.fullFileName = fullFileName;
-        }
-    }
+    public static final NodeInfo SECTION_MAIN_NODE = new NodeInfo("/fxml/section_main.fxml");
+    public static final NodeInfo BOOKS_NODE = new NodeInfo("/fxml/books/main_books.fxml");
+    public static final NodeInfo SERIES_NODE = new NodeInfo("/fxml/series/main_series.fxml");
+    // FILMS
+    public static final NodeInfo FILM_LISTS_NODE = new NodeInfo("/fxml/films/film_lists.fxml");
+    public static final NodeInfo FILM_STATISTICS_NODE = new NodeInfo("/fxml/vbox_container.fxml");
+    public static final NodeInfo VIEWING_HISTORY_NODE = new NodeInfo("/fxml/films/viewing_history.fxml");
+    public static final NodeInfo ALL_FILMS_NODE = new NodeInfo("/fxml/films/all_films.fxml");
+    public static final NodeInfo TO_WATCH_NODE = new NodeInfo("/fxml/films/to_watch.fxml");
+    // MUSIC
+    public static final NodeInfo ALBUMS_NODE = new NodeInfo("/fxml/music/albums.fxml");
+    public static final NodeInfo SINGERS_AND_GENRES_NODE = new NodeInfo("/fxml/music/singers_and_genres.fxml");
 }

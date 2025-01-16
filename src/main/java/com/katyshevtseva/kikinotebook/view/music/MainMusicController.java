@@ -1,10 +1,10 @@
 package com.katyshevtseva.kikinotebook.view.music;
 
 import com.katyshevtseva.fx.FxUtils;
-import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.switchcontroller.AbstractSwitchController;
 import com.katyshevtseva.fx.switchcontroller.Section;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
+import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -13,8 +13,8 @@ import javafx.scene.layout.Pane;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.ALBUMS;
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookNodeInfo.SINGERS_AND_GENRES;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.ALBUMS_NODE;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.SINGERS_AND_GENRES_NODE;
 
 public class MainMusicController extends AbstractSwitchController implements SectionController {
     @FXML
@@ -30,9 +30,9 @@ public class MainMusicController extends AbstractSwitchController implements Sec
     private List<Section> getSections() {
         return Arrays.asList(
                 new Section("Albums", new AlbumsController(),
-                        controller -> WindowBuilder.getNode(ALBUMS, controller)),
+                        controller -> WindowBuilder.getNode(ALBUMS_NODE, controller)),
                 new Section("Singers and Genres", new SingersAndGenresController(),
-                        controller -> WindowBuilder.getNode(SINGERS_AND_GENRES, controller)));
+                        controller -> WindowBuilder.getNode(SINGERS_AND_GENRES_NODE, controller)));
     }
 
     private void placeButton(Button button) {

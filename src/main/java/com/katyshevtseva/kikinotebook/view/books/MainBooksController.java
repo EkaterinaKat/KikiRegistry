@@ -3,7 +3,6 @@ package com.katyshevtseva.kikinotebook.view.books;
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.Styler;
-import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.dialogconstructor.DcComboBox;
@@ -11,6 +10,7 @@ import com.katyshevtseva.fx.dialogconstructor.DcDatePicker;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
+import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.kikinotebook.core.books.AuthorService;
 import com.katyshevtseva.kikinotebook.core.books.BookService;
@@ -37,7 +37,7 @@ import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
 import static com.katyshevtseva.fx.Styler.getColorfullStyle;
 import static com.katyshevtseva.fx.Styler.setHoverStyle;
 import static com.katyshevtseva.kikinotebook.view.books.AuthorImageUtils.getImageContainer;
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.AUTHOR_DIALOG;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.AUTHOR_DIALOG;
 
 public class MainBooksController implements SectionController {
     private static final Size GRID_SIZE = new Size(850, 1300);

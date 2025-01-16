@@ -2,10 +2,10 @@ package com.katyshevtseva.kikinotebook.view.films;
 
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.Styler;
-import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController2;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
+import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.kikinotebook.core.films.FilmToWatchService;
 import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmToWatch;
@@ -24,7 +24,7 @@ import java.util.List;
 import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
 import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
 import static com.katyshevtseva.kikinotebook.view.films.FilmMenuManager.*;
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.FILM_SEARCH_DIALOG;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.FILM_SEARCH_DIALOG;
 
 public class ToWatchController implements SectionController {
     private static final int POSTER_WIDTH = 200;

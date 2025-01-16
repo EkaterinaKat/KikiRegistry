@@ -1,9 +1,9 @@
 package com.katyshevtseva.kikinotebook.view.films;
 
 import com.katyshevtseva.fx.FxUtils;
-import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController2;
+import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.kikinotebook.core.films.FilmSearchService;

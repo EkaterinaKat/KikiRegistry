@@ -3,10 +3,10 @@ package com.katyshevtseva.kikinotebook.view.music;
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.Styler;
-import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
+import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.kikinotebook.core.music.MusicService;
 import com.katyshevtseva.kikinotebook.core.music.entity.Album;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ import static com.katyshevtseva.fx.ImageSizeUtil.placeImageInSquare;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
 import static com.katyshevtseva.fx.Styler.getColorfullStyle;
 import static com.katyshevtseva.kikinotebook.view.music.AlbumImageUtils.getImageContainer;
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.NotebookDialogInfo.ALBUM_DIALOG;
+import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.ALBUM_DIALOG;
 
 public class AlbumsController implements SectionController {
     private static final Size GRID_SIZE = new Size(830, 1300);

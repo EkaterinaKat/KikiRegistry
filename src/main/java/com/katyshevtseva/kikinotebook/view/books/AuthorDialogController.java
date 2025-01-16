@@ -1,8 +1,8 @@
 package com.katyshevtseva.kikinotebook.view.books;
 
 import com.katyshevtseva.fx.FxImageCreationUtil;
-import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
+import com.katyshevtseva.fx.windowbuilder.WindowBuilder.FxController;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.image.ImageContainer;
 import com.katyshevtseva.kikinotebook.core.books.AuthorService;
