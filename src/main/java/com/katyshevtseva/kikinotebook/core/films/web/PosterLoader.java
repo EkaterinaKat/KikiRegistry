@@ -57,4 +57,21 @@ public class PosterLoader {
         System.out.println("\n\n");
 
     }
+
+    public static void loadPosterBySavedUrl(Film film) {
+        if (film.getPosterState() == PosterState.LOADED) {
+            return;
+        }
+
+        System.out.println(film.getTitle());
+        try {
+            ImageDownloader.download(FILM_IMAGE_LOCATION, formImageFileName(film), film.getPosterUrl());
+            updatePosterState(film, LOADED);
+        } catch (Exception e) {
+            System.out.println("Some other exception");
+            updatePosterState(film, OTHER_ERROR);
+        }
+        System.out.println("\n\n");
+
+    }
 }

@@ -87,7 +87,9 @@ public class FilmMenuManager {
 
     static void openFilmTransferDialog(FilmToWatch film, NoArgsKnob knob) {
         DcTextField titleField = new DcTextField(true, film.getTitle());
+        titleField.setDisabled(true);
         DcNumField yearField = new DcNumField(true, film.getYear().longValue());
+        yearField.setDisabled(true);
         DcComboBox<FilmGrade> gradeDcComboBox = new DcComboBox<>(
                 true, null, Arrays.asList(FilmGrade.values()));
         DcCheckBox fvadfsBox = new DcCheckBox(true, "NEW");
@@ -95,8 +97,6 @@ public class FilmMenuManager {
         DialogConstructor.constructDialog(() -> {
             FilmsService.saveTransferredFilm(
                     film,
-                    titleField.getValue(),
-                    yearField.getValue().intValue(),
                     gradeDcComboBox.getValue(),
                     fvadfsBox.getValue());
             FilmToWatchService.delete(film);

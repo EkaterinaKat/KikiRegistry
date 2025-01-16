@@ -3,7 +3,6 @@ package com.katyshevtseva.kikinotebook.core.films.model;
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.hibernate.HasId;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,11 +12,12 @@ import static com.katyshevtseva.time.TimeUtil.getTimeStringByMinutes;
 
 @Data
 @Entity
-@NoArgsConstructor
 public class FilmToWatch implements HasId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long kpId;
 
     private String title;
 
@@ -44,8 +44,13 @@ public class FilmToWatch implements HasId {
     @Temporal(TemporalType.DATE)
     private Date addingDate;
 
-    public FilmToWatch(String title, Integer year, String description, List<FilmGenre> genres, Integer length,
+    public FilmToWatch() {
+
+    }
+
+    public FilmToWatch(Long kpId, String title, Integer year, String description, List<FilmGenre> genres, Integer length,
                        PosterState posterState, String posterUrl, Date addingDate) {
+        this.kpId = kpId;
         this.title = title;
         this.year = year;
         this.description = description;
@@ -61,10 +66,10 @@ public class FilmToWatch implements HasId {
     }
 
     public String getFullDesc() {
-        return title + "\n(" + year + ")"
-                + "\n\n" + description
+        return title + " (" + year + ")"
                 + "\n\n" + genres
                 + "\n" + getTimeStringByMinutes(length)
-                + "\n" + "Добавлено: " + DateUtils.READABLE_DATE_FORMAT.format(addingDate);
+                + "\n\n" + description
+                + "\n\n" + "Добавлено: " + DateUtils.READABLE_DATE_FORMAT.format(addingDate);
     }
 }

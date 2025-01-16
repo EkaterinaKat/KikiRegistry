@@ -6,6 +6,7 @@ import java.util.List;
 
 @Data
 public class FilmResponse {
+    private Long id;
     private String name;
     private int year;
     private PosterResponse poster;

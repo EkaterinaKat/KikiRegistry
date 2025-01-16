@@ -18,7 +18,8 @@ public class SpecificFilmLoader {
     }
 
     private static boolean checkIfItSameFilm(Film film, FilmResponse filmResponse) {
-        return film.getTitle().equals(filmResponse.getName())
+        return film.getTitle().replaceAll("[^a-zA-Zа-яА-Я]", "")
+                .equalsIgnoreCase(filmResponse.getName().replaceAll("[^a-zA-Zа-яА-Я]", ""))
                 && film.getYear().equals(filmResponse.getYear());
     }
 }

@@ -19,6 +19,7 @@ public class FilmToWatchService {
     public static void saveToWatchFilm(FilmResponse response) {
         List<FilmGenre> genres = convertResponseGenresToEntity(response.getGenres());
         FilmToWatch filmToWatch = Dao.saveNewToWatchFilm(new FilmToWatch(
+                response.getId(),
                 response.getName(),
                 response.getYear(),
                 response.getDescription(),

@@ -34,16 +34,6 @@ public class FilmsService {
         }
     }
 
-    public static Film saveNew(String title, Integer year, FilmGrade grade, boolean fvadfs) {
-        Film existing = new Film();
-        existing.setTitle(title.trim());
-        existing.setPosterState(PosterState.NOT_LOADED);
-        existing.setYear(year);
-        existing.setGrade(grade);
-        existing.setFvadfs(fvadfs);
-        return Dao.saveNewAndGetResult(Film.class, existing);
-    }
-
     public static List<Film> getFilms(FilmGrade grade, String searchString) {
         return Dao.findFilms(grade, searchString)
                 .stream().sorted(Comparator.comparing(Film::getTitle)).collect(Collectors.toList());
@@ -78,11 +68,18 @@ public class FilmsService {
     }
 
     public static void saveTransferredFilm(FilmToWatch filmToWatch,
-                                           String title,
-                                           Integer year,
                                            FilmGrade grade,
                                            boolean newFilm) {
-        Film film = saveNew(title, year, grade, newFilm);
+        Film existing = new Film();
+        existing.setTitle(filmToWatch.getTitle());
+        existing.setPosterState(PosterState.NOT_LOADED);
+        existing.setYear(filmToWatch.getYear());
+        existing.setGrade(grade);
+        existing.setFvadfs(newFilm);
+        existing.setKpId(filmToWatch.getKpId());
+        existing.setPosterUrl(filmToWatch.getPosterUrl());
+
+        Film film = Dao.saveNewAndGetResult(Film.class, existing);
         PosterFileManager.transferPoster(filmToWatch, film);
     }
 }

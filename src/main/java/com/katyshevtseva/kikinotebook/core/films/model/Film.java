@@ -15,6 +15,10 @@ public class Film implements HasId {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long kpId;
+
+    private String posterUrl;
+
     private String title;
 
     private Integer year;
@@ -36,6 +40,9 @@ public class Film implements HasId {
     //то есть если true первая дата из dates это дата моего первого просмотра этого фильма
     // если false первая дата из dates не является датой первого просмотра
     public Boolean fvadfs;
+
+    public Film() {
+    }
 
     public String getTitleAndYear() {
         if (year == null)
