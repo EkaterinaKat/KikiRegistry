@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.view.films2;
+package com.katyshevtseva.kikinotebook.view.films;
 
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.switchcontroller.AbstractSwitchController;
@@ -28,16 +28,19 @@ public class MainFilmsController extends AbstractSwitchController implements Sec
 
     private List<Section> getSections() {
         return Arrays.asList(
-                new Section("Lists", new FilmListsController(),
-                        controller -> WindowBuilder.getNode(FILM_LISTS_NODE2, controller)),
+                new Section("Lists", new ListsController(),
+                        controller -> WindowBuilder.getNode(FILM_LISTS_NODE, controller)),
                 new Section("Statistics", new StatisticsController(),
-                        controller -> WindowBuilder.getNode(FILM_STATISTICS_NODE2, controller)),
+                        controller -> WindowBuilder.getNode(FILM_STATISTICS_NODE, controller)),
                 new Section("Viewing history", new ViewingHistoryController(),
-                        controller -> WindowBuilder.getNode(VIEWING_HISTORY_NODE2, controller)),
-                new Section("All films2", new AllFilmsController(),
-                        controller -> WindowBuilder.getNode(ALL_FILMS_NODE2, controller)),
+                        controller -> WindowBuilder.getNode(VIEWING_HISTORY_NODE, controller)),
+                new Section("All films", new AllFilmsController(),
+                        controller -> WindowBuilder.getNode(ALL_FILMS_NODE, controller)),
                 new Section("To watch", new ToWatchController(),
-                        controller -> WindowBuilder.getNode(TO_WATCH_NODE2, controller)));
+                        controller -> WindowBuilder.getNode(TO_WATCH_NODE, controller)),
+                new Section("Search", new SearchController(),
+                        controller -> WindowBuilder.getNode(FILM_SEARCH_NODE, controller))
+        );
     }
 
     private void placeButton(Button button) {

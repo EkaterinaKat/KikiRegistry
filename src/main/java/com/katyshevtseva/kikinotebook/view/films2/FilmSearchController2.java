@@ -6,8 +6,8 @@ import com.katyshevtseva.fx.component.controller.BlockGridController2;
 import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.general.NoArgsKnob;
-import com.katyshevtseva.kikinotebook.core.films2.FilmSearchService;
-import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService;
+import com.katyshevtseva.kikinotebook.core.films2.FilmSearchService2;
+import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService2;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmResponse;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.PosterResponse;
 import javafx.fxml.FXML;
@@ -30,7 +30,7 @@ import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
 
 @RequiredArgsConstructor
-public class FilmSearchController implements FxController {
+public class FilmSearchController2 implements FxController {
     private static final int POSTER_WIDTH = 200;
     private static final int GRID_WIDTH = 900;
     private final NoArgsKnob onSelectKnob;
@@ -54,7 +54,7 @@ public class FilmSearchController implements FxController {
         contentPane.getChildren().clear();
 
         try {
-            List<FilmResponse> films = FilmSearchService.search(searchTextField.getText());
+            List<FilmResponse> films = FilmSearchService2.search(searchTextField.getText());
             contentPane.getChildren().add(getFilmGridNode(films));
         } catch (Exception e) {
             Label label = new Label(e.getMessage());
@@ -99,7 +99,7 @@ public class FilmSearchController implements FxController {
         HBox hBox = new HBox();
         hBox.getChildren().add(vBox);
         hBox.setOnMouseClicked(event -> {
-            FilmToWatchService.saveToWatchFilm(film);
+            FilmToWatchService2.saveToWatchFilm(film);
             onSelectKnob.execute();
             FxUtils.closeWindowThatContains(searchButton);
         });

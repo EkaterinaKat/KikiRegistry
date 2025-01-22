@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FilmsService {
+public class FilmsService2 {
 
     public static void save(Film existing, String title, Integer year, FilmGrade grade, boolean fvadfs) {
         title = title.trim();
@@ -80,6 +80,6 @@ public class FilmsService {
         existing.setPosterUrl(filmToWatch.getPosterUrl());
 
         Film film = Dao.saveNewAndGetResult(Film.class, existing);
-        PosterFileManager.transferPoster(filmToWatch, film);
+        PosterFileManager2.transferPoster(filmToWatch, film);
     }
 }

@@ -7,7 +7,8 @@ import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.kikinotebook.core.NbLogger;
 import com.katyshevtseva.kikinotebook.view.books.MainBooksController;
-import com.katyshevtseva.kikinotebook.view.films2.MainFilmsController;
+import com.katyshevtseva.kikinotebook.view.films.MainFilmsController;
+import com.katyshevtseva.kikinotebook.view.films2.MainFilmsController2;
 import com.katyshevtseva.kikinotebook.view.music.MainMusicController;
 import com.katyshevtseva.kikinotebook.view.series.MainSeriesController;
 import javafx.fxml.FXML;
@@ -35,6 +36,8 @@ public class MainController extends AbstractSwitchController implements FxContro
     private List<Section> getSections() {
         return Arrays.asList(
                 new Section("Films", new MainFilmsController(),
+                        controller -> WindowBuilder.getNode(SECTION_MAIN_NODE, controller)),
+                new Section("Films2", new MainFilmsController2(),
                         controller -> WindowBuilder.getNode(SECTION_MAIN_NODE, controller)),
                 new Section("Music", new MainMusicController(),
                         controller -> WindowBuilder.getNode(SECTION_MAIN_NODE, controller)),

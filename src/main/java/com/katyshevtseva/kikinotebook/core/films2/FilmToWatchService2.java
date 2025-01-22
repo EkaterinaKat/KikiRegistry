@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FilmToWatchService {
+public class FilmToWatchService2 {
 
     public static void saveToWatchFilm(FilmResponse response) {
         List<FilmGenre> genres = convertResponseGenresToEntity(response.getGenres());

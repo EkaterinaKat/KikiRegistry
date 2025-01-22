@@ -3,8 +3,8 @@ package com.katyshevtseva.kikinotebook.view.films2;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.dialogconstructor.*;
 import com.katyshevtseva.general.NoArgsKnob;
-import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService;
-import com.katyshevtseva.kikinotebook.core.films2.FilmsService;
+import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService2;
+import com.katyshevtseva.kikinotebook.core.films2.FilmsService2;
 import com.katyshevtseva.kikinotebook.core.films2.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmGrade;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
@@ -14,7 +14,7 @@ import javafx.scene.control.MenuItem;
 import java.util.Arrays;
 import java.util.Date;
 
-public class FilmMenuManager {
+public class FilmMenuManager2 {
 
     static MenuItem getLoadPosterItem(Film film, NoArgsKnob knob) {
         MenuItem loadPosterItem = new MenuItem("Load poster");
@@ -36,7 +36,7 @@ public class FilmMenuManager {
         addDateItem.setOnAction(event1 -> {
             DcDatePicker datePicker = new DcDatePicker(true, new Date());
             DialogConstructor.constructDialog(() -> {
-                FilmsService.addDate(film, datePicker.getValue());
+                FilmsService2.addDate(film, datePicker.getValue());
                 knob.execute();
             }, datePicker);
         });
@@ -54,7 +54,7 @@ public class FilmMenuManager {
 
         DialogConstructor.constructDialog(() -> {
             Integer year1 = yearField.getValue() != null ? (int) (long) yearField.getValue() : null;
-            FilmsService.save(film, titleField.getValue(), year1, gradeDcComboBox.getValue(), fvadfsBox.getValue());
+            FilmsService2.save(film, titleField.getValue(), year1, gradeDcComboBox.getValue(), fvadfsBox.getValue());
             knob.execute();
         }, titleField, yearField, gradeDcComboBox, fvadfsBox);
     }
@@ -72,7 +72,7 @@ public class FilmMenuManager {
         MenuItem deleteItem = new MenuItem("Delete");
         deleteItem.setOnAction(event1 -> new StandardDialogBuilder().openQuestionDialog("Delete?", b -> {
             if (b) {
-                FilmToWatchService.delete(film);
+                FilmToWatchService2.delete(film);
                 knob.execute();
             }
         }));
@@ -95,11 +95,11 @@ public class FilmMenuManager {
         DcCheckBox fvadfsBox = new DcCheckBox(true, "NEW");
 
         DialogConstructor.constructDialog(() -> {
-            FilmsService.saveTransferredFilm(
+            FilmsService2.saveTransferredFilm(
                     film,
                     gradeDcComboBox.getValue(),
                     fvadfsBox.getValue());
-            FilmToWatchService.delete(film);
+            FilmToWatchService2.delete(film);
             knob.execute();
         }, titleField, yearField, gradeDcComboBox, fvadfsBox);
     }

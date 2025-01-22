@@ -6,7 +6,7 @@ import com.katyshevtseva.kikinotebook.core.films2.model.Film;
 
 import java.util.*;
 
-public class StatisticsService {
+public class StatisticsService2 {
 
     public static Map<Integer, Integer> getYearFilmCountMap() {
         List<Film> films = Dao.getAllFilms();

@@ -6,8 +6,8 @@ import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController2;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
-import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService;
-import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager;
+import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService2;
+import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -23,10 +23,10 @@ import java.util.List;
 
 import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
 import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
-import static com.katyshevtseva.kikinotebook.view.films2.FilmMenuManager.*;
+import static com.katyshevtseva.kikinotebook.view.films2.FilmMenuManager2.*;
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.FILM_SEARCH_DIALOG2;
 
-public class ToWatchController implements SectionController {
+public class ToWatchController2 implements SectionController {
     private static final int POSTER_WIDTH = 200;
     private static final int DESC_WIDTH = 350;
 
@@ -39,14 +39,14 @@ public class ToWatchController implements SectionController {
     @FXML
     private void initialize() {
         addFilmButton.setOnAction(event -> WindowBuilder.openDialog(FILM_SEARCH_DIALOG2,
-                new FilmSearchController(this::updateContent)));
+                new FilmSearchController2(this::updateContent)));
 
         updateContent();
     }
 
     private void updateContent() {
         contentPane.getChildren().clear();
-        contentPane.getChildren().add(getFilmGridNode(FilmToWatchService.getFilmsToWatch()));
+        contentPane.getChildren().add(getFilmGridNode(FilmToWatchService2.getFilmsToWatch()));
     }
 
     private Node getFilmGridNode(List<FilmToWatch> films) {
@@ -57,7 +57,7 @@ public class ToWatchController implements SectionController {
     }
 
     private Node getFilmNode(FilmToWatch film, int blockWidth) {
-        ImageView imageView = new ImageView(PosterFileManager.getPoster(film).getImage());
+        ImageView imageView = new ImageView(PosterFileManager2.getPoster(film).getImage());
         setImageWidthPreservingRatio(imageView, POSTER_WIDTH);
 
         Label descLabel = new Label(film.getFullDesc());

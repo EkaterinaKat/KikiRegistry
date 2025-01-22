@@ -1,7 +1,7 @@
 package com.katyshevtseva.kikinotebook.core;
 
-import com.katyshevtseva.kikinotebook.core.films2.FilmsService;
-import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager;
+import com.katyshevtseva.kikinotebook.core.films2.FilmsService2;
+import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
 import com.katyshevtseva.kikinotebook.core.films2.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class Tests {
 
     public static void testPosterState() {
-        for (Film film : FilmsService.getAllFilms()) {
-            boolean a = PosterFileManager.filmHasPoster(film);
+        for (Film film : FilmsService2.getAllFilms()) {
+            boolean a = PosterFileManager2.filmHasPoster(film);
             boolean b = film.getPosterState() == PosterState.LOADED;
             if (a != b) {
                 System.out.println("error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

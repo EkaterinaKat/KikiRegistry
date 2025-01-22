@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ViewingHistoryService {
+public class ViewingHistoryService2 {
 
     public static Integer getIndexOfCurrentYear(List<Integer> years) {
         Integer currentYear = DateUtils.getYearDateBelongsTo(new Date());

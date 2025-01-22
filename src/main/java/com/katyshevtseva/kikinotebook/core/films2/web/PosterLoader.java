@@ -1,6 +1,6 @@
 package com.katyshevtseva.kikinotebook.core.films2.web;
 
-import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService;
+import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService2;
 import com.katyshevtseva.kikinotebook.core.films2.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
@@ -9,8 +9,8 @@ import com.katyshevtseva.kikinotebook.core.films2.web.exception.FilmNotFoundExce
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmResponse;
 import com.katyshevtseva.web.ImageDownloader;
 
-import static com.katyshevtseva.kikinotebook.core.films2.FilmsService.updatePosterState;
-import static com.katyshevtseva.kikinotebook.core.films2.PosterFileManager.*;
+import static com.katyshevtseva.kikinotebook.core.films2.FilmsService2.updatePosterState;
+import static com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2.*;
 import static com.katyshevtseva.kikinotebook.core.films2.model.PosterState.*;
 
 public class PosterLoader {
@@ -24,10 +24,10 @@ public class PosterLoader {
         try {
             System.out.println(filmToWatch.getPosterUrl());
             ImageDownloader.download(TO_WATCH_FILM_IMAGE_LOCATION, formImageFileName(filmToWatch), filmToWatch.getPosterUrl());
-            FilmToWatchService.updatePosterState(filmToWatch, LOADED);
+            FilmToWatchService2.updatePosterState(filmToWatch, LOADED);
         } catch (Exception e) {
             System.out.println("Some other exception");
-            FilmToWatchService.updatePosterState(filmToWatch, OTHER_ERROR);
+            FilmToWatchService2.updatePosterState(filmToWatch, OTHER_ERROR);
         }
         System.out.println("\n\n");
     }

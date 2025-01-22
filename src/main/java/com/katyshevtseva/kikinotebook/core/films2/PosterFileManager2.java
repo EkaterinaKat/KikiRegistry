@@ -13,13 +13,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-import static com.katyshevtseva.kikinotebook.core.films2.FilmsService.updatePosterState;
+import static com.katyshevtseva.kikinotebook.core.films2.FilmsService2.updatePosterState;
 import static com.katyshevtseva.kikinotebook.core.films2.model.PosterState.LOADED;
 import static com.katyshevtseva.kikinotebook.core.films2.model.PosterState.OTHER_ERROR;
 
-public class PosterFileManager {
-    public static final String FILM_IMAGE_LOCATION = "D:\\onedrive\\central_image_storage\\films2\\";
-    public static final String TO_WATCH_FILM_IMAGE_LOCATION = "D:\\onedrive\\central_image_storage\\films2\\to_watch\\";
+public class PosterFileManager2 {
+    public static final String FILM_IMAGE_LOCATION = "D:\\onedrive\\central_image_storage\\films\\";
+    public static final String TO_WATCH_FILM_IMAGE_LOCATION = "D:\\onedrive\\central_image_storage\\films\\to_watch\\";
     private static final ImageContainerCache icc = ImageContainerCache.getInstance();
 
     public static void transferPoster(FilmToWatch filmToWatch, Film film) {

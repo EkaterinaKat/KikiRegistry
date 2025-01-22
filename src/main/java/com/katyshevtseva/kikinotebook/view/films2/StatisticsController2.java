@@ -3,7 +3,7 @@ package com.katyshevtseva.kikinotebook.view.films2;
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
-import com.katyshevtseva.kikinotebook.core.films2.StatisticsService;
+import com.katyshevtseva.kikinotebook.core.films2.StatisticsService2;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -15,7 +15,7 @@ import javafx.util.StringConverter;
 
 import java.util.Map;
 
-public class StatisticsController implements SectionController {
+public class StatisticsController2 implements SectionController {
     @FXML
     private VBox root;
 
@@ -31,7 +31,7 @@ public class StatisticsController implements SectionController {
         yAxis.setTickLabelFormatter(new IntegerStringConverter());
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        Map<Integer, Integer> yearFilmCountMap = StatisticsService.getYearFilmCountMap();
+        Map<Integer, Integer> yearFilmCountMap = StatisticsService2.getYearFilmCountMap();
         for (Map.Entry<Integer, Integer> entry : yearFilmCountMap.entrySet()) {
             series.getData().add(new XYChart.Data<>("" + entry.getKey(), entry.getValue()));
         }

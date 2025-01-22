@@ -6,7 +6,7 @@ import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
-import com.katyshevtseva.kikinotebook.core.films2.FilmsService;
+import com.katyshevtseva.kikinotebook.core.films2.FilmsService2;
 import com.katyshevtseva.kikinotebook.core.films2.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmGrade;
 import javafx.fxml.FXML;
@@ -21,9 +21,9 @@ import java.util.*;
 
 import static com.katyshevtseva.fx.Styler.ThingToColor.*;
 import static com.katyshevtseva.kikinotebook.core.films2.model.FilmGrade.*;
-import static com.katyshevtseva.kikinotebook.view.films2.FilmMenuManager.*;
+import static com.katyshevtseva.kikinotebook.view.films2.FilmMenuManager2.*;
 
-public class FilmListsController implements SectionController {
+public class ListsController2 implements SectionController {
     private final Map<FilmGrade, BlockGridController<Film>> filmGridControllerMap = new HashMap<>();
     @FXML
     private Button newFilmButton;
@@ -115,7 +115,7 @@ public class FilmListsController implements SectionController {
 
         MenuItem deleteItem = new MenuItem("Delete");
         deleteItem.setOnAction(event1 -> {
-            FilmsService.deleteDate(film, date);
+            FilmsService2.deleteDate(film, date);
             updateContent();
         });
         menu.getItems().add(deleteItem);
@@ -132,7 +132,7 @@ public class FilmListsController implements SectionController {
 
     private void updateContent() {
         for (Map.Entry<FilmGrade, BlockGridController<Film>> entry : filmGridControllerMap.entrySet()) {
-            entry.getValue().setContent(FilmsService.getFilms(entry.getKey(), searchTextField.getText()));
+            entry.getValue().setContent(FilmsService2.getFilms(entry.getKey(), searchTextField.getText()));
         }
     }
 }

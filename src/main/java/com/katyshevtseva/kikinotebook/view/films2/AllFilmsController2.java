@@ -1,19 +1,15 @@
 package com.katyshevtseva.kikinotebook.view.films2;
 
-import com.katyshevtseva.date.Month;
 import com.katyshevtseva.fx.FxUtils;
-import com.katyshevtseva.fx.LabelBuilder;
-import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController2;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
-import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager;
-import com.katyshevtseva.kikinotebook.core.films2.ViewingHistoryService;
+import com.katyshevtseva.kikinotebook.core.films2.FilmsService2;
+import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
 import com.katyshevtseva.kikinotebook.core.films2.model.Film;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -22,58 +18,39 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
-import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
-import static com.katyshevtseva.kikinotebook.view.films2.FilmMenuManager.getEditItem;
-import static com.katyshevtseva.kikinotebook.view.films2.FilmMenuManager.getLoadPosterItem;
+import static com.katyshevtseva.kikinotebook.view.films2.FilmMenuManager2.getEditItem;
+import static com.katyshevtseva.kikinotebook.view.films2.FilmMenuManager2.getLoadPosterItem;
 
-public class ViewingHistoryController implements SectionController {
+public class AllFilmsController2 implements SectionController {
     private static final int POSTER_WIDTH = 222;
     private static final int GRID_WIDTH = 1200;
-    private Integer year;
     @FXML
     private VBox contentPane;
-    @FXML
-    private Button leftArrow;
-    @FXML
-    private Label yearLabel;
-    @FXML
-    private Button rightArrow;
 
     @FXML
     private void initialize() {
-        new YearPicker(leftArrow, yearLabel, rightArrow, this::onYearSelected);
-    }
-
-    @Override
-    public void update() {
-        updateContent();
-    }
-
-    private void onYearSelected(Integer year) {
-        this.year = year;
         updateContent();
     }
 
     private void updateContent() {
-        contentPane.getChildren().clear();
-        for (Month month : ViewingHistoryService.getMonthsWithViews(year)) {
-            contentPane.getChildren().add(getMonthTitle(month));
-            contentPane.getChildren().add(getFilmGridNode(ViewingHistoryService.getFilms(year, month)));
-            contentPane.getChildren().add(getPaneWithHeight(20));
-        }
-    }
+        List<Film> films = FilmsService2.getAllFilms();
+        System.out.println("Total: " + films.size());
+        List<Film> filteredList = films
+                .stream()
+                .sorted(Comparator.comparing(Film::getId))
+//                .filter(film -> film.getPosterState() != PosterState.LOADED)
+//                .peek(PosterLoader::loadPoster)
+                .collect(Collectors.toList());
+        System.out.println("Filtered: " + filteredList.size());
 
-    private Node getMonthTitle(Month month) {
-        Label label = new LabelBuilder().text(month.getTitle()).textSize(20).build();
-        HBox hBox = new HBox();
-        hBox.setStyle(Styler.getColorfullStyle(BACKGROUND, "#EF47FF"));
-        FxUtils.setWidth(hBox, GRID_WIDTH);
-        hBox.getChildren().add(label);
-        return hBox;
+        contentPane.getChildren().clear();
+        contentPane.getChildren().add(getFilmGridNode(filteredList));
     }
 
     private Node getFilmGridNode(List<Film> films) {
@@ -84,7 +61,7 @@ public class ViewingHistoryController implements SectionController {
     }
 
     private Node getFilmNode(Film film, int blockWidth) {
-        Label nameLabel = new Label(film.getTitleAndDates());
+        Label nameLabel = new Label(film.getTitleAndYear());
         FxUtils.setWidth(nameLabel, blockWidth);
         FxUtils.setHeight(nameLabel, 50);
         nameLabel.setWrapText(true);
@@ -97,7 +74,7 @@ public class ViewingHistoryController implements SectionController {
                 nameLabel,
                 getPaneWithHeight(10));
 
-        ImageView imageView = new ImageView(PosterFileManager.getPoster(film).getImage());
+        ImageView imageView = new ImageView(PosterFileManager2.getPoster(film).getImage());
         setImageWidthPreservingRatio(imageView, blockWidth);
         vBox.getChildren().addAll(imageView, getPaneWithHeight(10));
 

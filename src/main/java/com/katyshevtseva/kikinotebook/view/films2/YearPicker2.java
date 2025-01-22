@@ -6,10 +6,10 @@ import javafx.scene.control.Label;
 
 import java.util.List;
 
-import static com.katyshevtseva.kikinotebook.core.films2.ViewingHistoryService.getIndexOfCurrentYear;
-import static com.katyshevtseva.kikinotebook.core.films2.ViewingHistoryService.getYearsForDatePicker;
+import static com.katyshevtseva.kikinotebook.core.films2.ViewingHistoryService2.getIndexOfCurrentYear;
+import static com.katyshevtseva.kikinotebook.core.films2.ViewingHistoryService2.getYearsForDatePicker;
 
-public class YearPicker {
+public class YearPicker2 {
     private final Button leftArrow;
     private final Label yearLabel;
     private final Button rightArrow;
@@ -18,7 +18,7 @@ public class YearPicker {
     List<Integer> years;
     private Integer selectedYearIndex;
 
-    public YearPicker(Button leftArrow, Label yearLabel, Button rightArrow, OneArgKnob<Integer> onYearSelectListener) {
+    public YearPicker2(Button leftArrow, Label yearLabel, Button rightArrow, OneArgKnob<Integer> onYearSelectListener) {
         this.leftArrow = leftArrow;
         this.yearLabel = yearLabel;
         this.rightArrow = rightArrow;
