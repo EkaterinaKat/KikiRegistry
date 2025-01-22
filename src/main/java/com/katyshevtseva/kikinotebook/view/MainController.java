@@ -7,7 +7,7 @@ import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.kikinotebook.core.NbLogger;
 import com.katyshevtseva.kikinotebook.view.books.MainBooksController;
-import com.katyshevtseva.kikinotebook.view.films.MainFilmsController;
+import com.katyshevtseva.kikinotebook.view.films2.MainFilmsController;
 import com.katyshevtseva.kikinotebook.view.music.MainMusicController;
 import com.katyshevtseva.kikinotebook.view.series.MainSeriesController;
 import javafx.fxml.FXML;

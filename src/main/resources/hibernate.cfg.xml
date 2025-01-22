@@ -13,9 +13,9 @@
         <mapping class="com.katyshevtseva.kikinotebook.core.books.model.Author"></mapping>
         <mapping class="com.katyshevtseva.kikinotebook.core.books.model.Book"></mapping>
 
-        <mapping class="com.katyshevtseva.kikinotebook.core.films.model.Film"></mapping>
-        <mapping class="com.katyshevtseva.kikinotebook.core.films.model.FilmGenre"></mapping>
-        <mapping class="com.katyshevtseva.kikinotebook.core.films.model.FilmToWatch"></mapping>
+        <mapping class="com.katyshevtseva.kikinotebook.core.films2.model.Film"></mapping>
+        <mapping class="com.katyshevtseva.kikinotebook.core.films2.model.FilmGenre"></mapping>
+        <mapping class="com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch"></mapping>
 
         <mapping class="com.katyshevtseva.kikinotebook.core.series.model.Series"></mapping>
 
