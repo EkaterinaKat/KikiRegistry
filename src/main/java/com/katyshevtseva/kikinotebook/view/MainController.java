@@ -3,6 +3,7 @@ package com.katyshevtseva.kikinotebook.view;
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.switchcontroller.AbstractSwitchController;
 import com.katyshevtseva.fx.switchcontroller.Section;
+import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.kikinotebook.core.NbLogger;
 import com.katyshevtseva.kikinotebook.view.books.MainBooksController;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.*;
 
-public class MainController extends AbstractSwitchController implements WindowBuilder.FxController {
+public class MainController extends AbstractSwitchController implements FxController {
     @FXML
     private Pane mainPane;
     @FXML

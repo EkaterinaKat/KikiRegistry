@@ -6,7 +6,7 @@ import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.MultipleChoiceController;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
-import com.katyshevtseva.fx.windowbuilder.WindowBuilder.FxController;
+import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.kikinotebook.core.music.AlbumGrade;
 import com.katyshevtseva.kikinotebook.core.music.MusicService;

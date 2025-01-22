@@ -3,7 +3,7 @@ package com.katyshevtseva.kikinotebook.view.films;
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController2;
-import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
+import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.kikinotebook.core.films.FilmSearchService;
@@ -30,7 +30,7 @@ import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
 
 @RequiredArgsConstructor
-public class FilmSearchController implements WindowBuilder.FxController {
+public class FilmSearchController implements FxController {
     private static final int POSTER_WIDTH = 200;
     private static final int GRID_WIDTH = 900;
     private final NoArgsKnob onSelectKnob;
