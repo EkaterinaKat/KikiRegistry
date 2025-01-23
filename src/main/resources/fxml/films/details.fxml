@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<HBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx">
+
+    <Pane minWidth="30" maxWidth="30"/>
+
+    <VBox>
+        <Pane minHeight="30" maxHeight="30"/>
+        <Label fx:id="titleLabel" styleClass="font_size_25"/>
+        <Pane minHeight="30" maxHeight="30"/>
+
+        <HBox>
+            <ImageView fx:id="imageView" fitHeight="600" fitWidth="300"/>
+            <Pane minWidth="30" maxWidth="30"/>
+            <Label fx:id="detailsLabel"/>
+        </HBox>
+    </VBox>
+
+</HBox>

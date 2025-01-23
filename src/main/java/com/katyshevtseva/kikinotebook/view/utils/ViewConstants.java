@@ -29,6 +29,8 @@ public class ViewConstants {
     public static final NodeInfo SINGERS_AND_GENRES_NODE = new NodeInfo("/fxml/music/singers_and_genres.fxml");
 
     // FILMS
+    public static final DialogInfo FILM_DETAIL_DIALOG =
+            new DialogInfo("/fxml/films/details.fxml", new Size(800, 1000), "");
     public static final NodeInfo FILM_LISTS_NODE = new NodeInfo("/fxml/films/film_lists.fxml");
     public static final NodeInfo FILM_STATISTICS_NODE = new NodeInfo("/fxml/vbox_container.fxml");
     public static final NodeInfo VIEWING_HISTORY_NODE = new NodeInfo("/fxml/films/viewing_history.fxml");

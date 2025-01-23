@@ -11,6 +11,10 @@ import java.util.stream.Collectors;
 
 public class Tests {
 
+    public static void everyFilmHasDate() {
+        //todo
+    }
+
     public static void testPosterState() {
         for (Film film : FilmsService2.getAllFilms()) {
             boolean a = PosterFileManager2.filmHasPoster(film);
