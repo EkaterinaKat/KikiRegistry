@@ -5,7 +5,7 @@ import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.image.ImageContainer;
 import com.katyshevtseva.image.ImageContainerCache;
-import com.katyshevtseva.kikinotebook.core.films2.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
 

@@ -1,8 +1,8 @@
 package com.katyshevtseva.kikinotebook.view.films;
 
 import com.katyshevtseva.fx.windowbuilder.FxController;
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
-import com.katyshevtseva.kikinotebook.core.films2.model.Film;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;

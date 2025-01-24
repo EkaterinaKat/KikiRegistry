@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.core.films2.model;
+package com.katyshevtseva.kikinotebook.core.films.model;
 
 import com.katyshevtseva.hibernate.HasId;
 import lombok.Data;

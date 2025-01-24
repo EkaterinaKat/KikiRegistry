@@ -1,8 +1,10 @@
-package com.katyshevtseva.kikinotebook.core.films2.model;
+package com.katyshevtseva.kikinotebook.core.films.model;
 
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.films.Service;
+import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Entity
+@AllArgsConstructor
 public class Film implements HasId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +31,9 @@ public class Film implements HasId {
     @Enumerated(EnumType.STRING)
     private FilmGrade grade;
 
+    @Enumerated(EnumType.STRING)
+    private FilmStatus status;
+
     @ElementCollection
     @CollectionTable(name = "film_dates", joinColumns = @JoinColumn(name = "film_id"))
     @Column(name = "date_")
@@ -38,20 +44,20 @@ public class Film implements HasId {
     @Enumerated(EnumType.STRING)
     private PosterState posterState;
 
-//    @Column(length = 2000)
-//    private String description;
-//
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "films_genres",
-//            joinColumns = @JoinColumn(name = "film_id"),
-//            inverseJoinColumns = @JoinColumn(name = "genre_id"))
-//    private List<FilmGenre> genres;
-//
-//    private Integer length;
-//
-//    @Column(name = "to_watch_adding_date")
-//    @Temporal(TemporalType.DATE)
-//    private Date toWatchAddingDate;
+    @Column(length = 2000)
+    private String description;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "films_genres",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<FilmGenre> genres;
+
+    private Integer length;
+
+    @Column(name = "to_watch_adding_date")
+    @Temporal(TemporalType.DATE)
+    private Date toWatchAddingDate;
 
     //first viewed after date fixation started or just NEW
     //то есть если true первая дата из dates это дата моего первого просмотра этого фильма
@@ -68,6 +74,7 @@ public class Film implements HasId {
         return title + " (" + year + ")";
     }
 
+    //todo удалить
     public String getTitleAndDates() {
         StringBuilder stringBuilder = new StringBuilder(title).append(" [");
         for (Date date : dates) {

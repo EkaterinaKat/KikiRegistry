@@ -7,8 +7,8 @@ import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
 import com.katyshevtseva.kikinotebook.core.films.Service;
-import com.katyshevtseva.kikinotebook.core.films2.model.Film;
-import com.katyshevtseva.kikinotebook.core.films2.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.katyshevtseva.fx.Styler.ThingToColor.*;
-import static com.katyshevtseva.kikinotebook.core.films2.model.FilmGrade.*;
+import static com.katyshevtseva.kikinotebook.core.films.model.FilmGrade.*;
 import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.FILM_DETAIL_DIALOG;
 
 public class ListsController implements SectionController {

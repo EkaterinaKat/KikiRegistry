@@ -1,8 +1,8 @@
 package com.katyshevtseva.kikinotebook.core.films2;
 
 import com.katyshevtseva.kikinotebook.core.Dao;
-import com.katyshevtseva.kikinotebook.core.films2.model.Film;
-import com.katyshevtseva.kikinotebook.core.films2.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
 

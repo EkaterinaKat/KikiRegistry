@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.core.films2.model;
+package com.katyshevtseva.kikinotebook.core.films.model;
 
 import static com.katyshevtseva.kikinotebook.core.CoreConstants.GRAY;
 import static com.katyshevtseva.kikinotebook.core.CoreConstants.HIGHEST_GRADE_COLOR;

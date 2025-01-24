@@ -1,7 +1,7 @@
 package com.katyshevtseva.kikinotebook.core.films2.web;
 
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService2;
-import com.katyshevtseva.kikinotebook.core.films2.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films2.web.exception.FailedToLoadFilmsException;

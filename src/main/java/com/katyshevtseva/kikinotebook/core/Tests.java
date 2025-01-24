@@ -1,12 +1,14 @@
 package com.katyshevtseva.kikinotebook.core;
 
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.FilmsService2;
 import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
-import com.katyshevtseva.kikinotebook.core.films2.model.Film;
-import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Tests {
@@ -29,10 +31,9 @@ public class Tests {
 
     public static void testKpIdUniqueness() {
         List<Film> films = Dao.getAllFilms();
-        List<FilmToWatch> filmsToWatch = Dao.getAllFilmsToWatch();
-        List<Long> idList = new ArrayList<>();
-        idList.addAll(films.stream().map(Film::getKpId).collect(Collectors.toList()));
-        idList.addAll(filmsToWatch.stream().map(FilmToWatch::getKpId).collect(Collectors.toList()));
+        List<Long> idList = films.stream()
+                .map(Film::getKpId)
+                .collect(Collectors.toList());
         idList = idList
                 .stream()
                 .filter(Objects::nonNull)

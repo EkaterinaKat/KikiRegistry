@@ -3,7 +3,7 @@ package com.katyshevtseva.kikinotebook.core.films2;
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.date.Month;
 import com.katyshevtseva.kikinotebook.core.Dao;
-import com.katyshevtseva.kikinotebook.core.films2.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
 
 import java.util.Comparator;
 import java.util.Date;
