@@ -3,6 +3,7 @@ package com.katyshevtseva.kikinotebook.core.films2.model;
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGenre;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import lombok.Data;
 
 import javax.persistence.*;

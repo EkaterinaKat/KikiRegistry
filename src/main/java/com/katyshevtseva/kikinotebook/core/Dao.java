@@ -84,6 +84,10 @@ public class Dao {
         return coreDao.saveNewAndGetResult(FilmGenre.class, genre);
     }
 
+    public static Film saveNewFilm(Film film) {
+        return coreDao.saveNewAndGetResult(Film.class, film);
+    }
+
     public static FilmToWatch saveNewToWatchFilm(FilmToWatch film) {
         return coreDao.saveNewAndGetResult(FilmToWatch.class, film);
     }

@@ -34,6 +34,11 @@ public class ToWatchController implements SectionController {
         updateContent();
     }
 
+    @Override
+    public void update() {
+        updateContent();
+    }
+
     private void updateContent() {
         contentPane.getChildren().clear();
         contentPane.getChildren().add(getFilmGridNode(ToWatchService.getFilmsToWatch()));
@@ -55,7 +60,8 @@ public class ToWatchController implements SectionController {
         descLabel.setWrapText(true);
 
         HBox hBox = new HBox();
-        hBox.setOnMouseClicked(event -> WindowBuilder.openDialog(FILM_DETAIL_DIALOG, new DetailsController(film)));
+        hBox.setOnMouseClicked(event ->
+                WindowBuilder.openDialog(FILM_DETAIL_DIALOG, new DetailsController(film, this::updateContent)));
         hBox.setStyle(Styler.getBlackBorderStyle());
         hBox.getChildren().addAll(
                 imageView,

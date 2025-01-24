@@ -95,7 +95,8 @@ public class ListsController implements SectionController {
         label.setAlignment(Pos.CENTER);
         label.setTextAlignment(TextAlignment.CENTER);
         vBox.getChildren().add(label);
-        vBox.setOnMouseClicked(event -> WindowBuilder.openDialog(FILM_DETAIL_DIALOG, new DetailsController(film)));
+        vBox.setOnMouseClicked(event ->
+                WindowBuilder.openDialog(FILM_DETAIL_DIALOG, new DetailsController(film, this::updateContent)));
 
         return vBox;
     }

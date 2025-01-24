@@ -3,8 +3,8 @@ package com.katyshevtseva.kikinotebook.core.films2;
 import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
-import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
 
 import java.util.ArrayList;
 import java.util.Comparator;

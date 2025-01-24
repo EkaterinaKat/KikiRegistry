@@ -4,7 +4,7 @@ import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.image.ImageContainer;
 import com.katyshevtseva.image.ImageContainerCache;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
-import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 
 public class PosterFileManager {
     public static final String FILM_IMAGE_LOCATION = "D:\\onedrive\\central_image_storage\\films\\";

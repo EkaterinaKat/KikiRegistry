@@ -1,9 +1,9 @@
 package com.katyshevtseva.kikinotebook.core.films.model;
 
 import com.katyshevtseva.date.DateUtils;
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.films.Service;
-import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -77,6 +77,9 @@ public class Film implements HasId {
     }
 
     public String getDatesString() {
+        if (GeneralUtils.isEmpty(dates)) {
+            return "[]";
+        }
         StringBuilder stringBuilder = new StringBuilder(" [");
 
         String prefix = "";

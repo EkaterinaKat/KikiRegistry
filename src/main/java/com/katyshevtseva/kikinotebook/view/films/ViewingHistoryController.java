@@ -101,7 +101,8 @@ public class ViewingHistoryController implements SectionController {
 
         HBox hBox = new HBox();
         hBox.getChildren().add(vBox);
-        hBox.setOnMouseClicked(event -> WindowBuilder.openDialog(FILM_DETAIL_DIALOG, new DetailsController(film)));
+        hBox.setOnMouseClicked(event ->
+                WindowBuilder.openDialog(FILM_DETAIL_DIALOG, new DetailsController(film, this::updateContent)));
         return hBox;
     }
 }

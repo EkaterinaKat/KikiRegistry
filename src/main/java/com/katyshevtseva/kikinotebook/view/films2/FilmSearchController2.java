@@ -6,7 +6,7 @@ import com.katyshevtseva.fx.component.controller.BlockGridController2;
 import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.general.NoArgsKnob;
-import com.katyshevtseva.kikinotebook.core.films2.FilmSearchService2;
+import com.katyshevtseva.kikinotebook.core.films.FilmSearchService;
 import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService2;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmResponse;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.PosterResponse;
@@ -54,7 +54,7 @@ public class FilmSearchController2 implements FxController {
         contentPane.getChildren().clear();
 
         try {
-            List<FilmResponse> films = FilmSearchService2.search(searchTextField.getText());
+            List<FilmResponse> films = FilmSearchService.search(searchTextField.getText());
             contentPane.getChildren().add(getFilmGridNode(films));
         } catch (Exception e) {
             Label label = new Label(e.getMessage());

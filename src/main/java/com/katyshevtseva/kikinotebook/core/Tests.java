@@ -1,8 +1,8 @@
 package com.katyshevtseva.kikinotebook.core;
 
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
-import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
 
 import java.util.HashSet;
 import java.util.List;

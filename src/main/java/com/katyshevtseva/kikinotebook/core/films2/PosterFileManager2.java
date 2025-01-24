@@ -6,16 +6,16 @@ import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.image.ImageContainer;
 import com.katyshevtseva.image.ImageContainerCache;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
-import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.katyshevtseva.kikinotebook.core.films.model.PosterState.ERROR;
+import static com.katyshevtseva.kikinotebook.core.films.model.PosterState.LOADED;
 import static com.katyshevtseva.kikinotebook.core.films2.FilmsService2.updatePosterState;
-import static com.katyshevtseva.kikinotebook.core.films2.model.PosterState.LOADED;
-import static com.katyshevtseva.kikinotebook.core.films2.model.PosterState.OTHER_ERROR;
 
 public class PosterFileManager2 {
     public static final String FILM_IMAGE_LOCATION = "D:\\onedrive\\central_image_storage\\films\\";
@@ -30,7 +30,7 @@ public class PosterFileManager2 {
             );
             updatePosterState(film, LOADED);
         } catch (IOException e) {
-            updatePosterState(film, OTHER_ERROR);
+            updatePosterState(film, ERROR);
         }
     }
 

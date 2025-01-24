@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.core.films2.model;
+package com.katyshevtseva.kikinotebook.core.films.model;
 
 import lombok.Getter;
 
@@ -6,9 +6,8 @@ import lombok.Getter;
 public enum PosterState {
     LOADED(null),
     NOT_LOADED("not_loaded.jpg"),
-    FAILED_TO_LOAD_FILMS("failed_to_load_films.jpg"),
-    FILM_NOT_FOUND("film_not_found.jpg"),
-    OTHER_ERROR("other_error.jpg");
+    URL_NOT_FOUND("url_not_found.jpg"),
+    ERROR("error.jpg");
 
     private final String imageName;
 

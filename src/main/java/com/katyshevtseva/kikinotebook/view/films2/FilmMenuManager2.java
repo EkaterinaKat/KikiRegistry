@@ -8,7 +8,7 @@ import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
 import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService2;
 import com.katyshevtseva.kikinotebook.core.films2.FilmsService2;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
-import com.katyshevtseva.kikinotebook.core.films2.web.PosterLoader;
+import com.katyshevtseva.kikinotebook.core.films2.web.PosterLoader2;
 import javafx.scene.control.MenuItem;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class FilmMenuManager2 {
     static MenuItem getLoadPosterItem(Film film, NoArgsKnob knob) {
         MenuItem loadPosterItem = new MenuItem("Load poster");
         loadPosterItem.setOnAction(event1 -> {
-            PosterLoader.loadPoster(film);
+            PosterLoader2.loadPoster(film);
             knob.execute();
         });
         return loadPosterItem;
@@ -62,7 +62,7 @@ public class FilmMenuManager2 {
     static MenuItem getLoadPosterItem(FilmToWatch film, NoArgsKnob knob) {
         MenuItem loadPosterItem = new MenuItem("Load poster");
         loadPosterItem.setOnAction(event1 -> {
-            PosterLoader.loadPoster(film);
+            PosterLoader2.loadPoster(film);
             knob.execute();
         });
         return loadPosterItem;

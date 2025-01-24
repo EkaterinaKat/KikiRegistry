@@ -2,9 +2,9 @@ package com.katyshevtseva.kikinotebook.core.films2;
 
 import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGenre;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
-import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
-import com.katyshevtseva.kikinotebook.core.films2.web.PosterLoader;
+import com.katyshevtseva.kikinotebook.core.films2.web.PosterLoader2;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmResponse;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.GenreResponse;
 
@@ -29,7 +29,7 @@ public class FilmToWatchService2 {
                 response.getPoster().getUrl(),
                 new Date()
         ));
-        PosterLoader.loadPoster(filmToWatch);
+        PosterLoader2.loadPoster(filmToWatch);
     }
 
     private static List<FilmGenre> convertResponseGenresToEntity(List<GenreResponse> genreResponses) {

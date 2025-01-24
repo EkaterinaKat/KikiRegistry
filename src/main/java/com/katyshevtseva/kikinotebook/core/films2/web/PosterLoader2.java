@@ -1,19 +1,18 @@
 package com.katyshevtseva.kikinotebook.core.films2.web;
 
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films2.FilmToWatchService2;
 import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
-import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
-import com.katyshevtseva.kikinotebook.core.films2.web.exception.FailedToLoadFilmsException;
-import com.katyshevtseva.kikinotebook.core.films2.web.exception.FilmNotFoundException;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmResponse;
 import com.katyshevtseva.web.ImageDownloader;
 
+import static com.katyshevtseva.kikinotebook.core.films.model.PosterState.ERROR;
+import static com.katyshevtseva.kikinotebook.core.films.model.PosterState.LOADED;
 import static com.katyshevtseva.kikinotebook.core.films2.FilmsService2.updatePosterState;
 import static com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2.*;
-import static com.katyshevtseva.kikinotebook.core.films2.model.PosterState.*;
 
-public class PosterLoader {
+public class PosterLoader2 {
 
     public static void loadPoster(FilmToWatch filmToWatch) {
         if (filmToWatch.getPosterState() == PosterState.LOADED) {
@@ -27,7 +26,7 @@ public class PosterLoader {
             FilmToWatchService2.updatePosterState(filmToWatch, LOADED);
         } catch (Exception e) {
             System.out.println("Some other exception");
-            FilmToWatchService2.updatePosterState(filmToWatch, OTHER_ERROR);
+            FilmToWatchService2.updatePosterState(filmToWatch, ERROR);
         }
         System.out.println("\n\n");
     }
@@ -44,15 +43,8 @@ public class PosterLoader {
             System.out.println(url);
             ImageDownloader.download(FILM_IMAGE_LOCATION, formImageFileName(film), url);
             updatePosterState(film, LOADED);
-        } catch (FailedToLoadFilmsException e) {
-            System.out.println("FailedToLoadFilmsException");
-            updatePosterState(film, FAILED_TO_LOAD_FILMS);
-        } catch (FilmNotFoundException e) {
-            System.out.println("FilmNotFoundException");
-            updatePosterState(film, FILM_NOT_FOUND);
         } catch (Exception e) {
-            System.out.println("Some other exception");
-            updatePosterState(film, OTHER_ERROR);
+            updatePosterState(film, ERROR);
         }
         System.out.println("\n\n");
 
@@ -69,7 +61,7 @@ public class PosterLoader {
             updatePosterState(film, LOADED);
         } catch (Exception e) {
             System.out.println("Some other exception");
-            updatePosterState(film, OTHER_ERROR);
+            updatePosterState(film, ERROR);
         }
         System.out.println("\n\n");
 

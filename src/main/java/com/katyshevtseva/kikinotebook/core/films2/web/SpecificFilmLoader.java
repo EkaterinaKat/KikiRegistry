@@ -1,7 +1,6 @@
 package com.katyshevtseva.kikinotebook.core.films2.web;
 
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
-import com.katyshevtseva.kikinotebook.core.films2.web.exception.FilmNotFoundException;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmArrayResponse;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmResponse;
 
@@ -14,7 +13,7 @@ public class SpecificFilmLoader {
                 return filmResponse;
             }
         }
-        throw new FilmNotFoundException("Фильм не найден");
+        throw new RuntimeException("Фильм не найден");
     }
 
     private static boolean checkIfItSameFilm(Film film, FilmResponse filmResponse) {
