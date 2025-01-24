@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.core.films2;
+package com.katyshevtseva.kikinotebook.core.films;
 
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.date.Month;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ViewingHistoryService2 {
+public class ViewingHistoryService {
 
     public static Integer getIndexOfCurrentYear(List<Integer> years) {
         Integer currentYear = DateUtils.getYearDateBelongsTo(new Date());
@@ -54,7 +54,6 @@ public class ViewingHistoryService2 {
                     }
                     return false;
                 })
-//                .peek(PosterLoader::loadPoster)
                 .collect(Collectors.toList());
     }
 }

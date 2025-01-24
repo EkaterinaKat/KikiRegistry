@@ -7,9 +7,9 @@ import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController2;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
+import com.katyshevtseva.kikinotebook.core.films.ViewingHistoryService;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
-import com.katyshevtseva.kikinotebook.core.films2.ViewingHistoryService2;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -60,9 +60,9 @@ public class ViewingHistoryController2 implements SectionController {
 
     private void updateContent() {
         contentPane.getChildren().clear();
-        for (Month month : ViewingHistoryService2.getMonthsWithViews(year)) {
+        for (Month month : ViewingHistoryService.getMonthsWithViews(year)) {
             contentPane.getChildren().add(getMonthTitle(month));
-            contentPane.getChildren().add(getFilmGridNode(ViewingHistoryService2.getFilms(year, month)));
+            contentPane.getChildren().add(getFilmGridNode(ViewingHistoryService.getFilms(year, month)));
             contentPane.getChildren().add(getPaneWithHeight(20));
         }
     }
@@ -84,7 +84,7 @@ public class ViewingHistoryController2 implements SectionController {
     }
 
     private Node getFilmNode(Film film, int blockWidth) {
-        Label nameLabel = new Label(film.getTitleAndDates());
+        Label nameLabel = new Label(film.getTitleAndYear());
         FxUtils.setWidth(nameLabel, blockWidth);
         FxUtils.setHeight(nameLabel, 50);
         nameLabel.setWrapText(true);

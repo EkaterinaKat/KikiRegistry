@@ -1,6 +1,5 @@
 package com.katyshevtseva.kikinotebook.core.films.model;
 
-import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.films.Service;
 import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
@@ -72,15 +71,6 @@ public class Film implements HasId {
         if (year == null)
             return title;
         return title + " (" + year + ")";
-    }
-
-    //todo удалить
-    public String getTitleAndDates() {
-        StringBuilder stringBuilder = new StringBuilder(title).append(" [");
-        for (Date date : dates) {
-            stringBuilder.append(DateUtils.READABLE_DATE_FORMAT.format(date)).append(", ");
-        }
-        return stringBuilder.append("]").toString();
     }
 
     public String getDatesString() {

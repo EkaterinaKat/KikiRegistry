@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.view.films2;
+package com.katyshevtseva.kikinotebook.view.films;
 
 import com.katyshevtseva.general.OneArgKnob;
 import javafx.scene.control.Button;
@@ -9,7 +9,7 @@ import java.util.List;
 import static com.katyshevtseva.kikinotebook.core.films.ViewingHistoryService.getIndexOfCurrentYear;
 import static com.katyshevtseva.kikinotebook.core.films.ViewingHistoryService.getYearsForDatePicker;
 
-public class YearPicker2 {
+public class YearPicker {
     private final Button leftArrow;
     private final Label yearLabel;
     private final Button rightArrow;
@@ -18,7 +18,7 @@ public class YearPicker2 {
     List<Integer> years;
     private Integer selectedYearIndex;
 
-    public YearPicker2(Button leftArrow, Label yearLabel, Button rightArrow, OneArgKnob<Integer> onYearSelectListener) {
+    public YearPicker(Button leftArrow, Label yearLabel, Button rightArrow, OneArgKnob<Integer> onYearSelectListener) {
         this.leftArrow = leftArrow;
         this.yearLabel = yearLabel;
         this.rightArrow = rightArrow;
