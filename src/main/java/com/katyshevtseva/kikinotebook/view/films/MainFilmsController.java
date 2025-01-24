@@ -34,8 +34,6 @@ public class MainFilmsController extends AbstractSwitchController implements Sec
                         controller -> WindowBuilder.getNode(FILM_STATISTICS_NODE, controller)),
                 new Section("Viewing history", new ViewingHistoryController(),
                         controller -> WindowBuilder.getNode(VIEWING_HISTORY_NODE, controller)),
-                new Section("All films", new AllFilmsController(),
-                        controller -> WindowBuilder.getNode(ALL_FILMS_NODE, controller)),
                 new Section("To watch", new ToWatchController(),
                         controller -> WindowBuilder.getNode(TO_WATCH_NODE, controller)),
                 new Section("Search", new SearchController(),

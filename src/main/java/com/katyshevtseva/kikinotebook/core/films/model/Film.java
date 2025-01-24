@@ -1,5 +1,6 @@
 package com.katyshevtseva.kikinotebook.core.films.model;
 
+import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.films.Service;
 import com.katyshevtseva.kikinotebook.core.films2.model.PosterState;
@@ -10,6 +11,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.katyshevtseva.time.TimeUtil.getTimeStringByMinutes;
 
 @Data
 @Entity
@@ -83,5 +86,13 @@ public class Film implements HasId {
             stringBuilder.append(Service.getDateString(date));
         }
         return stringBuilder.append("]").toString();
+    }
+
+    public String getToWatchDesc() {
+        return title + " (" + year + ")"
+                + "\n\n" + genres
+                + "\n" + getTimeStringByMinutes(length)
+                + "\n\n" + description
+                + "\n\n" + "Добавлено: " + DateUtils.READABLE_DATE_FORMAT.format(toWatchAddingDate);
     }
 }

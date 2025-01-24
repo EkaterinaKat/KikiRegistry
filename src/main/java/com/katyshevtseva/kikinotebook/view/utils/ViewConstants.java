@@ -33,7 +33,6 @@ public class ViewConstants {
     public static final NodeInfo FILM_LISTS_NODE = new NodeInfo("/fxml/films/film_lists.fxml");
     public static final NodeInfo FILM_STATISTICS_NODE = new NodeInfo("/fxml/vbox_container.fxml");
     public static final NodeInfo VIEWING_HISTORY_NODE = new NodeInfo("/fxml/films/viewing_history.fxml");
-    public static final NodeInfo ALL_FILMS_NODE = new NodeInfo("/fxml/films/all_films.fxml");
     public static final NodeInfo TO_WATCH_NODE = new NodeInfo("/fxml/films/to_watch.fxml");
     public static final NodeInfo FILM_SEARCH_NODE = new NodeInfo("/fxml/films/search.fxml");
 
