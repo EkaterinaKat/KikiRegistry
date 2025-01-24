@@ -20,7 +20,6 @@ public class ViewConstants {
     public static final NodeInfo SERIES_NODE = new NodeInfo("/fxml/series/main_series.fxml");
     // FILMS2
     public static final NodeInfo FILM_LISTS_NODE2 = new NodeInfo("/fxml/films2/film_lists.fxml");
-    public static final NodeInfo FILM_STATISTICS_NODE2 = new NodeInfo("/fxml/vbox_container.fxml");
     public static final NodeInfo VIEWING_HISTORY_NODE2 = new NodeInfo("/fxml/films2/viewing_history.fxml");
     public static final NodeInfo ALL_FILMS_NODE2 = new NodeInfo("/fxml/films2/all_films.fxml");
     public static final NodeInfo TO_WATCH_NODE2 = new NodeInfo("/fxml/films2/to_watch.fxml");

@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.core.films2;
+package com.katyshevtseva.kikinotebook.core.films;
 
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.kikinotebook.core.Dao;
@@ -6,7 +6,7 @@ import com.katyshevtseva.kikinotebook.core.films.model.Film;
 
 import java.util.*;
 
-public class StatisticsService2 {
+public class StatisticsService {
 
     public static Map<Integer, Integer> getYearFilmCountMap() {
         List<Film> films = Dao.getAllFilms();
@@ -25,7 +25,6 @@ public class StatisticsService2 {
         }
 
         int sum = map.values().stream().mapToInt(i -> i).sum();
-        System.out.println("total " + films.size() + " sum " + sum);
         if (sum != films.size()) {
             throw new RuntimeException();
         }

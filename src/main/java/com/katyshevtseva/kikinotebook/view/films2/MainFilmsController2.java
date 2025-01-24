@@ -30,8 +30,6 @@ public class MainFilmsController2 extends AbstractSwitchController implements Se
         return Arrays.asList(
                 new Section("Lists", new ListsController2(),
                         controller -> WindowBuilder.getNode(FILM_LISTS_NODE2, controller)),
-                new Section("Statistics", new StatisticsController2(),
-                        controller -> WindowBuilder.getNode(FILM_STATISTICS_NODE2, controller)),
                 new Section("Viewing history", new ViewingHistoryController2(),
                         controller -> WindowBuilder.getNode(VIEWING_HISTORY_NODE2, controller)),
                 new Section("All films2", new AllFilmsController2(),
