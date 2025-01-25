@@ -14,39 +14,46 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.katyshevtseva.kikinotebook.core.films.model.FilmStatus.*;
+import static com.katyshevtseva.kikinotebook.core.films.model.FilmStatus.TO_WATCH;
+import static com.katyshevtseva.kikinotebook.core.films.model.FilmStatus.WATCHED;
 
 public class ToWatchService {
 
     public static List<Film> getFilmsToWatch() {
         return Dao.getAllFilms()
                 .stream()
-                .filter(film -> film.getStatus() == TO_WATCH || film.getStatus() == WATCHED_AND_TO_WATCH)
-                .sorted(Comparator.comparing(Film::getId).reversed())
+                .filter(StatusService::isToWatch)
+                .sorted(Comparator.comparing(Film::getToWatchAddingDate).reversed())
                 .collect(Collectors.toList());
     }
 
     public static void saveToWatchFilm(FilmResponse response) {
-        List<FilmGenre> genres = convertResponseGenresToEntity(response.getGenres());
-        Film film = new Film(
-                null,
-                response.getId(),
-                response.getPoster().getUrl(),
-                response.getName(),
-                response.getYear(),
-                null,
-                TO_WATCH,
-                null,
-                PosterState.NOT_LOADED,
-                response.getDescription(),
-                genres,
-                response.getMovieLength(),
-                new Date(),
-                false
-        );
-
-        Film savedFilm = Dao.saveNewFilm(film);
-        PosterLoader.loadPosterBySavedUrl(savedFilm);
+        Film existing = Dao.findFilmByKpId(response.getId());
+        if (existing == null) {
+            List<FilmGenre> genres = convertResponseGenresToEntity(response.getGenres());
+            Film film = new Film(
+                    null,
+                    response.getId(),
+                    response.getPoster().getUrl(),
+                    response.getName(),
+                    response.getYear(),
+                    null,
+                    TO_WATCH,
+                    null,
+                    PosterState.NOT_LOADED,
+                    response.getDescription(),
+                    genres,
+                    response.getMovieLength(),
+                    new Date(),
+                    false
+            );
+            Film savedFilm = Dao.saveNewFilm(film);
+            PosterLoader.loadPosterBySavedUrl(savedFilm);
+        } else {
+            if (existing.getStatus() == WATCHED) {
+                StatusService.wantToWatchFilm(existing);
+            }
+        }
     }
 
     private static List<FilmGenre> convertResponseGenresToEntity(List<GenreResponse> genreResponses) {
@@ -62,20 +69,5 @@ public class ToWatchService {
             throw new RuntimeException("Что-то пошло не так с жанрами");
         }
         return result;
-    }
-
-    public static void deleteFromToWatch(Film film) {
-        switch (film.getStatus()) {
-            case WATCHED:
-                throw new RuntimeException("Try to delete watched film from to watch list");
-            case TO_WATCH:
-                Dao.delete(film);
-                break;
-            case WATCHED_AND_TO_WATCH:
-                film.setStatus(WATCHED);
-                film.setToWatchAddingDate(null);
-                Dao.saveEdited(film);
-                break;
-        }
     }
 }

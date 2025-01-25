@@ -92,6 +92,14 @@ public class Dao {
         return coreDao.saveNewAndGetResult(FilmToWatch.class, film);
     }
 
+    public static Film findFilmByKpId(Long kpId) {
+        List<Film> films = coreDao.find(Film.class, Restrictions.eq("kpid", kpId));
+        if (films.size() > 1) {
+            throw new RuntimeException("Более одно фильма в бд имеют одинаковые kpid");
+        }
+        return films.isEmpty() ? null : films.get(0);
+    }
+
     public static List<Film> findFilms(FilmGrade grade, String searchString) {
         if (GeneralUtils.isEmpty(searchString)) {
             return coreDao.find(Film.class, Restrictions.eq("grade", grade));

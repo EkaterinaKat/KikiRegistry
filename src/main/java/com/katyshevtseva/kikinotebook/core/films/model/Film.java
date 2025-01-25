@@ -1,6 +1,5 @@
 package com.katyshevtseva.kikinotebook.core.films.model;
 
-import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.films.Service;
@@ -12,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.katyshevtseva.date.DateUtils.READABLE_DATE_FORMAT;
 import static com.katyshevtseva.time.TimeUtil.getTimeStringByMinutes;
 
 @Data
@@ -92,10 +92,45 @@ public class Film implements HasId {
     }
 
     public String getToWatchDesc() {
-        return title + " (" + year + ")"
-                + "\n\n" + genres
-                + "\n" + getTimeStringByMinutes(length)
-                + "\n\n" + description
-                + "\n\n" + "Добавлено: " + DateUtils.READABLE_DATE_FORMAT.format(toWatchAddingDate);
+        String res = title + " (" + year + ")";
+
+        if (!GeneralUtils.isEmpty(genres)) {
+            res += ("\n\n" + genres);
+        }
+
+        if (length != null) {
+            res += ("\n" + getTimeStringByMinutes(length));
+        }
+
+        if (description != null) {
+            res += ("\n\n" + description);
+        }
+
+        return res += ("\n\n" + "Добавлено: " + READABLE_DATE_FORMAT.format(toWatchAddingDate));
+    }
+
+    public String getDetailsString() {
+        String res = "grade: " + grade + "\n" +
+                "status: " + status + "\n" +
+                "dates: " + getDatesString() + "\n";
+
+        if (!GeneralUtils.isEmpty(genres)) {
+            res += ("genres: " + genres + "\n");
+        }
+
+        if (length != null) {
+            res += ("length: " + getTimeStringByMinutes(length) + "\n");
+        }
+
+        if (toWatchAddingDate != null) {
+            res += ("toWatchAddingDate: " + READABLE_DATE_FORMAT.format(toWatchAddingDate) + "\n");
+        }
+
+        if (description != null) {
+            res += ("\n" + description);
+        }
+
+        return res;
+
     }
 }

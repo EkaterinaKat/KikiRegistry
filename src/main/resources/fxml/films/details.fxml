@@ -18,7 +18,9 @@
             <VBox>
                 <ImageView fx:id="imageView" fitHeight="600" fitWidth="300"/>
                 <Pane minHeight="20" maxHeight="20"/>
-                <Button fx:id="deleteFromToWatch" text="Delete from to watch"/>
+                <Button fx:id="wantToWatchButton" text="Want to watch"/>
+                <Pane minHeight="20" maxHeight="20"/>
+                <Button fx:id="deleteFromToWatchButton" text="Delete from to watch"/>
             </VBox>
 
 
