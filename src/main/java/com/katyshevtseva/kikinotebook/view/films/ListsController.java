@@ -43,7 +43,6 @@ public class ListsController implements SectionController {
         clearButton.setOnAction(event -> searchTextField.setText(""));
 
         adjustFilmsPane();
-        updateContent();
     }
 
     @Override
