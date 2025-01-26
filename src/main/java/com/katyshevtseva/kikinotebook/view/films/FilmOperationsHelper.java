@@ -1,26 +1,45 @@
 package com.katyshevtseva.kikinotebook.view.films;
 
+import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
+import com.katyshevtseva.fx.dialogconstructor.DcComboBox;
+import com.katyshevtseva.fx.dialogconstructor.DcDatePicker;
+import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.kikinotebook.core.films.StatusService;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
+import java.util.Arrays;
+import java.util.Date;
+
 public class FilmOperationsHelper {
 
-    static void fillButtonBox(Film film, HBox buttonBox, NoArgsKnob onDeleteListener) {
+    static void fillButtonBox(Film film, HBox buttonBox, NoArgsKnob onUpdateDataListener) {
         switch (film.getStatus()) {
             case WATCHED:
-                buttonBox.getChildren().addAll(getWantToWatchButton(film));
+                buttonBox.getChildren().addAll(
+                        getWantToWatchButton(film),
+                        FxUtils.getPaneWithWidth(10),
+                        getWatchedButton(film, onUpdateDataListener)
+                );
                 break;
             case TO_WATCH:
-                buttonBox.getChildren().addAll(getDeleteFromToWatchButton(film, onDeleteListener));
-                break;
             case WATCHED_AND_TO_WATCH:
-                buttonBox.getChildren().addAll(getDeleteFromToWatchButton(film, onDeleteListener));
-
+                buttonBox.getChildren().addAll(
+                        getDeleteFromToWatchButton(film, onUpdateDataListener),
+                        FxUtils.getPaneWithWidth(10),
+                        getWatchedButton(film, onUpdateDataListener)
+                );
         }
+    }
+
+    private static Button getWatchedButton(Film film, NoArgsKnob onUpdateDataListener) {
+        Button button = new Button("Watched");
+        button.setOnMouseClicked(event -> openWatchResultDialog(film, onUpdateDataListener));
+        return button;
     }
 
     private static Button getWantToWatchButton(Film film) {
@@ -39,5 +58,16 @@ public class FilmOperationsHelper {
                     }
                 }));
         return button;
+    }
+
+    static void openWatchResultDialog(Film film, NoArgsKnob onUpdateDataListener) {
+        DcComboBox<FilmGrade> gradeDcComboBox = new DcComboBox<>(
+                true, null, Arrays.asList(FilmGrade.values()));
+        DcDatePicker datePicker = new DcDatePicker(true, new Date());
+
+        DialogConstructor.constructDialog(() -> {
+            StatusService.watched(film, gradeDcComboBox.getValue(), datePicker.getValue());
+            onUpdateDataListener.execute();
+        }, gradeDcComboBox, datePicker);
     }
 }

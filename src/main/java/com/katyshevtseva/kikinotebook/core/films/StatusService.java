@@ -2,7 +2,9 @@ package com.katyshevtseva.kikinotebook.core.films;
 
 import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static com.katyshevtseva.kikinotebook.core.films.model.FilmStatus.*;
@@ -34,5 +36,16 @@ public class StatusService {
             film.setToWatchAddingDate(new Date());
             Dao.saveEdited(film);
         }
+    }
+
+    public static void watched(Film film, FilmGrade grade, Date date) {
+        film.setGrade(grade);
+        if (film.getDates() == null) {
+            film.setDates(new ArrayList<>());
+        }
+        film.getDates().add(date);
+        film.setToWatchAddingDate(null);
+        film.setStatus(WATCHED);
+        Dao.saveEdited(film);
     }
 }
