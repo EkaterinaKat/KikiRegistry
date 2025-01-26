@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.katyshevtseva.kikinotebook.core.films.model.FilmStatus.TO_WATCH;
-import static com.katyshevtseva.kikinotebook.core.films.model.FilmStatus.WATCHED;
 
 public class ToWatchService {
 
@@ -29,7 +28,9 @@ public class ToWatchService {
 
     public static void saveToWatchFilm(FilmResponse response) {
         Film existing = Dao.findFilmByKpId(response.getId());
-        if (existing == null) {
+        if (existing != null) {
+            StatusService.wantToWatchFilm(existing);
+        } else {
             List<FilmGenre> genres = convertResponseGenresToEntity(response.getGenres());
             Film film = new Film(
                     null,
@@ -49,10 +50,6 @@ public class ToWatchService {
             );
             Film savedFilm = Dao.saveNewFilm(film);
             PosterLoader.loadPosterBySavedUrl(savedFilm);
-        } else {
-            if (existing.getStatus() == WATCHED) {
-                StatusService.wantToWatchFilm(existing);
-            }
         }
     }
 

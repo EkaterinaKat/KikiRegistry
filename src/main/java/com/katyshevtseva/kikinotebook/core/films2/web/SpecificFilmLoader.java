@@ -1,6 +1,7 @@
 package com.katyshevtseva.kikinotebook.core.films2.web;
 
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.web.FilmSearchEngine;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmArrayResponse;
 import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmResponse;
 

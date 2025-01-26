@@ -14,6 +14,12 @@ import static com.katyshevtseva.general.GeneralUtils.isEmpty;
 
 public class Tests {
 
+    public static void allFilmTests() {
+        testFilmStatus();
+        testPosterState();
+        testKpIdUniqueness();
+    }
+
     public static void testFilmStatus() {
         for (Film film : Dao.getAllFilms()) {
 
@@ -33,8 +39,9 @@ public class Tests {
                     testWatchedAndToWatchFilmState(film);
                     break;
             }
-            System.out.println(film.getTitle() + " tested");
+
         }
+        System.out.println("testFilmStatus done");
     }
 
     public static void testWatchedFilmState(Film film) {
@@ -66,12 +73,13 @@ public class Tests {
             boolean a = PosterFileManager2.filmHasPoster(film);
             boolean b = film.getPosterState() == PosterState.LOADED;
             if (a != b) {
-                System.out.println(film.getTitle() + " error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                throw new RuntimeException(film.getTitle() + " error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             }
             if (!a) {
-                System.out.println(film.getTitle() + " doesn't have poster");
+                throw new RuntimeException(film.getTitle() + " doesn't have poster");
             }
         }
+        System.out.println("testPosterState done");
     }
 
     public static void testKpIdUniqueness() {
@@ -94,6 +102,10 @@ public class Tests {
         }
 
         Set<Long> idSet = new HashSet<>(idList);
-        System.out.println("Id list has duplicates: " + (idSet.size() < idList.size()));
+        boolean duplicatesExists = (idSet.size() < idList.size());
+        if (duplicatesExists) {
+            throw new RuntimeException("Id list has duplicates");
+        }
+        System.out.println("testKpIdUniqueness done");
     }
 }
