@@ -5,8 +5,8 @@ import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGenre;
 import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films.web.PosterLoader;
-import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmResponse;
-import com.katyshevtseva.kikinotebook.core.films2.web.model.GenreResponse;
+import com.katyshevtseva.kikinotebook.core.films.web.model.FilmResponse;
+import com.katyshevtseva.kikinotebook.core.films.web.model.GenreResponse;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -45,8 +45,7 @@ public class ToWatchService {
                     response.getDescription(),
                     genres,
                     response.getMovieLength(),
-                    new Date(),
-                    false
+                    new Date()
             );
             Film savedFilm = Dao.saveNewFilm(film);
             PosterLoader.loadPosterBySavedUrl(savedFilm);

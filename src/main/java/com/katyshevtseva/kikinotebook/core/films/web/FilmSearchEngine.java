@@ -1,6 +1,6 @@
 package com.katyshevtseva.kikinotebook.core.films.web;
 
-import com.katyshevtseva.kikinotebook.core.films2.web.model.FilmArrayResponse;
+import com.katyshevtseva.kikinotebook.core.films.web.model.FilmArrayResponse;
 import com.katyshevtseva.web.HttpHelper;
 import com.katyshevtseva.web.Response;
 

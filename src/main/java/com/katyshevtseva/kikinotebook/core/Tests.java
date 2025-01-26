@@ -1,8 +1,8 @@
 package com.katyshevtseva.kikinotebook.core;
 
+import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
-import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
 
 import java.util.HashSet;
 import java.util.List;
@@ -70,7 +70,7 @@ public class Tests {
 
     public static void testPosterState() {
         for (Film film : Dao.getAllFilms()) {
-            boolean a = PosterFileManager2.filmHasPoster(film);
+            boolean a = PosterFileManager.filmHasPoster(film);
             boolean b = film.getPosterState() == PosterState.LOADED;
             if (a != b) {
                 throw new RuntimeException(film.getTitle() + " error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

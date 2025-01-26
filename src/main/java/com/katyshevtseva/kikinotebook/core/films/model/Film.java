@@ -61,12 +61,6 @@ public class Film implements HasId {
     @Temporal(TemporalType.DATE)
     private Date toWatchAddingDate;
 
-    //first viewed after date fixation started or just NEW
-    //то есть если true первая дата из dates это дата моего первого просмотра этого фильма
-    // если false первая дата из dates не является датой первого просмотра
-    //todo удалить
-    public Boolean fvadfs;
-
     public Film() {
     }
 

@@ -1,4 +1,4 @@
-package com.katyshevtseva.kikinotebook.core.films2.web.model;
+package com.katyshevtseva.kikinotebook.core.films.web.model;
 
 import lombok.Data;
 

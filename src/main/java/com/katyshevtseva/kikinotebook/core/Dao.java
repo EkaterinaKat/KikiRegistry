@@ -8,7 +8,6 @@ import com.katyshevtseva.kikinotebook.core.books.model.Book;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGenre;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
-import com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch;
 import com.katyshevtseva.kikinotebook.core.music.entity.Album;
 import com.katyshevtseva.kikinotebook.core.music.entity.Genre;
 import com.katyshevtseva.kikinotebook.core.music.entity.Singer;
@@ -68,10 +67,6 @@ public class Dao {
         return coreDao.getAll(FilmGenre.class.getSimpleName());
     }
 
-    public static List<FilmToWatch> getAllFilmsToWatch() {
-        return coreDao.getAll(FilmToWatch.class.getSimpleName());
-    }
-
     public static FilmGenre findFilmGenreByTitle(String title) {
         List<FilmGenre> genres = coreDao.find(FilmGenre.class, Restrictions.eq("title", title));
         if (genres.size() > 1) {
@@ -86,10 +81,6 @@ public class Dao {
 
     public static Film saveNewFilm(Film film) {
         return coreDao.saveNewAndGetResult(Film.class, film);
-    }
-
-    public static FilmToWatch saveNewToWatchFilm(FilmToWatch film) {
-        return coreDao.saveNewAndGetResult(FilmToWatch.class, film);
     }
 
     public static Film findFilmByKpId(Long kpId) {

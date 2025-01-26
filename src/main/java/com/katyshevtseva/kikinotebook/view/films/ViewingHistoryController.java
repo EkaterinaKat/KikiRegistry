@@ -8,9 +8,9 @@ import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController2;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
+import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
 import com.katyshevtseva.kikinotebook.core.films.ViewingHistoryService;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
-import com.katyshevtseva.kikinotebook.core.films2.PosterFileManager2;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -95,7 +95,7 @@ public class ViewingHistoryController implements SectionController {
                 nameLabel,
                 getPaneWithHeight(10));
 
-        ImageView imageView = new ImageView(PosterFileManager2.getPoster(film).getImage());
+        ImageView imageView = new ImageView(PosterFileManager.getPoster(film).getImage());
         setImageWidthPreservingRatio(imageView, blockWidth);
         vBox.getChildren().addAll(imageView, getPaneWithHeight(10));
 

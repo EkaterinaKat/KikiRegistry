@@ -22,7 +22,6 @@
 
         <mapping class="com.katyshevtseva.kikinotebook.core.films.model.Film"></mapping>
         <mapping class="com.katyshevtseva.kikinotebook.core.films.model.FilmGenre"></mapping>
-        <mapping class="com.katyshevtseva.kikinotebook.core.films2.model.FilmToWatch"></mapping>
 
         <mapping class="com.katyshevtseva.kikinotebook.core.series.model.Series"></mapping>
 
