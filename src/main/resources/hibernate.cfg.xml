@@ -22,6 +22,8 @@
 
         <mapping class="com.katyshevtseva.kikinotebook.core.films.model.Film"></mapping>
         <mapping class="com.katyshevtseva.kikinotebook.core.films.model.FilmGenre"></mapping>
+        <mapping class="com.katyshevtseva.kikinotebook.core.films.model.Actor"></mapping>
+        <mapping class="com.katyshevtseva.kikinotebook.core.films.model.Trailer"></mapping>
 
         <mapping class="com.katyshevtseva.kikinotebook.core.series.model.Series"></mapping>
 

@@ -5,6 +5,7 @@ import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.films.Service;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,6 +18,7 @@ import static com.katyshevtseva.time.TimeUtil.getTimeStringByMinutes;
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 public class Film implements HasId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,8 +63,8 @@ public class Film implements HasId {
     @Temporal(TemporalType.DATE)
     private Date toWatchAddingDate;
 
-    public Film() {
-    }
+    //todo temporal
+    private Boolean processed;
 
     public String getTitleAndYear() {
         if (year == null)
@@ -125,6 +127,10 @@ public class Film implements HasId {
         }
 
         return res;
+    }
 
+    @Override
+    public String toString() {
+        return title;
     }
 }

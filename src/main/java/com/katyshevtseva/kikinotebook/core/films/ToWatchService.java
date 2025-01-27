@@ -45,14 +45,15 @@ public class ToWatchService {
                     response.getDescription(),
                     genres,
                     response.getMovieLength(),
-                    new Date()
+                    new Date(),
+                    false
             );
             Film savedFilm = Dao.saveNewFilm(film);
             PosterLoader.loadPosterBySavedUrl(savedFilm);
         }
     }
 
-    private static List<FilmGenre> convertResponseGenresToEntity(List<GenreResponse> genreResponses) {
+    public static List<FilmGenre> convertResponseGenresToEntity(List<GenreResponse> genreResponses) {
         List<FilmGenre> result = new ArrayList<>();
         for (GenreResponse response : genreResponses) {
             FilmGenre genre = Dao.findFilmGenreByTitle(response.getName());

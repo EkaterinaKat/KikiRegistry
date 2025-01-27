@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import lombok.RequiredArgsConstructor;
 
 import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
+import static com.katyshevtseva.kikinotebook.core.films.Service.getActorsAndTrailersString;
 
 @RequiredArgsConstructor
 public class DetailsController implements FxController {
@@ -31,7 +32,7 @@ public class DetailsController implements FxController {
         imageView.setImage(PosterFileManager.getPoster(film).getImage());
         setImageWidthPreservingRatio(imageView, 300);
         titleLabel.setText(film.getTitleAndYear());
-        detailsLabel.setText(film.getDetailsString());
+        detailsLabel.setText(film.getDetailsString() + "\n\n" + getActorsAndTrailersString(film));
         detailsLabel.setWrapText(true);
         detailsLabel.setMaxWidth(600);
         FilmOperationsHelper.fillButtonBox(film, buttonBox, () -> {

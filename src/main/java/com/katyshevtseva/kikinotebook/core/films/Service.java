@@ -32,4 +32,9 @@ public class Service {
         film.setPosterState(posterState);
         Dao.saveEdited(film);
     }
+
+    //todo temporal
+    public static String getActorsAndTrailersString(Film film) {
+        return Dao.findActors(film) + " " + Dao.findTrailers(film);
+    }
 }

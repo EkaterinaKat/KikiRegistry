@@ -5,9 +5,7 @@ import com.katyshevtseva.hibernate.CoreDao;
 import com.katyshevtseva.hibernate.HasId;
 import com.katyshevtseva.kikinotebook.core.books.model.Author;
 import com.katyshevtseva.kikinotebook.core.books.model.Book;
-import com.katyshevtseva.kikinotebook.core.films.model.Film;
-import com.katyshevtseva.kikinotebook.core.films.model.FilmGenre;
-import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.films.model.*;
 import com.katyshevtseva.kikinotebook.core.music.entity.Album;
 import com.katyshevtseva.kikinotebook.core.music.entity.Genre;
 import com.katyshevtseva.kikinotebook.core.music.entity.Singer;
@@ -15,6 +13,7 @@ import com.katyshevtseva.kikinotebook.core.series.model.Series;
 import com.katyshevtseva.kikinotebook.core.series.model.SeriesState;
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.Date;
@@ -84,9 +83,9 @@ public class Dao {
     }
 
     public static Film findFilmByKpId(Long kpId) {
-        List<Film> films = coreDao.find(Film.class, Restrictions.eq("kpid", kpId));
+        List<Film> films = coreDao.find(Film.class, Restrictions.eq("kpId", kpId));
         if (films.size() > 1) {
-            throw new RuntimeException("Более одно фильма в бд имеют одинаковые kpid");
+            throw new RuntimeException("Более одно фильма в бд имеют одинаковые kpId");
         }
         return films.isEmpty() ? null : films.get(0);
     }
@@ -119,6 +118,32 @@ public class Dao {
     public static List<Date> getAllDatesWithFilmViews() {
         String sqlString = "select date_ from film_dates ; ";
         return coreDao.findByQuery(session -> session.createSQLQuery(sqlString));
+    }
+
+    public static List<Actor> findActors(Film film) {
+        return coreDao.find(session -> {
+            Criteria criteria = session.createCriteria(Actor.class, "actor");
+            criteria.createAlias("actor.films", "film");
+            criteria.add(Restrictions.eq("film.id", film.getId()));
+            return criteria;
+        });
+    }
+
+    public static List<Trailer> findTrailers(Film film) {
+        return coreDao.find(session -> {
+            Criteria criteria = session.createCriteria(Trailer.class, "trailer");
+            criteria.createAlias("trailer.film", "film");
+            criteria.add(Restrictions.eq("film.id", film.getId()));
+            return criteria;
+        });
+    }
+
+    public static Actor findActorByKpId(Long kpId) {
+        List<Actor> actors = coreDao.find(Actor.class, Restrictions.eq("kpId", kpId));
+        if (actors.size() > 1) {
+            throw new RuntimeException("Более одно актёра в бд имеют одинаковые kpId");
+        }
+        return actors.isEmpty() ? null : actors.get(0);
     }
 
     /////////////////////////////////////////////// SERIES ///////////////////////////////////////////////

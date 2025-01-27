@@ -8,6 +8,6 @@ import java.util.List;
 public class FilmSearchService {
 
     public static List<FilmResponse> search(String str) throws Exception {
-        return FilmSearchEngine.findFilms(str).getDocs();
+        return FilmSearchEngine.findByTitle(str).getDocs();
     }
 }
