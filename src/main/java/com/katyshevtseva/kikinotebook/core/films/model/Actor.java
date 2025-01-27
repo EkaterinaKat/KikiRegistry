@@ -34,4 +34,8 @@ public class Actor {
     public String toString() {
         return name;
     }
+
+    public String getNameNonNull() {
+        return name == null ? enName : name;
+    }
 }
