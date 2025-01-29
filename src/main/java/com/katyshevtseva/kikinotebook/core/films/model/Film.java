@@ -66,6 +66,9 @@ public class Film implements HasId {
     //todo temporal
     private Boolean processed;
 
+    //todo temporal
+    private Integer numOfActors;
+
     public String getTitleAndYear() {
         if (year == null)
             return title;
@@ -132,5 +135,20 @@ public class Film implements HasId {
     @Override
     public String toString() {
         return title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Film film = (Film) o;
+
+        return id.equals(film.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

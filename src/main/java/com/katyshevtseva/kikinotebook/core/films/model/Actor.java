@@ -30,6 +30,9 @@ public class Actor {
             inverseJoinColumns = @JoinColumn(name = "film_id"))
     private Set<Film> films;
 
+    @Transient
+    private Boolean hasLoadedPhoto;
+
     @Override
     public String toString() {
         return name;
@@ -37,5 +40,9 @@ public class Actor {
 
     public String getNameNonNull() {
         return name == null ? enName : name;
+    }
+
+    public int getNumOfFilms(){
+        return films.size();
     }
 }

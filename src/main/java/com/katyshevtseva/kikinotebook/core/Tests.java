@@ -1,8 +1,10 @@
 package com.katyshevtseva.kikinotebook.core;
 
 import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
+import com.katyshevtseva.kikinotebook.core.films.model.Actor;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
+import com.katyshevtseva.kikinotebook.core.films.web.ActorPhotoLoader;
 
 import java.util.HashSet;
 import java.util.List;
@@ -107,5 +109,55 @@ public class Tests {
             throw new RuntimeException("Id list has duplicates");
         }
         System.out.println("testKpIdUniqueness done");
+    }
+
+    private static void printActorStatistics() {
+        List<Actor> actors = Dao.getAllActors();
+
+        for (int i = 0; i < 18; i++) {
+            printActorsByNumOfFilms(actors, i);
+        }
+    }
+
+    private static void printActorsByNumOfFilms(List<Actor> actors, int num) {
+        List<Actor> filteredActors = actors.stream()
+                .filter(actor -> actor.getFilms().size() == num)
+                .collect(Collectors.toList());
+
+
+        System.out.println(num + " " + filteredActors.size());
+        if (filteredActors.size() < 5) {
+            System.out.println(filteredActors);
+        }
+    }
+
+    private static void checkNumOfActorsInfilms() {
+        int okCount = 0;
+        int notOkCount = 0;
+
+        for (Film film : Dao.getAllFilms()) {
+
+            List<Actor> actors = Dao.findActors(film);
+            System.out.println(film.getId() + " " + film.getTitle() + " actors:" + actors.size());
+
+            if (film.getNumOfActors().equals(actors.size())) {
+                okCount++;
+            } else {
+                notOkCount++;
+            }
+        }
+
+        System.out.println("okCount " + okCount);
+        System.out.println("notOkCount " + notOkCount);
+    }
+
+    private static void loadActorPhotos() {
+        List<Actor> actors = Dao.getAllActors();
+        for (Actor actor : actors) {
+
+            if (actor.getFilms().size() > 2) {
+                ActorPhotoLoader.loadActorPhoto(actor);
+            }
+        }
     }
 }

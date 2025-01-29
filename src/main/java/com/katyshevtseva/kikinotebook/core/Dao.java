@@ -146,6 +146,10 @@ public class Dao {
         return actors.isEmpty() ? null : actors.get(0);
     }
 
+    public static List<Actor> getAllActors() {
+        return coreDao.getAll(Actor.class.getSimpleName());
+    }
+
     /////////////////////////////////////////////// SERIES ///////////////////////////////////////////////
     public static List<Series> findSeries(SeriesState state, String searchString) {
         if (GeneralUtils.isEmpty(searchString)) {

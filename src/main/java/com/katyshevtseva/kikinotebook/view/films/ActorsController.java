@@ -6,6 +6,7 @@ import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.windowbuilder.FxController;
+import com.katyshevtseva.kikinotebook.core.films.ActorFileManager;
 import com.katyshevtseva.kikinotebook.core.films.ActorService;
 import com.katyshevtseva.kikinotebook.core.films.model.Actor;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
@@ -13,13 +14,19 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
+import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
 
 @RequiredArgsConstructor
 public class ActorsController implements FxController {
@@ -56,11 +63,11 @@ public class ActorsController implements FxController {
                 nameLabel,
                 getPaneWithHeight(10));
 
-//        if (author.getImageName() != null) {
-//            vBox.getChildren().addAll(
-//                    placeImageInSquare(new ImageView(getImageContainer(author).getImage()), blockWidth),
-//                    getPaneWithHeight(10));
-//        }
+        if (actor.getHasLoadedPhoto()) {
+            ImageView imageView = new ImageView(ActorFileManager.getActorPhoto(actor).getImage());
+            setImageWidthPreservingRatio(imageView, blockWidth);
+            vBox.getChildren().addAll(imageView, getPaneWithHeight(10));
+        }
 
         HBox hBox = new HBox();
         hBox.getChildren().addAll(getPaneWithWidth(10), vBox, getPaneWithWidth(10));
@@ -69,6 +76,12 @@ public class ActorsController implements FxController {
     }
 
     private void updateContent() {
-        actorGridController.setContent(ActorService.findActors(film));
+        List<Actor> actors = ActorService.findActors(film)
+                .stream()
+                .peek(actor -> actor.setHasLoadedPhoto(ActorFileManager.actorHasPhoto(actor)))
+                .sorted(Comparator.comparing(Actor::getNumOfFilms).reversed())
+                .collect(Collectors.toList());
+
+        actorGridController.setContent(actors);
     }
 }

@@ -46,7 +46,8 @@ public class ToWatchService {
                     genres,
                     response.getMovieLength(),
                     new Date(),
-                    false
+                    false,
+                    0
             );
             Film savedFilm = Dao.saveNewFilm(film);
             PosterLoader.loadPosterBySavedUrl(savedFilm);
