@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.List;
 
+// ответ от эндпоинта /movie/{id}
 @Data
 public class AdditionalInfoResponse {
 

@@ -23,8 +23,8 @@ public class FilmSearchEngine {
         }
     }
 
-    public static AdditionalInfoResponse findById(Long id) throws Exception {
-        String query = BASE_URL + String.format(ID_SEARCH_URL, id, TOKEN);
+    public static AdditionalInfoResponse findByKpId(Long kpId) throws Exception {
+        String query = BASE_URL + String.format(ID_SEARCH_URL, kpId, TOKEN);
         Response response = HttpHelper.get(query);
         if (response.codeIsPositive()) {
             return response.parceBody(AdditionalInfoResponse.class);

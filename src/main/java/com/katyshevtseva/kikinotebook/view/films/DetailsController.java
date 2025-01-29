@@ -44,6 +44,11 @@ public class DetailsController implements FxController {
             onUpdateDataListener.execute();
             FxUtils.closeWindowThatContains(titleLabel);
         });
-        actorsButton.setOnMouseClicked(event -> WindowBuilder.openDialog(ACTORS_DIALOG, new ActorsController(film)));
+        if(film.getType().hasActors){
+            actorsButton.setOnMouseClicked(event -> WindowBuilder.openDialog(ACTORS_DIALOG, new ActorsController(film)));
+        }else {
+            actorsButton.setVisible(false);
+        }
+
     }
 }

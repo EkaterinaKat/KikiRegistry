@@ -63,6 +63,9 @@ public class Film implements HasId {
     @Temporal(TemporalType.DATE)
     private Date toWatchAddingDate;
 
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
     //todo temporal
     private Boolean processed;
 

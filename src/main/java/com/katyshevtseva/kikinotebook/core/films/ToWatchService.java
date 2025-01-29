@@ -4,6 +4,7 @@ import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGenre;
 import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
+import com.katyshevtseva.kikinotebook.core.films.model.Type;
 import com.katyshevtseva.kikinotebook.core.films.web.PosterLoader;
 import com.katyshevtseva.kikinotebook.core.films.web.model.FilmResponse;
 import com.katyshevtseva.kikinotebook.core.films.web.model.GenreResponse;
@@ -46,6 +47,7 @@ public class ToWatchService {
                     genres,
                     response.getMovieLength(),
                     new Date(),
+                    Type.getByResponseString(response.getType()),
                     false,
                     0
             );

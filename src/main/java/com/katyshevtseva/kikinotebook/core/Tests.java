@@ -29,6 +29,7 @@ public class Tests {
             assert_(film, film.getPosterUrl() != null, "film.getPosterUrl()!=null");
             assert_(film, film.getTitle() != null, "film.getTitle()!=null");
             assert_(film, film.getYear() != null, "film.getYear()!=null");
+            assert_(film, film.getType() != null, "film.getType()!=null");
 
             switch (film.getStatus()) {
                 case WATCHED:
@@ -111,8 +112,10 @@ public class Tests {
         System.out.println("testKpIdUniqueness done");
     }
 
-    private static void printActorStatistics() {
+    public static void printActorStatistics() {
         List<Actor> actors = Dao.getAllActors();
+
+        System.out.println("All " + actors.size());
 
         for (int i = 0; i < 18; i++) {
             printActorsByNumOfFilms(actors, i);
@@ -131,7 +134,7 @@ public class Tests {
         }
     }
 
-    private static void checkNumOfActorsInfilms() {
+    public static void checkNumOfActorsInFilms() {
         int okCount = 0;
         int notOkCount = 0;
 
@@ -151,7 +154,7 @@ public class Tests {
         System.out.println("notOkCount " + notOkCount);
     }
 
-    private static void loadActorPhotos() {
+    public static void loadActorPhotos() {
         List<Actor> actors = Dao.getAllActors();
         for (Actor actor : actors) {
 

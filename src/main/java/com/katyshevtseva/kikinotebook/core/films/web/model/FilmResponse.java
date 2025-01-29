@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.List;
 
+//ответ из эндпоинта /movie/search
 @Data
 public class FilmResponse {
     private Long id;
@@ -13,6 +14,7 @@ public class FilmResponse {
     private String description;
     private List<GenreResponse> genres;
     private Integer movieLength;
+    private String type;
 
     public String getTitleAndYear() {
         return name + " " + year;
