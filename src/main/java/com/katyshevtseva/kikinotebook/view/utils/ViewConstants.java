@@ -10,8 +10,6 @@ public class ViewConstants {
             "/fxml/main.fxml", new Size(1000, 1700), CoreConstants.APP_NAME);
     public static final DialogInfo AUTHOR_DIALOG =
             new DialogInfo("/fxml/books/author_dialog.fxml", new Size(500, 700), "Author edit");
-    public static final DialogInfo FILM_SEARCH_DIALOG2 =
-            new DialogInfo("/fxml/films2/film_search.fxml", new Size(800, 1000), "Film search");
     public static final DialogInfo ALBUM_DIALOG =
             new DialogInfo("/fxml/music/album_dialog.fxml", new Size(800, 1400), "Album edit");
 
@@ -27,7 +25,9 @@ public class ViewConstants {
     public static final DialogInfo FILM_DETAIL_DIALOG =
             new DialogInfo("/fxml/films/details.fxml", new Size(800, 1000), "");
     public static final DialogInfo ACTORS_DIALOG =
-            new DialogInfo("/fxml/films/actors.fxml", new Size(1000, 1000), "");
+            new DialogInfo("/fxml/empty_pane.fxml", new Size(1000, 1000), "");
+    public static final DialogInfo ACTOR_FILMS_DIALOG =
+            new DialogInfo("/fxml/empty_pane.fxml", new Size(1000, 1000), "");
     public static final NodeInfo FILM_LISTS_NODE = new NodeInfo("/fxml/films/film_lists.fxml");
     public static final NodeInfo FILM_STATISTICS_NODE = new NodeInfo("/fxml/vbox_container.fxml");
     public static final NodeInfo VIEWING_HISTORY_NODE = new NodeInfo("/fxml/films/viewing_history.fxml");

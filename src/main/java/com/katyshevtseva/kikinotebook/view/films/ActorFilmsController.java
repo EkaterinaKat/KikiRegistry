@@ -6,9 +6,10 @@ import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.windowbuilder.FxController;
-import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
-import com.katyshevtseva.kikinotebook.core.films.ActorFileManager;
+import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
+import com.katyshevtseva.kikinotebook.core.films.model.Actor;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films.model.Role;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -20,21 +21,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
 import static com.katyshevtseva.fx.ImageSizeUtil.setImageWidthPreservingRatio;
-import static com.katyshevtseva.kikinotebook.view.utils.ViewConstants.ACTOR_FILMS_DIALOG;
 
 @RequiredArgsConstructor
-public class ActorsController implements FxController {
+public class ActorFilmsController implements FxController {
     private static final Size GRID_SIZE = new Size(900, 960);
     private static final int BLOCK_WIDTH = 190;
-    private final Film film;
-    private BlockGridController<Role> actorGridController;
+    private final Actor actor;
+    private BlockGridController<Film> filmGridController;
     @FXML
     private Pane contentPane;
 
@@ -45,15 +44,15 @@ public class ActorsController implements FxController {
     }
 
     private void adjustBlockListController() {
-        ComponentBuilder.Component<BlockGridController<Role>> component =
+        ComponentBuilder.Component<BlockGridController<Film>> component =
                 new ComponentBuilder().setSize(GRID_SIZE).getBlockGridComponent(BLOCK_WIDTH,
-                        null, null, this::getRoleNode);
+                        null, null, this::getFilmNode);
         contentPane.getChildren().add(component.getNode());
-        actorGridController = component.getController();
+        filmGridController = component.getController();
     }
 
-    private Node getRoleNode(Role role, int blockWidth) {
-        Label nameLabel = new Label(role.getNameAndDescNonNull());
+    private Node getFilmNode(Film film, int blockWidth) {
+        Label nameLabel = new Label(film.getTitleAndYear());
         FxUtils.setWidth(nameLabel, blockWidth);
         nameLabel.setWrapText(true);
         nameLabel.setAlignment(Pos.BASELINE_CENTER);
@@ -64,8 +63,8 @@ public class ActorsController implements FxController {
                 nameLabel,
                 getPaneWithHeight(10));
 
-        if (role.getActor().getHasLoadedPhoto()) {
-            ImageView imageView = new ImageView(ActorFileManager.getActorPhoto(role.getActor()).getImage());
+        if (film.getPosterState() == PosterState.LOADED) {
+            ImageView imageView = new ImageView(PosterFileManager.getPoster(film).getImage());
             setImageWidthPreservingRatio(imageView, blockWidth);
             vBox.getChildren().addAll(imageView, getPaneWithHeight(10));
         }
@@ -73,24 +72,15 @@ public class ActorsController implements FxController {
         HBox hBox = new HBox();
         hBox.getChildren().addAll(getPaneWithWidth(10), vBox, getPaneWithWidth(10));
         hBox.setStyle(Styler.getBlackBorderStyle());
-
-        hBox.setOnMouseClicked(event ->
-                WindowBuilder.openDialog(ACTOR_FILMS_DIALOG, new ActorFilmsController(role.getActor())));
-
         return hBox;
     }
 
     private void updateContent() {
-        Comparator<Role> comparator = Comparator
-                .comparing(Role::descriptionIsEmpty)
-                .thenComparing(Role::actorDoesntHavePhoto);
-
-        List<Role> actors = film.getRoles()
+        List<Film> actors = actor.getRoles()
                 .stream()
-                .peek(role -> role.getActor().setHasLoadedPhoto(ActorFileManager.actorHasPhoto(role.getActor())))
-                .sorted(comparator)
+                .map(Role::getFilm)
                 .collect(Collectors.toList());
 
-        actorGridController.setContent(actors);
+        filmGridController.setContent(actors);
     }
 }
