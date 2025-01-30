@@ -25,8 +25,12 @@ public class Role {
 
     private String description;
 
-    public int getActorNumOfRoles() {
-        return actor.getNumOfRoles();
+    public boolean descriptionIsEmpty(){
+        return description==null;
+    }
+
+    public boolean actorDoesntHavePhoto(){
+        return !actor.getHasLoadedPhoto();
     }
 
     public String getNameAndDescNonNull() {

@@ -75,10 +75,14 @@ public class ActorsController implements FxController {
     }
 
     private void updateContent() {
+        Comparator<Role> comparator = Comparator
+                .comparing(Role::descriptionIsEmpty)
+                .thenComparing(Role::actorDoesntHavePhoto);
+
         List<Role> actors = film.getRoles()
                 .stream()
                 .peek(role -> role.getActor().setHasLoadedPhoto(ActorFileManager.actorHasPhoto(role.getActor())))
-                .sorted(Comparator.comparing(Role::getActorNumOfRoles).reversed())
+                .sorted(comparator)
                 .collect(Collectors.toList());
 
         actorGridController.setContent(actors);

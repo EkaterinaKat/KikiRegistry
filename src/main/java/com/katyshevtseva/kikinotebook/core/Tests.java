@@ -175,7 +175,7 @@ public class Tests {
         List<Actor> actors = Dao.getAllActors();
         for (Actor actor : actors) {
 
-            if (actor.getRoles().size() > 2) {
+            if (actor.getRoles().size() > 1) {
                 ActorPhotoLoader.loadActorPhoto(actor);
             }
         }
