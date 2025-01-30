@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.katyshevtseva.date.DateUtils.READABLE_DATE_FORMAT;
@@ -55,7 +56,7 @@ public class Film implements HasId {
     @JoinTable(name = "films_genres",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private List<FilmGenre> genres;
+    private Set<FilmGenre> genres;
 
     private Integer length;
 
@@ -66,11 +67,14 @@ public class Film implements HasId {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    //todo temporal
     private Boolean processed;
 
-    //todo temporal
     private Integer numOfActors;
+
+    private Integer numOfTrailers;
+
+    @OneToMany(mappedBy = "film", fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     public String getTitleAndYear() {
         if (year == null)

@@ -1,5 +1,6 @@
 package com.katyshevtseva.kikinotebook.core.films.model;
 
+import com.katyshevtseva.hibernate.HasId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Actor {
+public class Actor implements HasId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,14 +25,11 @@ public class Actor {
 
     private String enName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "films_actors",
-            joinColumns = @JoinColumn(name = "actor_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id"))
-    private Set<Film> films;
-
     @Transient
     private Boolean hasLoadedPhoto;
+
+    @OneToMany(mappedBy = "actor", fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     @Override
     public String toString() {
@@ -42,7 +40,7 @@ public class Actor {
         return name == null ? enName : name;
     }
 
-    public int getNumOfFilms(){
-        return films.size();
+    public int getNumOfRoles() {
+        return roles.size();
     }
 }

@@ -9,4 +9,5 @@ public class PersonResponse {
     private String name;
     private String enName;
     private String profession;
+    private String description;
 }

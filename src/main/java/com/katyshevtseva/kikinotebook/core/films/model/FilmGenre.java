@@ -25,4 +25,19 @@ public class FilmGenre implements HasId {
     public String toString() {
         return title;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FilmGenre genre = (FilmGenre) o;
+
+        return id.equals(genre.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

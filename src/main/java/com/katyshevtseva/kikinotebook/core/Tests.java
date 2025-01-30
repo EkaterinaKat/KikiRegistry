@@ -1,9 +1,7 @@
 package com.katyshevtseva.kikinotebook.core;
 
 import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
-import com.katyshevtseva.kikinotebook.core.films.model.Actor;
-import com.katyshevtseva.kikinotebook.core.films.model.Film;
-import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
+import com.katyshevtseva.kikinotebook.core.films.model.*;
 import com.katyshevtseva.kikinotebook.core.films.web.ActorPhotoLoader;
 
 import java.util.HashSet;
@@ -124,12 +122,12 @@ public class Tests {
 
     private static void printActorsByNumOfFilms(List<Actor> actors, int num) {
         List<Actor> filteredActors = actors.stream()
-                .filter(actor -> actor.getFilms().size() == num)
+                .filter(actor -> actor.getRoles().size() == num)
                 .collect(Collectors.toList());
 
 
         System.out.println(num + " " + filteredActors.size());
-        if (filteredActors.size() < 5) {
+        if (filteredActors.size() < 10) {
             System.out.println(filteredActors);
         }
     }
@@ -140,10 +138,29 @@ public class Tests {
 
         for (Film film : Dao.getAllFilms()) {
 
-            List<Actor> actors = Dao.findActors(film);
-            System.out.println(film.getId() + " " + film.getTitle() + " actors:" + actors.size());
+            Set<Role> roles = film.getRoles();
+            System.out.println(film.getId() + " " + film.getTitle() + " actors:" + roles.size());
 
-            if (film.getNumOfActors().equals(actors.size())) {
+            if (film.getNumOfActors().equals(roles.size())) {
+                okCount++;
+            } else {
+                notOkCount++;
+            }
+        }
+
+        System.out.println("okCount " + okCount);
+        System.out.println("notOkCount " + notOkCount);
+    }
+
+    public static void checkTrailers() {
+        int okCount = 0;
+        int notOkCount = 0;
+
+        for (Film film : Dao.getAllFilms()) {
+
+            List<Trailer> trailers = Dao.findTrailers(film);
+
+            if (film.getNumOfTrailers().equals(trailers.size())) {
                 okCount++;
             } else {
                 notOkCount++;
@@ -158,7 +175,7 @@ public class Tests {
         List<Actor> actors = Dao.getAllActors();
         for (Actor actor : actors) {
 
-            if (actor.getFilms().size() > 2) {
+            if (actor.getRoles().size() > 2) {
                 ActorPhotoLoader.loadActorPhoto(actor);
             }
         }

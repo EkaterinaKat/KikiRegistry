@@ -120,15 +120,6 @@ public class Dao {
         return coreDao.findByQuery(session -> session.createSQLQuery(sqlString));
     }
 
-    public static List<Actor> findActors(Film film) {
-        return coreDao.find(session -> {
-            Criteria criteria = session.createCriteria(Actor.class, "actor");
-            criteria.createAlias("actor.films", "film");
-            criteria.add(Restrictions.eq("film.id", film.getId()));
-            return criteria;
-        });
-    }
-
     public static List<Trailer> findTrailers(Film film) {
         return coreDao.find(session -> {
             Criteria criteria = session.createCriteria(Trailer.class, "trailer");

@@ -7,9 +7,8 @@ import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
 import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.kikinotebook.core.films.ActorFileManager;
-import com.katyshevtseva.kikinotebook.core.films.ActorService;
-import com.katyshevtseva.kikinotebook.core.films.model.Actor;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.Role;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -33,7 +32,7 @@ public class ActorsController implements FxController {
     private static final Size GRID_SIZE = new Size(900, 960);
     private static final int BLOCK_WIDTH = 190;
     private final Film film;
-    private BlockGridController<Actor> actorGridController;
+    private BlockGridController<Role> actorGridController;
     @FXML
     private Pane contentPane;
 
@@ -44,15 +43,15 @@ public class ActorsController implements FxController {
     }
 
     private void adjustBlockListController() {
-        ComponentBuilder.Component<BlockGridController<Actor>> component =
+        ComponentBuilder.Component<BlockGridController<Role>> component =
                 new ComponentBuilder().setSize(GRID_SIZE).getBlockGridComponent(BLOCK_WIDTH,
-                        null, null, this::getActorNode);
+                        null, null, this::getRoleNode);
         contentPane.getChildren().add(component.getNode());
         actorGridController = component.getController();
     }
 
-    private Node getActorNode(Actor actor, int blockWidth) {
-        Label nameLabel = new Label(actor.getNameNonNull());
+    private Node getRoleNode(Role role, int blockWidth) {
+        Label nameLabel = new Label(role.getNameAndDescNonNull());
         FxUtils.setWidth(nameLabel, blockWidth);
         nameLabel.setWrapText(true);
         nameLabel.setAlignment(Pos.BASELINE_CENTER);
@@ -63,8 +62,8 @@ public class ActorsController implements FxController {
                 nameLabel,
                 getPaneWithHeight(10));
 
-        if (actor.getHasLoadedPhoto()) {
-            ImageView imageView = new ImageView(ActorFileManager.getActorPhoto(actor).getImage());
+        if (role.getActor().getHasLoadedPhoto()) {
+            ImageView imageView = new ImageView(ActorFileManager.getActorPhoto(role.getActor()).getImage());
             setImageWidthPreservingRatio(imageView, blockWidth);
             vBox.getChildren().addAll(imageView, getPaneWithHeight(10));
         }
@@ -76,10 +75,10 @@ public class ActorsController implements FxController {
     }
 
     private void updateContent() {
-        List<Actor> actors = ActorService.findActors(film)
+        List<Role> actors = film.getRoles()
                 .stream()
-                .peek(actor -> actor.setHasLoadedPhoto(ActorFileManager.actorHasPhoto(actor)))
-                .sorted(Comparator.comparing(Actor::getNumOfFilms).reversed())
+                .peek(role -> role.getActor().setHasLoadedPhoto(ActorFileManager.actorHasPhoto(role.getActor())))
+                .sorted(Comparator.comparing(Role::getActorNumOfRoles).reversed())
                 .collect(Collectors.toList());
 
         actorGridController.setContent(actors);

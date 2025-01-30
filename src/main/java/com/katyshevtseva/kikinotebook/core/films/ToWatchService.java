@@ -9,10 +9,7 @@ import com.katyshevtseva.kikinotebook.core.films.web.PosterLoader;
 import com.katyshevtseva.kikinotebook.core.films.web.model.FilmResponse;
 import com.katyshevtseva.kikinotebook.core.films.web.model.GenreResponse;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.katyshevtseva.kikinotebook.core.films.model.FilmStatus.TO_WATCH;
@@ -32,7 +29,7 @@ public class ToWatchService {
         if (existing != null) {
             StatusService.wantToWatchFilm(existing);
         } else {
-            List<FilmGenre> genres = convertResponseGenresToEntity(response.getGenres());
+            Set<FilmGenre> genres = convertResponseGenresToEntity(response.getGenres());
             Film film = new Film(
                     null,
                     response.getId(),
@@ -49,15 +46,17 @@ public class ToWatchService {
                     new Date(),
                     Type.getByResponseString(response.getType()),
                     false,
-                    0
+                    0,
+                    0,
+                    null
             );
             Film savedFilm = Dao.saveNewFilm(film);
             PosterLoader.loadPosterBySavedUrl(savedFilm);
         }
     }
 
-    public static List<FilmGenre> convertResponseGenresToEntity(List<GenreResponse> genreResponses) {
-        List<FilmGenre> result = new ArrayList<>();
+    public static Set<FilmGenre> convertResponseGenresToEntity(List<GenreResponse> genreResponses) {
+        Set<FilmGenre> result = new HashSet<>();
         for (GenreResponse response : genreResponses) {
             FilmGenre genre = Dao.findFilmGenreByTitle(response.getName());
             if (genre == null) {
