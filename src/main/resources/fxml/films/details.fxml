@@ -24,7 +24,12 @@
             </VBox>
 
             <Pane minWidth="30" maxWidth="30"/>
-            <Label fx:id="detailsLabel"/>
+            <VBox>
+                <Label fx:id="detailsLabel"/>
+                <Pane minHeight="30" maxHeight="30"/>
+                <VBox fx:id="trailerBox"/>
+            </VBox>
+
         </HBox>
     </VBox>
 

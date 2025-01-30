@@ -31,4 +31,8 @@ public class Trailer {
     public String toString() {
         return name;
     }
+
+    public String getLabelInfo() {
+        return "\uD83D\uDDC7" + type + ": " + name + " (" + site + ")";
+    }
 }

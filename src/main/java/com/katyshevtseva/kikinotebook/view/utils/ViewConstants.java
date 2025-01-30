@@ -23,7 +23,7 @@ public class ViewConstants {
 
     // FILMS
     public static final DialogInfo FILM_DETAIL_DIALOG =
-            new DialogInfo("/fxml/films/details.fxml", new Size(800, 1000), "");
+            new DialogInfo("/fxml/films/details.fxml", new Size(1000, 1000), "");
     public static final DialogInfo ACTORS_DIALOG =
             new DialogInfo("/fxml/empty_pane.fxml", new Size(1000, 1000), "");
     public static final DialogInfo ACTOR_FILMS_DIALOG =
