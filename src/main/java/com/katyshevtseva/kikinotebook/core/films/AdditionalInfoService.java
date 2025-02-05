@@ -16,18 +16,14 @@ import java.util.stream.Collectors;
 public class AdditionalInfoService {
 
     public static void loadAdditionalInfo(Film film) throws Exception {
-        if (!film.getProcessed()) {
+        AdditionalInfoResponse response = FilmSearchEngine.findByKpId(film.getKpId());
 
-            AdditionalInfoResponse response = FilmSearchEngine.findByKpId(film.getKpId());
+        Integer numOfActors = saveActors(film, response);
+        Integer numOfTrailers = saveTrailers(film, response);
+        film.setNumOfActors(numOfActors);
+        film.setNumOfTrailers(numOfTrailers);
 
-            Integer numOfActors = saveActors(film, response);
-            Integer numOfTrailers = saveTrailers(film, response);
-            film.setNumOfActors(numOfActors);
-            film.setNumOfTrailers(numOfTrailers);
-            film.setProcessed(true);
-
-            Dao.saveEdited(film);
-        }
+        Dao.saveEdited(film);
     }
 
     public static Integer saveTrailers(Film film, AdditionalInfoResponse response) {

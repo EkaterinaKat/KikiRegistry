@@ -29,11 +29,6 @@ public class ToWatchController implements SectionController {
     @FXML
     private VBox contentPane;
 
-    @FXML
-    private void initialize() {
-        updateContent();
-    }
-
     @Override
     public void update() {
         updateContent();

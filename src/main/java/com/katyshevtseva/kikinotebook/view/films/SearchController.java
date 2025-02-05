@@ -3,6 +3,7 @@ package com.katyshevtseva.kikinotebook.view.films;
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController2;
+import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.switchcontroller.SectionController;
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.kikinotebook.core.films.FilmSearchService;
@@ -103,9 +104,17 @@ public class SearchController implements SectionController {
         ContextMenu menu = new ContextMenu();
 
         MenuItem item = new MenuItem("Want to watch");
-        item.setOnAction(event1 -> ToWatchService.saveToWatchFilm(film));
+        item.setOnAction(event1 -> saveToWatchFilm(film));
         menu.getItems().add(item);
 
         menu.show(node, event.getScreenX(), event.getScreenY());
+    }
+
+    private void saveToWatchFilm(FilmResponse film) {
+        try {
+            ToWatchService.saveToWatchFilm(film);
+        } catch (Exception e) {
+            new StandardDialogBuilder().setSize(700).openInfoDialog("Ашипка! " + e);
+        }
     }
 }

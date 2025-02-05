@@ -144,6 +144,12 @@ public class Film implements HasId {
         return title;
     }
 
+    public String getDebugInfo() {
+        return "id=" + id +
+                ", kpId=" + kpId +
+                ", title='" + title;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

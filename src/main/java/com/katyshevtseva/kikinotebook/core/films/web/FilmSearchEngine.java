@@ -29,7 +29,7 @@ public class FilmSearchEngine {
         if (response.codeIsPositive()) {
             return response.parceBody(AdditionalInfoResponse.class);
         } else {
-            throw new RuntimeException("Не удалось загрузить фильмы");
+            throw new RuntimeException("Не удалось загрузить фильм по id=" + kpId);
         }
     }
 }

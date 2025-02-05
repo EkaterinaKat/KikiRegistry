@@ -1,7 +1,9 @@
 package com.katyshevtseva.kikinotebook.core;
 
 import com.katyshevtseva.kikinotebook.core.films.PosterFileManager;
-import com.katyshevtseva.kikinotebook.core.films.model.*;
+import com.katyshevtseva.kikinotebook.core.films.model.Actor;
+import com.katyshevtseva.kikinotebook.core.films.model.Film;
+import com.katyshevtseva.kikinotebook.core.films.model.PosterState;
 import com.katyshevtseva.kikinotebook.core.films.web.ActorPhotoLoader;
 
 import java.util.HashSet;
@@ -17,7 +19,29 @@ public class Tests {
     public static void allFilmTests() {
         testFilmStatus();
         testPosterState();
+        testNumOfTrailers();
         testKpIdUniqueness();
+        testNumOfActorsInFilms();
+    }
+
+    public static void testNumOfActorsInFilms() {
+        for (Film film : Dao.getAllFilms()) {
+            assert_(
+                    film,
+                    film.getNumOfActors().equals(film.getRoles().size()),
+                    "film.getNumOfActors().equals(roles.size())");
+        }
+        System.out.println("testNumOfActorsInFilms done");
+    }
+
+    public static void testNumOfTrailers() {
+        for (Film film : Dao.getAllFilms()) {
+            assert_(
+                    film,
+                    film.getNumOfTrailers().equals(Dao.findTrailers(film).size()),
+                    "film.getNumOfTrailers().equals(Dao.findTrailers(film).size())");
+        }
+        System.out.println("testNumOfTrailers done");
     }
 
     public static void testFilmStatus() {
@@ -65,7 +89,7 @@ public class Tests {
 
     private static void assert_(Film film, boolean b, String desc) {
         if (!b) {
-            throw new RuntimeException(film.getTitle() + ": " + desc);
+            throw new RuntimeException(film.getDebugInfo() + ": " + desc);
         }
     }
 
@@ -132,45 +156,6 @@ public class Tests {
         }
     }
 
-    public static void checkNumOfActorsInFilms() {
-        int okCount = 0;
-        int notOkCount = 0;
-
-        for (Film film : Dao.getAllFilms()) {
-
-            Set<Role> roles = film.getRoles();
-            System.out.println(film.getId() + " " + film.getTitle() + " actors:" + roles.size());
-
-            if (film.getNumOfActors().equals(roles.size())) {
-                okCount++;
-            } else {
-                notOkCount++;
-            }
-        }
-
-        System.out.println("okCount " + okCount);
-        System.out.println("notOkCount " + notOkCount);
-    }
-
-    public static void checkTrailers() {
-        int okCount = 0;
-        int notOkCount = 0;
-
-        for (Film film : Dao.getAllFilms()) {
-
-            List<Trailer> trailers = Dao.findTrailers(film);
-
-            if (film.getNumOfTrailers().equals(trailers.size())) {
-                okCount++;
-            } else {
-                notOkCount++;
-            }
-        }
-
-        System.out.println("okCount " + okCount);
-        System.out.println("notOkCount " + notOkCount);
-    }
-
     public static void loadActorPhotos() {
         List<Actor> actors = Dao.getAllActors();
         for (Actor actor : actors) {
@@ -179,5 +164,20 @@ public class Tests {
                 ActorPhotoLoader.loadActorPhoto(actor);
             }
         }
+    }
+
+    public static void printTrailerStatistics() {
+        List<Film> films = Dao.getAllFilms();
+        for (int i = 0; i < 18; i++) {
+            printFilmsByNumOfTrailers(films, i);
+        }
+    }
+
+    private static void printFilmsByNumOfTrailers(List<Film> films, int num) {
+        List<Film> filteredFilm = films.stream()
+                .filter(film -> film.getNumOfTrailers() == num)
+                .collect(Collectors.toList());
+
+        System.out.println(num + " " + filteredFilm.size());
     }
 }

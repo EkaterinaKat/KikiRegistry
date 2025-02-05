@@ -5,8 +5,10 @@ import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.component.ComponentBuilder;
 import com.katyshevtseva.fx.component.controller.BlockGridController;
+import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.windowbuilder.FxController;
 import com.katyshevtseva.fx.windowbuilder.WindowBuilder;
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.kikinotebook.core.films.ActorFileManager;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.Role;
@@ -81,6 +83,11 @@ public class ActorsController implements FxController {
     }
 
     private void updateContent() {
+        if (GeneralUtils.isEmpty(film.getRoles())) {
+            new StandardDialogBuilder().openInfoDialog("Актёров нет...");
+            return;
+        }
+
         Comparator<Role> comparator = Comparator
                 .comparing(Role::descriptionIsEmpty)
                 .thenComparing(Role::actorDoesntHavePhoto);

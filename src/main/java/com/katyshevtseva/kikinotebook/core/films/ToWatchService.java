@@ -24,7 +24,7 @@ public class ToWatchService {
                 .collect(Collectors.toList());
     }
 
-    public static void saveToWatchFilm(FilmResponse response) {
+    public static void saveToWatchFilm(FilmResponse response) throws Exception {
         Film existing = Dao.findFilmByKpId(response.getId());
         if (existing != null) {
             StatusService.wantToWatchFilm(existing);
@@ -52,6 +52,7 @@ public class ToWatchService {
             );
             Film savedFilm = Dao.saveNewFilm(film);
             PosterLoader.loadPosterBySavedUrl(savedFilm);
+            AdditionalInfoService.loadAdditionalInfo(film);
         }
     }
 

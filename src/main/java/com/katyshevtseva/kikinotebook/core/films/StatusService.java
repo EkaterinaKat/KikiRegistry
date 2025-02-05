@@ -3,6 +3,7 @@ package com.katyshevtseva.kikinotebook.core.films;
 import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
+import com.katyshevtseva.kikinotebook.core.films.model.Role;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,9 @@ public class StatusService {
             case WATCHED:
                 throw new RuntimeException("Try to delete watched film from to watch list");
             case TO_WATCH:
+                for (Role role : film.getRoles()) {
+                    Dao.delete(role);
+                }
                 Dao.delete(film);
                 break;
             case WATCHED_AND_TO_WATCH:
