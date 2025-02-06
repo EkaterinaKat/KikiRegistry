@@ -88,6 +88,6 @@ public class AdditionalInfoService {
                 film,
                 personResponse.getDescription()
         );
-        Dao.saveNew(role);
+        Dao.saveNewRole(role);
     }
 }

@@ -141,6 +141,11 @@ public class Dao {
         return coreDao.getAll(Actor.class.getSimpleName());
     }
 
+    public static void saveNewRole(Role role) {
+        coreDao.saveNew(role);
+        coreDao.refresh(role.getFilm());
+    }
+
     /////////////////////////////////////////////// SERIES ///////////////////////////////////////////////
     public static List<Series> findSeries(SeriesState state, String searchString) {
         if (GeneralUtils.isEmpty(searchString)) {

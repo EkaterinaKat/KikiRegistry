@@ -1,9 +1,11 @@
 package com.katyshevtseva.kikinotebook.core.films;
 
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.kikinotebook.core.Dao;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.FilmGrade;
 import com.katyshevtseva.kikinotebook.core.films.model.Role;
+import com.katyshevtseva.kikinotebook.core.films.model.Trailer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,10 +23,7 @@ public class StatusService {
             case WATCHED:
                 throw new RuntimeException("Try to delete watched film from to watch list");
             case TO_WATCH:
-                for (Role role : film.getRoles()) {
-                    Dao.delete(role);
-                }
-                Dao.delete(film);
+                deleteFilm(film);
                 break;
             case WATCHED_AND_TO_WATCH:
                 film.setStatus(WATCHED);
@@ -32,6 +31,18 @@ public class StatusService {
                 Dao.saveEdited(film);
                 break;
         }
+    }
+
+    private static void deleteFilm(Film film) {
+        if (!GeneralUtils.isEmpty(film.getRoles())) {
+            for (Role role : film.getRoles()) {
+                Dao.delete(role);
+            }
+        }
+        for (Trailer trailer : Dao.findTrailers(film)) {
+            Dao.delete(trailer);
+        }
+        Dao.delete(film);
     }
 
     public static void wantToWatchFilm(Film film) {
