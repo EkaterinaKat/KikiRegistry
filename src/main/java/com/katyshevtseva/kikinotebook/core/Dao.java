@@ -146,6 +146,10 @@ public class Dao {
         coreDao.refresh(role.getFilm());
     }
 
+    public static Actor getRefreshed(Actor actor) {
+        return coreDao.getRefreshed(Actor.class, actor);
+    }
+
     /////////////////////////////////////////////// SERIES ///////////////////////////////////////////////
     public static List<Series> findSeries(SeriesState state, String searchString) {
         if (GeneralUtils.isEmpty(searchString)) {

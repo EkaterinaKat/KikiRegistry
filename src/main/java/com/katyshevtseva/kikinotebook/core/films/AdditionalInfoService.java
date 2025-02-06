@@ -5,6 +5,7 @@ import com.katyshevtseva.kikinotebook.core.films.model.Actor;
 import com.katyshevtseva.kikinotebook.core.films.model.Film;
 import com.katyshevtseva.kikinotebook.core.films.model.Role;
 import com.katyshevtseva.kikinotebook.core.films.model.Trailer;
+import com.katyshevtseva.kikinotebook.core.films.web.ActorPhotoLoader;
 import com.katyshevtseva.kikinotebook.core.films.web.FilmSearchEngine;
 import com.katyshevtseva.kikinotebook.core.films.web.model.AdditionalInfoResponse;
 import com.katyshevtseva.kikinotebook.core.films.web.model.PersonResponse;
@@ -59,6 +60,7 @@ public class AdditionalInfoService {
             Actor existingActor = Dao.findActorByKpId(personResponse.getId());
             if (existingActor != null) {
                 createRole(film, existingActor, personResponse);
+                loadPhotoIfNeeded(existingActor);
             } else {
                 Actor actor = createActor(personResponse);
                 createRole(film, actor, personResponse);
@@ -66,6 +68,13 @@ public class AdditionalInfoService {
         }
 
         return actors.size();
+    }
+
+    private static void loadPhotoIfNeeded(Actor actor) {
+        Actor refreshed = Dao.getRefreshed(actor);
+        if (refreshed.getRoles().size() > 1) {
+            ActorPhotoLoader.loadActorPhoto(actor);
+        }
     }
 
     private static Actor createActor(PersonResponse personResponse) {
