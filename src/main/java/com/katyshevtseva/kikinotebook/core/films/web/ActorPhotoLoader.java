@@ -12,7 +12,6 @@ public class ActorPhotoLoader {
     public static void loadActorPhoto(Actor actor) {
 
         if (ActorFileManager.actorHasPhoto(actor)) {
-            System.out.println("-");
             return;
         }
 

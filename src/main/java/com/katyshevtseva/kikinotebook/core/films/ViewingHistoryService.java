@@ -46,14 +46,18 @@ public class ViewingHistoryService {
 
     public static List<Film> getFilms(Integer year, Month month) {
         return Dao.findFilmsViewedInYear(year).stream()
-                .filter(film -> {
-                    for (Date date : film.getDates()) {
-                        if (Month.findByDate(date) == month) {
-                            return true;
-                        }
-                    }
-                    return false;
-                })
+                .filter(film -> filmWasViewedInThisYearAndMonth(film, year, month))
                 .collect(Collectors.toList());
+    }
+
+    private static boolean filmWasViewedInThisYearAndMonth(Film film, Integer year, Month month) {
+        for (Date date : film.getDates()) {
+            Month viewMonth = Month.findByDate(date);
+            int viewYear = DateUtils.getYearDateBelongsTo(date);
+            if (viewMonth == month && viewYear == year) {
+                return true;
+            }
+        }
+        return false;
     }
 }

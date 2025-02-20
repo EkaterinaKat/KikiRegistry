@@ -89,8 +89,8 @@ public class ActorsController implements FxController {
         }
 
         Comparator<Role> comparator = Comparator
-                .comparing(Role::descriptionIsEmpty)
-                .thenComparing(Role::actorDoesntHavePhoto);
+                .comparing(Role::actorDoesntHavePhoto)
+                .thenComparing(Role::descriptionIsEmpty);
 
         List<Role> actors = film.getRoles()
                 .stream()
