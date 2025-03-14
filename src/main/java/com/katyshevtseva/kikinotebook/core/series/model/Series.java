@@ -31,13 +31,22 @@ public class Series {
     @Temporal(TemporalType.DATE)
     private Date finishDate;
 
-    public void setValues(String title, SeriesState state, SeriesGrade grade, String comment, Date startDate, Date finishDate) {
+    private Boolean isAnime;
+
+    public void setValues(String title,
+                          SeriesState state,
+                          SeriesGrade grade,
+                          String comment,
+                          Date startDate,
+                          Date finishDate,
+                          boolean isAnime) {
         this.title = title;
         this.state = state;
         this.grade = grade;
         this.comment = comment;
         this.startDate = startDate;
         this.finishDate = finishDate;
+        this.isAnime = isAnime;
     }
 
     public String getFullInfo() {

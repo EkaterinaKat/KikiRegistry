@@ -1,5 +1,6 @@
 package com.katyshevtseva.kikinotebook.view.series;
 
+import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.LabelBuilder;
 import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.Styler;
@@ -36,6 +37,8 @@ public class MainSeriesController implements SectionController {
     private TextField searchTextField;
     @FXML
     private Button clearButton;
+    @FXML
+    private ComboBox<SeriesService.AnimeCategory> animeComboBox;
 
     @FXML
     private void initialize() {
@@ -43,6 +46,9 @@ public class MainSeriesController implements SectionController {
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> updateContent());
         clearButton.setOnAction(event -> searchTextField.setText(""));
+
+        FxUtils.setComboBoxItems(animeComboBox, SeriesService.AnimeCategory.values(), SeriesService.AnimeCategory.ALL);
+        animeComboBox.setOnAction(event -> updateContent());
 
         adjustSeriesPane();
         updateContent();
@@ -58,12 +64,13 @@ public class MainSeriesController implements SectionController {
         DcTextArea commentField = new DcTextArea(false, newSeries ? "" : series.getComment());
         DcDatePicker startDp = new DcDatePicker(false, newSeries ? null : series.getStartDate());
         DcDatePicker endDp = new DcDatePicker(false, newSeries ? null : series.getFinishDate());
+        DcCheckBox animeCheckBox = new DcCheckBox(false, "Anime");
 
         DialogConstructor.constructDialog(() -> {
             SeriesService.save(series, titleField.getValue(), stateDcComboBox.getValue(), gradeDcComboBox.getValue(),
-                    commentField.getValue(), startDp.getValue(), endDp.getValue());
+                    commentField.getValue(), startDp.getValue(), endDp.getValue(), animeCheckBox.getValue());
             updateContent();
-        }, titleField, stateDcComboBox, gradeDcComboBox, commentField, startDp, endDp);
+        }, titleField, stateDcComboBox, gradeDcComboBox, commentField, startDp, endDp, animeCheckBox);
     }
 
     private void adjustSeriesPane() {
@@ -100,7 +107,8 @@ public class MainSeriesController implements SectionController {
 
     private void updateContent() {
         for (Map.Entry<SeriesState, BlockGridController<Series>> entry : seriesGridControllerMap.entrySet()) {
-            entry.getValue().setContent(SeriesService.getSeries(entry.getKey(), searchTextField.getText()));
+            entry.getValue().setContent(
+                    SeriesService.getSeries(entry.getKey(), searchTextField.getText(), animeComboBox.getValue()));
         }
     }
 
