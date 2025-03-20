@@ -9,7 +9,7 @@ public class ViewConstants {
     public static final DialogInfo MAIN_DIALOG = new DialogInfo(
             "/fxml/main.fxml", new Size(1000, 1700), CoreConstants.APP_NAME);
     public static final DialogInfo AUTHOR_DIALOG =
-            new DialogInfo("/fxml/books/author_dialog.fxml", new Size(500, 700), "Author edit");
+            new DialogInfo("/fxml/books/author_dialog.fxml", new Size(500, 500), "Author edit");
     public static final DialogInfo ALBUM_DIALOG =
             new DialogInfo("/fxml/music/album_dialog.fxml", new Size(800, 1400), "Album edit");
 

@@ -29,6 +29,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 import static com.katyshevtseva.fx.FxUtils.getPaneWithWidth;
@@ -61,6 +64,10 @@ public class MainBooksController implements SectionController {
         clearButton.setOnAction(event -> searchTextField.setText(""));
 
         adjustBlockListController();
+    }
+
+    @Override
+    public void update() {
         updateContent();
     }
 
@@ -84,7 +91,7 @@ public class MainBooksController implements SectionController {
                 nameLabel,
                 getPaneWithHeight(10));
 
-        if (author.getImageName() != null) {
+        if (hasImage(author)) {
             vBox.getChildren().addAll(
                     placeImageInSquare(new ImageView(getImageContainer(author).getImage()), blockWidth),
                     getPaneWithHeight(10));
@@ -136,6 +143,10 @@ public class MainBooksController implements SectionController {
         addBookItem.setOnAction(event1 -> openBookEditDialog(author, null));
         menu.getItems().add(addBookItem);
 
+        MenuItem idItem = new MenuItem("Copy Id");
+        idItem.setOnAction(event1 -> GeneralUtils.saveToClipBoard(author.getId().toString()));
+        menu.getItems().add(idItem);
+
         menu.show(node, event.getScreenX(), event.getScreenY());
     }
 
@@ -166,6 +177,17 @@ public class MainBooksController implements SectionController {
     }
 
     private void updateContent() {
-        authorGridController.setContent(AuthorService.getAllSorted(searchTextField.getText()));
+        List<Author> authors = AuthorService.getAll(searchTextField.getText())
+                .stream()
+                .sorted(Comparator.comparing(Author::getSortingString))
+                .sorted(Comparator.comparing(this::hasImage).reversed())
+
+                .collect(Collectors.toList());
+
+        authorGridController.setContent(authors);
+    }
+
+    private boolean hasImage(Author author) {
+        return !getImageContainer(author).getImage().isError();
     }
 }

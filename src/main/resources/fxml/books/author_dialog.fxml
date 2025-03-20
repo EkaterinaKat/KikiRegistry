@@ -11,14 +11,10 @@
     <HBox>
         <Pane prefWidth="30"/>
 
-        <Pane fx:id="imagePane"/>
-
-        <Pane prefWidth="30"/>
-
         <VBox maxWidth="310">
-            <TextField fx:id="nameTextField" prefWidth="200"/>
+            <TextField fx:id="nameTextField" prefWidth="400"/>
             <Pane prefHeight="20"/>
-            <TextField fx:id="surnameTextField" prefWidth="200"/>
+            <TextField fx:id="surnameTextField" prefWidth="400"/>
             <Pane prefHeight="20"/>
             <Button text="Save" fx:id="saveButton"/>
         </VBox>

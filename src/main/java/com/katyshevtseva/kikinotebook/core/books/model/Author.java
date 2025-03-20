@@ -2,7 +2,12 @@ package com.katyshevtseva.kikinotebook.core.books.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import static com.katyshevtseva.general.GeneralUtils.isEmpty;
 
 @Data
 @Entity
@@ -15,19 +20,14 @@ public class Author {
 
     private String surname;
 
-    @Column(name = "image_name")
-    private String imageName;
-
-    public Author(String name, String surname, String imageName) {
+    public Author(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.imageName = imageName;
     }
 
-    public void setValues(String name, String surname, String imageName) {
+    public void setValues(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.imageName = imageName;
     }
 
     public Author() {
@@ -50,5 +50,13 @@ public class Author {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public String getSortingString() {
+        if (!isEmpty(surname))
+            return surname;
+        if (!isEmpty(name))
+            return name;
+        throw new RuntimeException();
     }
 }
